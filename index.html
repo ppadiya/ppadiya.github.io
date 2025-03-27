@@ -18,29 +18,34 @@
     <header class="site-header">
         <div class="container header-container">
             <div class="logo">Pratik Padiya</div>
-            <nav class="main-nav">
-                <ul>
-                    <li><a href="#hero">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#portfolio">Portfolio</a></li>
-                    <li><a href="#skills">Skills</a></li>
-                    <li><a href="#achievements">Achievements</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-            </nav>
-            <!-- Dark Mode Toggle -->
-            <div class="theme-switch-wrapper">
-                <label class="theme-switch" for="dark-mode-toggle">
-                    <input type="checkbox" id="dark-mode-toggle" />
-                    <div class="slider">
-                        <div class="icons">
+
+            <!-- Wrapper for Nav and Theme Toggle -->
+            <div class="nav-wrapper">
+                <nav class="main-nav">
+                    <ul>
+                        <li><a href="#hero">Home</a></li>
+                        <li><a href="#about">About</a></li>
+                        <li><a href="#portfolio">Portfolio</a></li>
+                        <li><a href="#skills">Skills</a></li>
+                        <li><a href="#achievements">Achievements</a></li>
+                        <li><a href="#contact">Contact</a></li>
+                    </ul>
+                </nav>
+                <!-- Dark Mode Toggle -->
+                <div class="theme-switch-wrapper">
+                    <label class="theme-switch" for="dark-mode-toggle">
+                        <input type="checkbox" id="dark-mode-toggle" />
+                        <div class="slider">
+                            <!-- Icons placed directly inside slider -->
                             <i class="fas fa-sun"></i>
                             <i class="fas fa-moon"></i>
                         </div>
-                    </div>
-                </label>
+                    </label>
+                </div>
+                <!-- End Dark Mode Toggle -->
             </div>
-            <!-- End Dark Mode Toggle -->
+            <!-- End Wrapper -->
+
             <button class="menu-toggle" aria-label="Toggle navigation">
                 <i class="fas fa-bars"></i>
             </button>
