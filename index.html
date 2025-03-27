@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pratik Padiya - Portfolio</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Optional: Add Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Optional: Add Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+</head>
+<body>
+
+    <!-- Header & Navigation -->
+    <header class="site-header">
+        <div class="container header-container">
+            <div class="logo">Pratik Padiya</div>
+            <nav class="main-nav">
+                <ul>
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#portfolio">Portfolio</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#achievements">Achievements</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+            </nav>
+            <!-- Dark Mode Toggle -->
+            <div class="theme-switch-wrapper">
+                <label class="theme-switch" for="dark-mode-toggle">
+                    <input type="checkbox" id="dark-mode-toggle" />
+                    <div class="slider">
+                        <div class="icons">
+                            <i class="fas fa-sun"></i>
+                            <i class="fas fa-moon"></i>
+                        </div>
+                    </div>
+                </label>
+            </div>
+            <!-- End Dark Mode Toggle -->
+            <button class="menu-toggle" aria-label="Toggle navigation">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+    </header>
+
+    <main>
+        <!-- Hero Section -->
+        <section id="hero" class="hero-section">
+            <div class="container hero-content animate-on-scroll fade-in-up">
+                <h1>Pratik Padiya</h1>
+                <h2>Product Manager and Solutions Architect</h2>
+                <p class="tagline">Strategic Product Leader & Solutions Architect | Scaling Innovation in Fintech, Payments, and SaaS</p>
+                <a href="#portfolio" class="btn btn-primary">View My Work</a>
+                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+            </div>
+            <div class="scroll-down-indicator">
+                <a href="#about" aria-label="Scroll down">
+                    <i class="fas fa-chevron-down"></i>
+                </a>
+            </div>
+        </section>
+
+        <!-- About Section -->
+        <section id="about" class="about-section content-section">
+            <div class="container about-container animate-on-scroll fade-in">
+                <div class="about-image">
+                    <img src="placeholder-profile.jpg" alt="Pratik Padiya">
+                </div>
+                <div class="about-text">
+                    <h2>About Me</h2>
+                    <p>Driving end-to-end product strategy and technical solutions for global financial institutions, payment processors, and SaaS enterprises. I specialize in bridging business objectives with cutting-edge technology to deliver scalable, secure, and user-centric products that drive revenue growth, operational efficiency, and market differentiation.</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="portfolio-section content-section">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll fade-in">Portfolio</h2>
+                <div class="portfolio-grid">
+
+                    <!-- ★★★ USER: START PROJECT ITEM (Copy this block for each project) ★★★ -->
+                    <div class="portfolio-item animate-on-scroll fade-in-up">
+                        <!-- Using placeholder image service for project image -->
+                        <img src="https://via.placeholder.com/800x500/007bff/ffffff?text=Project+Screenshot+1" alt="Project Title 1">
+                        <div class="portfolio-info">
+                            <h3><!-- USER: Project Title 1 --></h3> <!-- ★ EDIT THIS ★ -->
+                            <p><!-- USER: Short description of the project. What was the goal? What was your role? --> </p> <!-- ★ EDIT THIS ★ -->
+                            <p class="tech-stack"><strong>Tech used:</strong> <!-- USER: List technologies, e.g., React, Node.js, Python, Figma --> </p> <!-- ★ EDIT THIS ★ -->
+                            <div class="portfolio-links">
+                                <a href="<!-- USER: Link to Live Demo (if available) -->" target="_blank" class="btn btn-small">Live Demo</a> <!-- ★ EDIT THIS (href) ★ -->
+                                <a href="<!-- USER: Link to Code Repository (if available) -->" target="_blank" class="btn btn-small btn-secondary">View Code</a> <!-- ★ EDIT THIS (href) ★ -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ★★★ USER: END PROJECT ITEM ★★★ -->
+
+                    <!-- ★★★ USER: START PROJECT ITEM (Example 2) ★★★ -->
+                    <div class="portfolio-item animate-on-scroll fade-in-up">
+                        <!-- Using placeholder image service for project image -->
+                        <img src="https://via.placeholder.com/800x500/28a745/ffffff?text=Project+Screenshot+2" alt="Project Title 2">
+                        <div class="portfolio-info">
+                            <h3><!-- USER: Project Title 2 --></h3> <!-- ★ EDIT THIS ★ -->
+                            <p><!-- USER: Short description of the project. --> </p> <!-- ★ EDIT THIS ★ -->
+                            <p class="tech-stack"><strong>Tech used:</strong> <!-- USER: List technologies --> </p> <!-- ★ EDIT THIS ★ -->
+                            <div class="portfolio-links">
+                                <a href="#" target="_blank" class="btn btn-small">Live Demo</a> <!-- ★ EDIT THIS (href) ★ -->
+                                <a href="#" target="_blank" class="btn btn-small btn-secondary">View Code</a> <!-- ★ EDIT THIS (href) ★ -->
+                            </div>
+                        </div>
+                    </div>
+                    <!-- ★★★ USER: END PROJECT ITEM ★★★ -->
+
+                     <!-- ★★★ USER: Add more portfolio items here by copying the block above ★★★ -->
+
+                </div>
+            </div>
+        </section>
+
+        <!-- Skills Section -->
+        <section id="skills" class="skills-section content-section">
+             <div class="container animate-on-scroll fade-in">
+                <h2 class="section-title">Skills</h2>
+                <div class="skills-grid">
+                    <div class="skill-category">
+                        <h3>Key Competencies</h3>
+                        <ul>
+                            <li>Pre-sales</li>
+                            <li>Solutions Engineering</li>
+                            <li>Product Lifecycle Management</li>
+                            <li>Product Strategy & Roadmapping</li>
+                            <li>Data Analytics</li>
+                            <li>Cross-functional Team Leadership</li>
+                        </ul>
+                    </div>
+                     <div class="skill-category">
+                        <h3>Languages</h3>
+                        <ul>
+                            <li>Python</li>
+                            <li>HTML5</li>
+                        </ul>
+                    </div>
+                     <div class="skill-category">
+                        <h3>Tools/Platforms</h3>
+                        <ul>
+                            <li>Business Intelligence</li>
+                            <li>Excel</li>
+                            <li>SQL</li>
+                            <li>Tableau</li>
+                            <li>GitHub</li>
+                            <li>Docker</li>
+                            <li>Figma</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Achievements Section -->
+        <section id="achievements" class="achievements-section content-section">
+            <div class="container animate-on-scroll fade-in">
+                <h2 class="section-title">Achievements & Recognition</h2>
+                <ul class="achievements-list">
+                    <li class="animate-on-scroll fade-in-up">
+                        <i class="fas fa-globe achievement-icon"></i>
+                        <div class="achievement-details">
+                            <h3>APAC Market Expansion @ Mastercard</h3>
+                            <p>Drove $10M+ revenue by launching localized products across different countries, integrating multi-currency/multi-language support and region-specific compliance frameworks.</p>
+                        </div>
+                    </li>
+
+                    <li class="animate-on-scroll fade-in-up">
+                        <i class="fas fa-code achievement-icon"></i>
+                        <div class="achievement-details">
+                            <h3>API Ecosystem Development</h3>
+                            <p>Architected a unified API gateway, reducing third-party integration costs by 30% and enabling 50% faster and seamless integration.</p>
+                        </div>
+                    </li>
+
+                    <li class="animate-on-scroll fade-in-up">
+                        <i class="fas fa-chart-line achievement-icon"></i>
+                        <div class="achievement-details">
+                            <h3>Operational Digitization @ Nisa Group</h3>
+                            <p>Built a performance management platform that automated 80% of manual workflows, saving thousands of hours annually.</p>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="contact-section content-section">
+            <div class="container animate-on-scroll fade-in">
+                <h2 class="section-title">Get In Touch</h2>
+                <p class="contact-intro">Let's connect to discuss how I can help your organization drive revenue, streamline operations, or outpace competitors in the evolving financial landscape.</p>
+                <div class="contact-methods">
+                    <div class="contact-method">
+                        <i class="fas fa-envelope"></i>
+                        <a href="mailto:pratik.padiya@gmail.com">pratik.padiya@gmail.com</a>
+                    </div>
+                    <div class="contact-method">
+                        <i class="fab fa-linkedin"></i>
+                        <a href="https://www.linkedin.com/in/pratikpadiya/" target="_blank">LinkedIn Profile</a>
+                    </div>
+                    <div class="contact-method">
+                        <i class="fab fa-github"></i>
+                        <a href="https://github.com/ppadiya?tab=repositories" target="_blank">GitHub Profile</a>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Remove or comment out the contact form since it's not needed -->
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
+        <div class="container">
+            <p>&copy; <span id="current-year"></span> Pratik Padiya. All rights reserved.</p>
+            <div class="footer-social">
+                 <a href="https://www.linkedin.com/in/pratikpadiya/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                 <a href="https://github.com/ppadiya?tab=repositories" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="script.js"></script>
+</body>
+</html>
