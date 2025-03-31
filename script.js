@@ -5,8 +5,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const mainNav = document.querySelector('.main-nav');
 
     if (menuToggle && mainNav) {
+        // Set initial ARIA attributes
+        menuToggle.setAttribute('aria-expanded', 'false');
+        menuToggle.setAttribute('aria-controls', 'main-navigation'); // Assuming mainNav should have id="main-navigation"
+        mainNav.setAttribute('id', 'main-navigation'); // Add ID to the nav element for aria-controls
+
         menuToggle.addEventListener('click', () => {
-            mainNav.classList.toggle('active');
+            const isExpanded = mainNav.classList.toggle('active');
+            menuToggle.setAttribute('aria-expanded', isExpanded); // Update aria-expanded state
+
             // Toggle icon (optional: change bars to X)
             const icon = menuToggle.querySelector('i');
             if (icon) {
@@ -20,6 +27,7 @@ document.addEventListener('DOMContentLoaded', () => {
             link.addEventListener('click', () => {
                 if (mainNav.classList.contains('active')) {
                     mainNav.classList.remove('active');
+                    menuToggle.setAttribute('aria-expanded', 'false'); // Update aria-expanded state
                     const icon = menuToggle.querySelector('i');
                      if (icon) {
                         icon.classList.remove('fa-times');
@@ -57,6 +65,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Animate Elements on Scroll ---
     const scrollElements = document.querySelectorAll('.animate-on-scroll');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
 
     const elementInView = (el, dividend = 1) => {
         const elementTop = el.getBoundingClientRect().top;
@@ -79,7 +89,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const handleScrollAnimation = () => {
         scrollElements.forEach((el) => {
             if (elementInView(el, 1.15)) { // Trigger slightly before element bottom hits viewport bottom
-                displayScrollElement(el);
+                 if (!prefersReducedMotion) { // Only add class if motion is OK
+                    displayScrollElement(el);
+                } else { // If motion is reduced, ensure it's visible without animation
+                    el.style.opacity = 1;
+                    el.style.transform = 'translateY(0)';
+                    el.classList.add('visible'); // Add visible class anyway to mark it as processed if needed
+                }
             } else {
                 // Optional: hide again if you want repeat animations
                 // hideScrollElement(el);
@@ -89,8 +105,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // Initial check on page load
     handleScrollAnimation();
-    // Add scroll event listener
-    window.addEventListener('scroll', handleScrollAnimation);
+    // Add scroll event listener only if motion is not reduced
+    if (!prefersReducedMotion) {
+        window.addEventListener('scroll', handleScrollAnimation);
+    }
 
 
     // --- Active Navigation Link Highlighting on Scroll ---
@@ -148,30 +166,47 @@ document.addEventListener('DOMContentLoaded', () => {
 
     // --- Dark Mode Toggle ---
     const darkModeToggle = document.getElementById('dark-mode-toggle');
-    
+
     // Check for saved theme preference or use device preference
     const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
     const savedTheme = localStorage.getItem('theme');
-    
-    // If user previously chose a theme, use that
-    if (savedTheme === 'dark' || (!savedTheme && prefersDarkScheme.matches)) {
-        document.body.classList.add('dark-mode');
-        if (darkModeToggle) {
-            darkModeToggle.checked = true;
+
+    // Function to apply theme
+    const applyTheme = (theme) => {
+        if (theme === 'dark') {
+            document.body.classList.add('dark-mode');
+            if (darkModeToggle) darkModeToggle.checked = true;
+        } else {
+            document.body.classList.remove('dark-mode');
+            if (darkModeToggle) darkModeToggle.checked = false;
         }
+    };
+
+    // Determine initial theme
+    let initialTheme = 'light';
+    if (savedTheme) {
+        initialTheme = savedTheme;
+    } else if (prefersDarkScheme.matches) {
+        initialTheme = 'dark';
     }
-    
+    applyTheme(initialTheme);
+
+
     // Listen for toggle changes
     if (darkModeToggle) {
         darkModeToggle.addEventListener('change', () => {
-            if (darkModeToggle.checked) {
-                document.body.classList.add('dark-mode');
-                localStorage.setItem('theme', 'dark');
-            } else {
-                document.body.classList.remove('dark-mode');
-                localStorage.setItem('theme', 'light');
-            }
+            const newTheme = darkModeToggle.checked ? 'dark' : 'light';
+            applyTheme(newTheme);
+            localStorage.setItem('theme', newTheme);
         });
     }
+
+    // Listen for system theme changes (optional, but good practice)
+    prefersDarkScheme.addEventListener('change', (e) => {
+        // Only change if no theme is explicitly saved by the user
+        if (!localStorage.getItem('theme')) {
+            applyTheme(e.matches ? 'dark' : 'light');
+        }
+    });
 
 });

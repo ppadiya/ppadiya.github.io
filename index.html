@@ -3,13 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pratik Padiya - Portfolio</title>
+    <title>Pratik Padiya - Product Manager & Solutions Architect</title>
     <link rel="stylesheet" href="style.css">
-    <!-- Optional: Add Google Fonts -->
+    <link rel="stylesheet" href="responsive-fixes.css">
+    <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <!-- Optional: Add Font Awesome for icons -->
+    <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 </head>
 <body>
@@ -19,34 +20,44 @@
         <div class="container header-container">
             <div class="logo">Pratik Padiya</div>
 
-            <!-- Wrapper for Nav and Theme Toggle -->
-            <div class="nav-wrapper">
-                <nav class="main-nav">
-                    <ul>
-                        <li><a href="#hero">Home</a></li>
-                        <li><a href="#about">About</a></li>
-                        <li><a href="#portfolio">Portfolio</a></li>
-                        <li><a href="#skills">Skills</a></li>
-                        <li><a href="#achievements">Achievements</a></li>
-                        <li><a href="#contact">Contact</a></li>
-                    </ul>
-                </nav>
-                <!-- Dark Mode Toggle -->
-                <div class="theme-switch-wrapper">
-                    <label class="theme-switch" for="dark-mode-toggle">
-                        <input type="checkbox" id="dark-mode-toggle" />
+            <!-- Navigation Links -->
+            <nav class="main-nav" id="main-navigation">
+                <ul>
+                    <li><a href="#hero">Home</a></li>
+                    <li><a href="#about">About</a></li>
+                    <li><a href="#portfolio">Projects</a></li>
+                    <li><a href="#skills">Skills</a></li>
+                    <li><a href="#achievements">Achievements</a></li>
+                    <li><a href="#experience">Experience</a></li>
+                    <li><a href="#contact">Contact</a></li>
+                </ul>
+                <!-- Theme toggle for mobile -->
+                <div class="theme-switch-wrapper mobile-theme-toggle">
+                     <label class="theme-switch" for="dark-mode-toggle-mobile">
+                        <input type="checkbox" id="dark-mode-toggle-mobile" />
                         <div class="slider">
-                            <!-- Icons placed directly inside slider -->
                             <i class="fas fa-sun"></i>
                             <i class="fas fa-moon"></i>
                         </div>
                     </label>
                 </div>
-                <!-- End Dark Mode Toggle -->
-            </div>
-            <!-- End Wrapper -->
+            </nav>
 
-            <button class="menu-toggle" aria-label="Toggle navigation">
+            <!-- Desktop Theme Toggle -->
+            <div class="nav-wrapper">
+                <div class="theme-switch-wrapper desktop-theme-toggle">
+                    <label class="theme-switch" for="dark-mode-toggle">
+                        <input type="checkbox" id="dark-mode-toggle" />
+                        <div class="slider">
+                            <i class="fas fa-sun"></i>
+                            <i class="fas fa-moon"></i>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <!-- Hamburger Menu Toggle Button -->
+            <button class="menu-toggle" aria-label="Toggle navigation" aria-controls="main-navigation" aria-expanded="false">
                 <i class="fas fa-bars"></i>
             </button>
         </div>
@@ -57,10 +68,12 @@
         <section id="hero" class="hero-section">
             <div class="container hero-content animate-on-scroll fade-in-up">
                 <h1>Pratik Padiya</h1>
-                <h2>Product Manager and Solutions Architect</h2>
-                <p class="tagline">Strategic Product Leader & Solutions Architect | Scaling Innovation in Fintech, Payments, and SaaS</p>
-                <a href="#portfolio" class="btn btn-primary">View My Work</a>
-                <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                <h2>Product Manager & Solutions Architect</h2>
+                <p class="tagline">Strategic Product Leader with 10+ years of experience scaling innovation in Fintech, Payments, and SaaS</p>
+                <div class="hero-cta">
+                    <a href="#portfolio" class="btn btn-primary">View My Work</a>
+                    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                </div>
             </div>
             <div class="scroll-down-indicator">
                 <a href="#about" aria-label="Scroll down">
@@ -73,11 +86,37 @@
         <section id="about" class="about-section content-section">
             <div class="container about-container animate-on-scroll fade-in">
                 <div class="about-image">
-                    <img src="placeholder-profile.jpg" alt="Pratik Padiya">
+                    <img src="placeholder-profile.jpg" alt="Pratik Padiya" loading="lazy">
+                    <div class="about-social">
+                        <a href="https://www.linkedin.com/in/pratikpadiya/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/ppadiya?tab=repositories" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                    </div>
                 </div>
                 <div class="about-text">
                     <h2>About Me</h2>
-                    <p>Driving end-to-end product strategy and technical solutions for global financial institutions, payment processors, and SaaS enterprises. I specialize in bridging business objectives with cutting-edge technology to deliver scalable, secure, and user-centric products that drive revenue growth, operational efficiency, and market differentiation.</p>
+                    <p>I'm a seasoned Product Manager and Solutions Architect with over 10 years of experience driving revenue growth, enhancing customer experiences, and developing innovative solutions across fintech, payments, and SaaS industries.</p>
+                    
+                    <p>At Mastercard, I led product management initiatives across APAC, spearheading the launch of global products and driving digital transformation for payment card benefits. My expertise includes managing cross-functional teams, aligning strategies with customer demands, and implementing strategic initiatives that deliver measurable business results.</p>
+                    
+                    <p>I specialize in bridging business objectives with cutting-edge technology to deliver scalable, secure, and user-centric products that drive revenue growth, operational efficiency, and market differentiation.</p>
+                    
+                    <div class="about-highlights">
+                        <div class="highlight">
+                            <i class="fas fa-chart-line"></i>
+                            <h3>Strategic Vision</h3>
+                            <p>Aligning product roadmaps with business goals and market trends</p>
+                        </div>
+                        <div class="highlight">
+                            <i class="fas fa-users"></i>
+                            <h3>Team Leadership</h3>
+                            <p>Managing cross-functional teams to deliver exceptional results</p>
+                        </div>
+                        <div class="highlight">
+                            <i class="fas fa-globe-asia"></i>
+                            <h3>Global Perspective</h3>
+                            <p>Scaling products across diverse markets in APAC region</p>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -85,43 +124,86 @@
         <!-- Portfolio Section -->
         <section id="portfolio" class="portfolio-section content-section">
             <div class="container">
-                <h2 class="section-title animate-on-scroll fade-in">Portfolio</h2>
+                <h2 class="section-title animate-on-scroll fade-in">Featured Projects</h2>
                 <div class="portfolio-grid">
 
-                    <!-- ★★★ USER: START PROJECT ITEM (Copy this block for each project) ★★★ -->
+                    <!-- Credit Card Rewards Program UI -->
                     <div class="portfolio-item animate-on-scroll fade-in-up">
-                        <!-- Using placeholder image service for project image -->
-                        <img src="https://via.placeholder.com/800x500/007bff/ffffff?text=Project+Screenshot+1" alt="Project Title 1">
+                        <div class="portfolio-image-container">
+                            <img src="LP_home.png" alt="Credit Card Rewards Program UI Screenshot" loading="lazy" class="portfolio-image" style="object-position: top;">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-overlay-content">
+                                    <a href="Loyalty UI/index.html" target="_blank" class="portfolio-link"><i class="fas fa-eye"></i></a>
+                                </div>
+                            </div>
+                        </div>
                         <div class="portfolio-info">
-                            <h3><!-- USER: Project Title 1 --></h3> <!-- ★ EDIT THIS ★ -->
-                            <p><!-- USER: Short description of the project. What was the goal? What was your role? --> </p> <!-- ★ EDIT THIS ★ -->
-                            <p class="tech-stack"><strong>Tech used:</strong> <!-- USER: List technologies, e.g., React, Node.js, Python, Figma --> </p> <!-- ★ EDIT THIS ★ -->
+                            <h3>Credit Card Rewards Program</h3>
+                            <p>A modern and responsive interface for managing credit card rewards and points, designed to enhance user engagement and simplify redemption processes.</p>
+                            <p class="tech-stack"><strong>Tech:</strong> HTML5, CSS3, JavaScript</p>
                             <div class="portfolio-links">
-                                <a href="<!-- USER: Link to Live Demo (if available) -->" target="_blank" class="btn btn-small">Live Demo</a> <!-- ★ EDIT THIS (href) ★ -->
-                                <a href="<!-- USER: Link to Code Repository (if available) -->" target="_blank" class="btn btn-small btn-secondary">View Code</a> <!-- ★ EDIT THIS (href) ★ -->
+                                <a href="Loyalty UI/index.html" target="_blank" class="btn btn-small">View Demo</a>
                             </div>
                         </div>
                     </div>
-                    <!-- ★★★ USER: END PROJECT ITEM ★★★ -->
 
-                    <!-- ★★★ USER: START PROJECT ITEM (Example 2) ★★★ -->
+                    <!-- API Ecosystem Development -->
                     <div class="portfolio-item animate-on-scroll fade-in-up">
-                        <!-- Using placeholder image service for project image -->
-                        <img src="https://via.placeholder.com/800x500/28a745/ffffff?text=Project+Screenshot+2" alt="Project Title 2">
+                        <div class="portfolio-image-container">
+                            <img src="SOAP-REST_API.png" alt="API Ecosystem Architecture" loading="lazy" class="portfolio-image">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-overlay-content">
+                                    <a href="#" class="portfolio-link"><i class="fas fa-eye"></i></a>
+                                </div>
+                            </div>
+                        </div>
                         <div class="portfolio-info">
-                            <h3><!-- USER: Project Title 2 --></h3> <!-- ★ EDIT THIS ★ -->
-                            <p><!-- USER: Short description of the project. --> </p> <!-- ★ EDIT THIS ★ -->
-                            <p class="tech-stack"><strong>Tech used:</strong> <!-- USER: List technologies --> </p> <!-- ★ EDIT THIS ★ -->
+                            <h3>API Ecosystem Development</h3>
+                            <p>Architected a unified API gateway for Mastercard's payment card benefits, reducing third-party integration costs by 30% and enabling 50% faster integration.</p>
+                            <p class="tech-stack"><strong>Tech:</strong> RESTful APIs, API Gateway, OAuth 2.0, Swagger</p>
                             <div class="portfolio-links">
-                                <a href="#" target="_blank" class="btn btn-small">Live Demo</a> <!-- ★ EDIT THIS (href) ★ -->
-                                <a href="#" target="_blank" class="btn btn-small btn-secondary">View Code</a> <!-- ★ EDIT THIS (href) ★ -->
                             </div>
                         </div>
                     </div>
-                    <!-- ★★★ USER: END PROJECT ITEM ★★★ -->
 
-                     <!-- ★★★ USER: Add more portfolio items here by copying the block above ★★★ -->
+                    <!-- APAC Market Expansion -->
+                    <div class="portfolio-item animate-on-scroll fade-in-up">
+                        <div class="portfolio-image-container">
+                            <img src="Product-Management.jpg" alt="APAC Market Expansion" loading="lazy" class="portfolio-image">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-overlay-content">
+                                    <a href="#" class="portfolio-link"><i class="fas fa-eye"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>APAC Market Expansion</h3>
+                            <p>Led the expansion of Mastercard products across APAC markets, driving $10M+ revenue by launching localized products with multi-currency/multi-language support.</p>
+                            <p class="tech-stack"><strong>Tech:</strong> Market Analysis Tools, Localization Frameworks, CRM Systems</p>
+                            <div class="portfolio-links">
+                                <a href="PM+Framework/index.html" target="_blank" class="btn btn-small">View Details</a>
+                            </div>
+                        </div>
+                    </div>
 
+                    <!-- Performance Management Platform -->
+                    <div class="portfolio-item animate-on-scroll fade-in-up">
+                        <div class="portfolio-image-container">
+                            <img src="https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="Performance Management Platform" loading="lazy" class="portfolio-image">
+                            <div class="portfolio-overlay">
+                                <div class="portfolio-overlay-content">
+                                    <a href="#" class="portfolio-link"><i class="fas fa-eye"></i></a>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="portfolio-info">
+                            <h3>Performance Management Platform</h3>
+                            <p>Built a comprehensive performance management platform for Nisa Group that automated 80% of manual workflows, saving thousands of hours annually.</p>
+                            <p class="tech-stack"><strong>Tech:</strong> Business Intelligence, Excel, SQL, Tableau</p>
+                            <div class="portfolio-links">
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </section>
@@ -129,36 +211,52 @@
         <!-- Skills Section -->
         <section id="skills" class="skills-section content-section">
              <div class="container animate-on-scroll fade-in">
-                <h2 class="section-title">Skills</h2>
+                <h2 class="section-title">Skills & Expertise</h2>
                 <div class="skills-grid">
                     <div class="skill-category">
-                        <h3>Key Competencies</h3>
-                        <ul>
-                            <li>Pre-sales</li>
-                            <li>Solutions Engineering</li>
-                            <li>Product Lifecycle Management</li>
-                            <li>Product Strategy & Roadmapping</li>
-                            <li>Data Analytics</li>
-                            <li>Cross-functional Team Leadership</li>
+                        <h3>Product Management</h3>
+                        <ul class="skill-list">
+                            <li><span class="skill-tag">Product Strategy & Roadmapping</span></li>
+                            <li><span class="skill-tag">Product Lifecycle Management</span></li>
+                            <li><span class="skill-tag">Market Research & Analysis</span></li>
+                            <li><span class="skill-tag">User Experience Design</span></li>
+                            <li><span class="skill-tag">Go-to-Market Strategy</span></li>
+                            <li><span class="skill-tag">Product Localization</span></li>
                         </ul>
                     </div>
-                     <div class="skill-category">
-                        <h3>Languages</h3>
-                        <ul>
-                            <li>Python</li>
-                            <li>HTML5</li>
+                    <div class="skill-category">
+                        <h3>Solutions Architecture</h3>
+                        <ul class="skill-list">
+                            <li><span class="skill-tag">Solutions Engineering</span></li>
+                            <li><span class="skill-tag">API Development</span></li>
+                            <li><span class="skill-tag">System Integration</span></li>
+                            <li><span class="skill-tag">Technical Documentation</span></li>
+                            <li><span class="skill-tag">Solution Assessment</span></li>
+                            <li><span class="skill-tag">Pre-sales Support</span></li>
                         </ul>
                     </div>
-                     <div class="skill-category">
-                        <h3>Tools/Platforms</h3>
-                        <ul>
-                            <li>Business Intelligence</li>
-                            <li>Excel</li>
-                            <li>SQL</li>
-                            <li>Tableau</li>
-                            <li>GitHub</li>
-                            <li>Docker</li>
-                            <li>Figma</li>
+                    <div class="skill-category">
+                        <h3>Leadership & Business</h3>
+                        <ul class="skill-list">
+                            <li><span class="skill-tag">Cross-functional Team Leadership</span></li>
+                            <li><span class="skill-tag">Stakeholder Management</span></li>
+                            <li><span class="skill-tag">Strategic Planning</span></li>
+                            <li><span class="skill-tag">Business Development</span></li>
+                            <li><span class="skill-tag">Digital Transformation</span></li>
+                            <li><span class="skill-tag">Performance Monitoring</span></li>
+                        </ul>
+                    </div>
+                    <div class="skill-category">
+                        <h3>Technical Skills</h3>
+                        <ul class="skill-list">
+                            <li><span class="skill-tag">Python</span></li>
+                            <li><span class="skill-tag">HTML/CSS</span></li>
+                            <li><span class="skill-tag">SQL</span></li>
+                            <li><span class="skill-tag">Tableau</span></li>
+                            <li><span class="skill-tag">GitHub</span></li>
+                            <li><span class="skill-tag">Figma</span></li>
+                            <li><span class="skill-tag">Docker</span></li>
+                            <li><span class="skill-tag">Business Intelligence</span></li>
                         </ul>
                     </div>
                 </div>
@@ -168,7 +266,7 @@
         <!-- Achievements Section -->
         <section id="achievements" class="achievements-section content-section">
             <div class="container animate-on-scroll fade-in">
-                <h2 class="section-title">Achievements & Recognition</h2>
+                <h2 class="section-title">Key Achievements</h2>
                 <ul class="achievements-list">
                     <li class="animate-on-scroll fade-in-up">
                         <i class="fas fa-globe achievement-icon"></i>
@@ -182,7 +280,7 @@
                         <i class="fas fa-code achievement-icon"></i>
                         <div class="achievement-details">
                             <h3>API Ecosystem Development</h3>
-                            <p>Architected a unified API gateway, reducing third-party integration costs by 30% and enabling 50% faster and seamless integration.</p>
+                            <p>Architected a unified API gateway, reducing third-party integration costs by 30% and enabling 50% faster and seamless integration for Mastercard's payment card benefits.</p>
                         </div>
                     </li>
 
@@ -190,10 +288,114 @@
                         <i class="fas fa-chart-line achievement-icon"></i>
                         <div class="achievement-details">
                             <h3>Operational Digitization @ Nisa Group</h3>
-                            <p>Built a performance management platform that automated 80% of manual workflows, saving thousands of hours annually.</p>
+                            <p>Built a performance management platform that automated 80% of manual workflows, saving thousands of hours annually and creating a unified system across the organization.</p>
+                        </div>
+                    </li>
+                    
+                    <li class="animate-on-scroll fade-in-up">
+                        <i class="fas fa-users achievement-icon"></i>
+                        <div class="achievement-details">
+                            <h3>Cross-functional Leadership</h3>
+                            <p>Successfully led diverse teams across product, engineering, marketing, and sales to deliver complex projects on time and within budget, consistently exceeding organizational targets.</p>
                         </div>
                     </li>
                 </ul>
+            </div>
+        </section>
+
+        <!-- Experience Section -->
+        <section id="experience" class="experience-section content-section">
+            <div class="container">
+                <h2 class="section-title animate-on-scroll fade-in">Professional Experience</h2>
+                
+                <div class="timeline">
+                    <!-- Mastercard Singapore -->
+                    <div class="timeline-item animate-on-scroll fade-in-left">
+                        <div class="timeline-marker">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <h3>Director, Solutions Engineering / Manager, Market Product Management</h3>
+                                <span class="timeline-company">Mastercard</span>
+                                <span class="timeline-location">Singapore</span>
+                                <span class="timeline-period">Sep 2017 – Oct 2024</span>
+                            </div>
+                            <div class="timeline-body">
+                                <ul>
+                                    <li>Led product management initiatives by gathering insights and analyzing data to identify customer pain points, developing clear product strategies and roadmaps.</li>
+                                    <li>Enhanced existing products by integrating customer feedback and analyzing market trends, developing new features to adapt to evolving customer demands.</li>
+                                    <li>Led the full product lifecycle from ideation to market launch, managing product development and localization efforts across APAC.</li>
+                                    <li>Collaborated with markets to craft and execute comprehensive go-to-market strategies for both new and existing solutions.</li>
+                                    <li>Prepared detailed solution assessments outlining scope, objectives, benefits, risks, and costs for stakeholder decision-making.</li>
+                                    <li>Led sales enablement and internal education initiatives, effectively communicating the value of engagement solutions.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Mastercard India -->
+                    <div class="timeline-item animate-on-scroll fade-in-right">
+                        <div class="timeline-marker">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <h3>Leader, Market Product Management</h3>
+                                <span class="timeline-company">Mastercard</span>
+                                <span class="timeline-location">India</span>
+                                <span class="timeline-period">Jun 2015 – Aug 2017</span>
+                            </div>
+                            <div class="timeline-body">
+                                <ul>
+                                    <li>Managed loyalty and engagement solutions for the APAC region, expanding value-added services.</li>
+                                    <li>Developed new capabilities in response to emerging client needs, ensuring competitiveness in the payments landscape.</li>
+                                    <li>Launched a new Loyalty Program at national level targeting in-bound foreign travelers.</li>
+                                    <li>Managed vendor relationships for timely and cost-effective service delivery.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- NISA Group -->
+                    <div class="timeline-item animate-on-scroll fade-in-left">
+                        <div class="timeline-marker">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <h3>Product Manager (Strategist Business Developer & IT Interface)</h3>
+                                <span class="timeline-company">NISA Group of Companies</span>
+                                <span class="timeline-location">Mumbai, India</span>
+                                <span class="timeline-period">Dec 2009 – Jul 2013</span>
+                            </div>
+                            <div class="timeline-body">
+                                <ul>
+                                    <li>Developed and implemented data entry and MIS tools, improving operational efficiency.</li>
+                                    <li>Managed cross-functional teams to ensure seamless communication and project execution.</li>
+                                    <li>Built a performance management platform that automated 80% of manual workflows, saving thousands of hours annually.</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Earlier Experience (Condensed) -->
+                    <div class="timeline-item animate-on-scroll fade-in-right">
+                        <div class="timeline-marker">
+                            <i class="fas fa-briefcase"></i>
+                        </div>
+                        <div class="timeline-content">
+                            <div class="timeline-header">
+                                <h3>Earlier Experience</h3>
+                                <span class="timeline-period">2004 – 2015</span>
+                            </div>
+                            <div class="timeline-body">
+                                <p><strong>Business Development Manager</strong> at S2 Infotech Pvt Ltd. (2013-2015)</p>
+                                <p><strong>Team Coach</strong> at Hutchison 3 Global Services Pvt. Ltd. (2004-2009)</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -216,10 +418,60 @@
                         <a href="https://github.com/ppadiya?tab=repositories" target="_blank">GitHub Profile</a>
                     </div>
                 </div>
+                
+                <div class="cta-container">
+                    <a href="https://www.linkedin.com/in/pratikpadiya/" class="btn btn-secondary" target="_blank"><i class="fab fa-linkedin"></i> Connect on LinkedIn</a>
+                </div>
             </div>
         </section>
 
-        <!-- Remove or comment out the contact form since it's not needed -->
+        <!-- Education Section -->
+        <section id="education" class="education-section content-section">
+            <div class="container animate-on-scroll fade-in">
+                <h2 class="section-title">Education & Certifications</h2>
+                <div class="education-grid">
+                    <div class="education-item animate-on-scroll fade-in-up">
+                        <div class="education-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="education-details">
+                            <h3>Post Graduate Diploma in Management – Finance</h3>
+                            <p>Welingkar Institute of Management Studies | Maharashtra Board</p>
+                        </div>
+                    </div>
+                    
+                    <div class="education-item animate-on-scroll fade-in-up">
+                        <div class="education-icon">
+                            <i class="fas fa-graduation-cap"></i>
+                        </div>
+                        <div class="education-details">
+                            <h3>Bachelor of Commerce</h3>
+                            <p>Institute of Distance Education | Mumbai University</p>
+                        </div>
+                    </div>
+                    
+                    <div class="education-item animate-on-scroll fade-in-up">
+                        <div class="education-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <div class="education-details">
+                            <h3>Product Management Essentials</h3>
+                            <p>Issued by Coursera, Authorized by IBM</p>
+                        </div>
+                    </div>
+                    
+                    <div class="education-item animate-on-scroll fade-in-up">
+                        <div class="education-icon">
+                            <i class="fas fa-certificate"></i>
+                        </div>
+                        <div class="education-details">
+                            <h3>Product Management: Building AI-Powered Products</h3>
+                            <p>Issued by Coursera / SkillUp EdTech</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
     </main>
 
     <!-- Footer -->
