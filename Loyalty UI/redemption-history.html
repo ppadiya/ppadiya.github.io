@@ -1,0 +1,255 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redemption History - PremiumRewards</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">Premium<span>Rewards</span></div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="points-history.html">Points History</a></li>
+                    <li><a href="redemption-history.html" class="active">Redemption History</a></li>
+                    <li><a href="redemption-catalog.html">Rewards Catalog</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <a href="#" class="btn">Sign Up</a>
+                    <a href="#" class="btn btn-primary">Login</a>
+                </div>
+                <div class="hamburger">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Redemption History</h1>
+            <p>View all your past redemptions and track their status.</p>
+        </div>
+    </section>
+
+    <!-- Redemption Summary -->
+    <section class="container">
+        <div class="dashboard-widget">
+            <div class="widget-header">
+                <h3>Redemption Summary</h3>
+                <div class="points-balance">12,450 Points Available</div>
+            </div>
+            <div class="milestone-info" style="margin-top: 15px;">
+                <p>Total Redeemed: 45,750 points</p>
+                <p>Redemptions This Year: 18,500 points</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Bar -->
+    <section class="container">
+        <div class="filter-bar">
+            <div class="filter-group">
+                <label for="date-range">Date Range:</label>
+                <select id="date-range">
+                    <option value="all">All Time</option>
+                    <option value="this-month">This Month</option>
+                    <option value="last-month">Last Month</option>
+                    <option value="last-3-months" selected>Last 3 Months</option>
+                    <option value="last-6-months">Last 6 Months</option>
+                    <option value="this-year">This Year</option>
+                    <option value="custom">Custom Range</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="category">Category:</label>
+                <select id="category">
+                    <option value="all" selected>All Categories</option>
+                    <option value="merchandise">Merchandise</option>
+                    <option value="travel">Travel</option>
+                    <option value="vouchers">Vouchers</option>
+                    <option value="miles">Airline Miles</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="status">Status:</label>
+                <select id="status">
+                    <option value="all" selected>All Status</option>
+                    <option value="completed">Completed</option>
+                    <option value="processing">Processing</option>
+                    <option value="shipped">Shipped</option>
+                </select>
+            </div>
+            <div class="search-bar">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" placeholder="Search redemptions...">
+            </div>
+        </div>
+    </section>
+
+    <!-- Redemption Cards -->
+    <section class="container">
+        <div class="redemption-cards">
+            <div class="redemption-card">
+                <div class="redemption-img">
+                    <img src="https://images.unsplash.com/photo-1585399000684-d2f72660f092?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Premium Headphones">
+                </div>
+                <div class="redemption-details">
+                    <h3>Premium Wireless Headphones</h3>
+                    <div class="redemption-meta">
+                        <span>Mar 15, 2025</span>
+                        <span class="points-used">22,000 Points</span>
+                    </div>
+                    <p>Noise-cancelling headphones with superior sound quality and comfort.</p>
+                    <span class="redemption-status status-shipped">Shipped</span>
+                </div>
+            </div>
+            
+            <div class="redemption-card">
+                <div class="redemption-img">
+                    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Fine Dining">
+                </div>
+                <div class="redemption-details">
+                    <h3>Fine Dining Experience</h3>
+                    <div class="redemption-meta">
+                        <span>Feb 28, 2025</span>
+                        <span class="points-used">12,500 Points</span>
+                    </div>
+                    <p>$150 voucher for a gourmet dining experience at select restaurants.</p>
+                    <span class="redemption-status status-completed">Completed</span>
+                </div>
+            </div>
+            
+            <div class="redemption-card">
+                <div class="redemption-img">
+                    <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Airline Miles">
+                </div>
+                <div class="redemption-details">
+                    <h3>10,000 Airline Miles</h3>
+                    <div class="redemption-meta">
+                        <span>Feb 10, 2025</span>
+                        <span class="points-used">8,000 Points</span>
+                    </div>
+                    <p>Miles transferred to your frequent flyer account with Delta Airlines.</p>
+                    <span class="redemption-status status-completed">Completed</span>
+                </div>
+            </div>
+            
+            <div class="redemption-card">
+                <div class="redemption-img">
+                    <img src="https://images.unsplash.com/photo-1607083206968-13611e3d76db?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Gift Card">
+                </div>
+                <div class="redemption-details">
+                    <h3>$100 Amazon Gift Card</h3>
+                    <div class="redemption-meta">
+                        <span>Jan 25, 2025</span>
+                        <span class="points-used">10,000 Points</span>
+                    </div>
+                    <p>Digital gift card delivered to your registered email address.</p>
+                    <span class="redemption-status status-completed">Completed</span>
+                </div>
+            </div>
+            
+            <div class="redemption-card">
+                <div class="redemption-img">
+                    <img src="https://images.unsplash.com/photo-1530893609608-32a9af3aa95c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Smartwatch">
+                </div>
+                <div class="redemption-details">
+                    <h3>Latest Smartwatch</h3>
+                    <div class="redemption-meta">
+                        <span>Jan 12, 2025</span>
+                        <span class="points-used">30,000 Points</span>
+                    </div>
+                    <p>Track your fitness, receive notifications, and more with this premium smartwatch.</p>
+                    <span class="redemption-status status-completed">Completed</span>
+                </div>
+            </div>
+            
+            <div class="redemption-card">
+                <div class="redemption-img">
+                    <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Travel Voucher">
+                </div>
+                <div class="redemption-details">
+                    <h3>$200 Travel Voucher</h3>
+                    <div class="redemption-meta">
+                        <span>Dec 18, 2024</span>
+                        <span class="points-used">15,000 Points</span>
+                    </div>
+                    <p>Use this voucher for flights, hotels, or car rentals with our travel partners.</p>
+                    <span class="redemption-status status-completed">Completed</span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pagination -->
+    <section class="container">
+        <div class="pagination">
+            <button><i class="fas fa-chevron-left"></i></button>
+            <button class="active">1</button>
+            <button>2</button>
+            <button>3</button>
+            <button><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>PremiumRewards</h3>
+                    <p>Earn points with every purchase and redeem them for exclusive rewards, travel experiences, and more.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="points-history.html">Points History</a></li>
+                        <li><a href="redemption-history.html">Redemption History</a></li>
+                        <li><a href="redemption-catalog.html">Rewards Catalog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Financial Street, New York, NY</li>
+                        <li><i class="fas fa-phone"></i> +1 (800) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> support@premiumrewards.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 PremiumRewards. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>

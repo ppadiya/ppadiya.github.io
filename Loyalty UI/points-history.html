@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Points History - PremiumRewards</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">Premium<span>Rewards</span></div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="points-history.html" class="active">Points History</a></li>
+                    <li><a href="redemption-history.html">Redemption History</a></li>
+                    <li><a href="redemption-catalog.html">Rewards Catalog</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <a href="#" class="btn">Sign Up</a>
+                    <a href="#" class="btn btn-primary">Login</a>
+                </div>
+                <div class="hamburger">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Points History</h1>
+            <p>Track all your transactions and see how you've earned points over time.</p>
+        </div>
+    </section>
+
+    <!-- Points Summary -->
+    <section class="container">
+        <div class="dashboard-widget">
+            <div class="widget-header">
+                <h3>Points Summary</h3>
+                <div class="points-balance">12,450 Points</div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span>This Month's Earnings</span>
+                    <span>1,250 Points</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill" style="width: 42%;"></div>
+                </div>
+            </div>
+            <div class="milestone-info">
+                <p>Monthly Average: 3,000 points</p>
+                <p>Year-to-Date: 8,750 points</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Filter Bar -->
+    <section class="container">
+        <div class="filter-bar">
+            <div class="filter-group">
+                <label for="date-range">Date Range:</label>
+                <select id="date-range">
+                    <option value="all">All Time</option>
+                    <option value="this-month" selected>This Month</option>
+                    <option value="last-month">Last Month</option>
+                    <option value="last-3-months">Last 3 Months</option>
+                    <option value="last-6-months">Last 6 Months</option>
+                    <option value="this-year">This Year</option>
+                    <option value="custom">Custom Range</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="category">Category:</label>
+                <select id="category">
+                    <option value="all" selected>All Categories</option>
+                    <option value="shopping">Shopping</option>
+                    <option value="dining">Dining</option>
+                    <option value="travel">Travel</option>
+                    <option value="other">Other</option>
+                </select>
+            </div>
+            <div class="filter-group">
+                <label for="sort-by">Sort By:</label>
+                <select id="sort-by">
+                    <option value="date-desc" selected>Date (Newest First)</option>
+                    <option value="date-asc">Date (Oldest First)</option>
+                    <option value="amount-desc">Amount (Highest First)</option>
+                    <option value="amount-asc">Amount (Lowest First)</option>
+                    <option value="points-desc">Points (Highest First)</option>
+                    <option value="points-asc">Points (Lowest First)</option>
+                </select>
+            </div>
+            <div class="search-bar">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" placeholder="Search transactions...">
+            </div>
+        </div>
+    </section>
+
+    <!-- Transactions Table -->
+    <section class="container">
+        <table class="transactions-table">
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Merchant</th>
+                    <th>Category</th>
+                    <th>Amount</th>
+                    <th>Points Earned</th>
+                    <th>Status</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Mar 28, 2025</td>
+                    <td>Amazon.com</td>
+                    <td><span class="transaction-category category-shopping">Shopping</span></td>
+                    <td>$245.99</td>
+                    <td><span class="points-earned">492</span></td>
+                    <td>Posted</td>
+                </tr>
+                <tr>
+                    <td>Mar 25, 2025</td>
+                    <td>Starbucks Coffee</td>
+                    <td><span class="transaction-category category-dining">Dining</span></td>
+                    <td>$12.50</td>
+                    <td><span class="points-earned">25</span></td>
+                    <td>Posted</td>
+                </tr>
+                <tr>
+                    <td>Mar 23, 2025</td>
+                    <td>United Airlines</td>
+                    <td><span class="transaction-category category-travel">Travel</span></td>
+                    <td>$356.78</td>
+                    <td><span class="points-earned">713</span></td>
+                    <td>Posted</td>
+                </tr>
+                <tr>
+                    <td>Mar 20, 2025</td>
+                    <td>Whole Foods Market</td>
+                    <td><span class="transaction-category category-shopping">Shopping</span></td>
+                    <td>$89.45</td>
+                    <td><span class="points-earned">179</span></td>
+                    <td>Posted</td>
+                </tr>
+                <tr>
+                    <td>Mar 18, 2025</td>
+                    <td>Olive Garden</td>
+                    <td><span class="transaction-category category-dining">Dining</span></td>
+                    <td>$78.32</td>
+                    <td><span class="points-earned">157</span></td>
+                    <td>Posted</td>
+                </tr>
+                <tr>
+                    <td>Mar 15, 2025</td>
+                    <td>Best Buy</td>
+                    <td><span class="transaction-category category-shopping">Shopping</span></td>
+                    <td>$499.99</td>
+                    <td><span class="points-earned">1,000</span></td>
+                    <td>Posted</td>
+                </tr>
+                <tr>
+                    <td>Mar 12, 2025</td>
+                    <td>Uber</td>
+                    <td><span class="transaction-category category-travel">Travel</span></td>
+                    <td>$24.50</td>
+                    <td><span class="points-earned">49</span></td>
+                    <td>Posted</td>
+                </tr>
+                <tr>
+                    <td>Mar 10, 2025</td>
+                    <td>Netflix</td>
+                    <td><span class="transaction-category category-other">Other</span></td>
+                    <td>$15.99</td>
+                    <td><span class="points-earned">32</span></td>
+                    <td>Posted</td>
+                </tr>
+                <tr>
+                    <td>Mar 08, 2025</td>
+                    <td>Cheesecake Factory</td>
+                    <td><span class="transaction-category category-dining">Dining</span></td>
+                    <td>$65.78</td>
+                    <td><span class="points-earned">132</span></td>
+                    <td>Posted</td>
+                </tr>
+                <tr>
+                    <td>Mar 05, 2025</td>
+                    <td>Apple Store</td>
+                    <td><span class="transaction-category category-shopping">Shopping</span></td>
+                    <td>$129.99</td>
+                    <td><span class="points-earned">260</span></td>
+                    <td>Posted</td>
+                </tr>
+            </tbody>
+        </table>
+    </section>
+
+    <!-- Pagination -->
+    <section class="container">
+        <div class="pagination">
+            <button><i class="fas fa-chevron-left"></i></button>
+            <button class="active">1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>4</button>
+            <button>5</button>
+            <button><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>PremiumRewards</h3>
+                    <p>Earn points with every purchase and redeem them for exclusive rewards, travel experiences, and more.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="points-history.html">Points History</a></li>
+                        <li><a href="redemption-history.html">Redemption History</a></li>
+                        <li><a href="redemption-catalog.html">Rewards Catalog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Financial Street, New York, NY</li>
+                        <li><i class="fas fa-phone"></i> +1 (800) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> support@premiumrewards.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 PremiumRewards. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>

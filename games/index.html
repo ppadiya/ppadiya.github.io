@@ -1,0 +1,170 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Arcade Games Collection</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 3rem;
+            padding: 2rem 0;
+        }
+
+        h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: #4ecca3;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .subtitle {
+            font-size: 1.2rem;
+            color: #eeeeee;
+            margin-bottom: 2rem;
+        }
+
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            padding: 1rem;
+        }
+
+        .game-card {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 15px;
+            padding: 1.5rem;
+            text-align: center;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(5px);
+        }
+
+        .game-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(78, 204, 163, 0.2);
+        }
+
+        .game-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, transparent, rgba(78, 204, 163, 0.1));
+            z-index: -1;
+        }
+
+        .game-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            color: #4ecca3;
+        }
+
+        .game-title {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: #eeeeee;
+        }
+
+        .game-description {
+            color: #cccccc;
+            margin-bottom: 1.5rem;
+            font-size: 0.9rem;
+        }
+
+        .play-button {
+            display: inline-block;
+            padding: 0.8rem 1.5rem;
+            background-color: #4ecca3;
+            color: #1a1a2e;
+            text-decoration: none;
+            border-radius: 25px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .play-button:hover {
+            background-color: #45b393;
+            transform: scale(1.05);
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 1rem;
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .games-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Arcade Games Collection</h1>
+            <p class="subtitle">Choose your game and start playing!</p>
+            <a href="../index.html" style="color: #4ecca3; text-decoration: none; display: block; margin-top: 1rem;">&larr; Back to Home</a>
+        </header>
+
+        <div class="games-grid">
+            <div class="game-card">
+                <div class="game-icon">🎲</div>
+                <h2 class="game-title">Rock Paper Scissors</h2>
+                <p class="game-description">Challenge the computer in this classic game of strategy and luck. Can you outsmart your digital opponent?</p>
+                <a href="rock-paper-scissors.html" class="play-button">Play Now</a>
+            </div>
+
+            <div class="game-card">
+                <div class="game-icon">🧠</div>
+                <h2 class="game-title">Memory Game</h2>
+                <p class="game-description">Test your memory by matching pairs of cards. Train your brain while having fun!</p>
+                <a href="memory-game.html" class="play-button">Play Now</a>
+            </div>
+
+            <div class="game-card">
+                <div class="game-icon">🐍</div>
+                <h2 class="game-title">Snake Game</h2>
+                <p class="game-description">Guide the snake to collect food and grow longer, but don't hit the walls or yourself!</p>
+                <a href="snake-game.html" class="play-button">Play Now</a>
+            </div>
+
+            <div class="game-card">
+                <div class="game-icon">🔨</div>
+                <h2 class="game-title">Whack-a-Mole</h2>
+                <p class="game-description">Test your reflexes by whacking moles as they pop up. How many can you catch?</p>
+                <a href="whack-a-mole.html" class="play-button">Play Now</a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

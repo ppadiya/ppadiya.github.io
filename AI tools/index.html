@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI Tools Hub - Prompt Optimizer</title>
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div class="app-container">
+        <aside class="sidebar">
+            <div class="sidebar-header">
+                <h2>AI Tools</h2>
+            </div>
+            <nav class="sidebar-nav">
+                <ul>
+                    <li class="active"><a href="#">Prompt Optimizer</a></li>
+                    <!-- Add more tools here later -->
+                    <!-- <li><a href="#">Future Tool 1</a></li> -->
+                    <!-- <li><a href="#">Future Tool 2</a></li> -->
+                </ul>
+                <ul class="sidebar-nav-secondary">
+                     <li><a href="../index.html">&larr; Back to Home</a></li>
+                </ul>
+            </nav>
+            <div class="theme-toggle">
+                <button id="theme-switch-btn">Toggle Theme</button> 
+            </div>
+        </aside>
+
+        <main class="main-content">
+            <header class="main-header">
+                <h1>Prompt Optimizer - UNDER CONSTRUCTION</h1>
+                <!-- Optional: Add user profile/settings here -->
+            </header>
+
+            <section class="tool-interface">
+                <!-- Optional: Optimization Goals -->
+                <!-- <div class="optimization-goals">
+                    <label>Optimization Goal:</label>
+                    <select>
+                        <option>Default</option>
+                        <option>More Detail</option>
+                        <option>Formal Tone</option>
+                        <option>Creative Flair</option>
+                        <option>Code Focus</option>
+                    </select>
+                </div> -->
+
+                <div class="prompt-areas">
+                    <div class="prompt-area input-area">
+                        <label for="original-prompt">Your Original Prompt</label>
+                        <div class="textarea-container">
+                            <textarea id="original-prompt" placeholder="Enter the prompt you want to enhance..."></textarea>
+                            <button class="copy-btn" data-target="original-prompt" title="Copy Original Prompt">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 -960 960 960" width="16"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-720v480-480Z"/></svg>
+                            </button>
+                        </div>
+                    </div>
+
+                    <div class="action-button-container">
+                         <button id="enhance-btn">Enhance Prompt ✨</button>
+                    </div>
+
+                    <div class="prompt-area output-area">
+                        <label for="optimized-prompt">Optimized Prompt</label>
+                        <div class="textarea-container">
+                             <div id="optimized-prompt-output" class="output-display" aria-live="polite">
+                                <!-- Optimized prompt will appear here -->
+                                <span class="placeholder">Your enhanced prompt will appear here...</span>
+                             </div>
+                             <div class="loading-spinner" style="display: none;"></div>
+                             <button class="copy-btn" data-target="optimized-prompt-output" title="Copy Optimized Prompt">
+                                <svg xmlns="http://www.w3.org/2000/svg" height="16" viewBox="0 -960 960 960" width="16"><path d="M360-240q-33 0-56.5-23.5T280-320v-480q0-33 23.5-56.5T360-880h360q33 0 56.5 23.5T800-800v480q0 33-23.5 56.5T720-240H360Zm0-80h360v-480H360v480ZM200-80q-33 0-56.5-23.5T120-160v-560h80v560h440v80H200Zm160-720v480-480Z"/></svg>
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

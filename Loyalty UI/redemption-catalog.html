@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Redemption Catalog - PremiumRewards</title>
+    <link rel="stylesheet" href="css/styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <div class="container">
+            <nav class="navbar">
+                <div class="logo">Premium<span>Rewards</span></div>
+                <ul class="nav-links">
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="points-history.html">Points History</a></li>
+                    <li><a href="redemption-history.html">Redemption History</a></li>
+                    <li><a href="redemption-catalog.html" class="active">Rewards Catalog</a></li>
+                </ul>
+                <div class="auth-buttons">
+                    <a href="#" class="btn">Sign Up</a>
+                    <a href="#" class="btn btn-primary">Login</a>
+                </div>
+                <div class="hamburger">
+                    <div></div>
+                    <div></div>
+                    <div></div>
+                </div>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Page Header -->
+    <section class="page-header">
+        <div class="container">
+            <h1>Rewards Catalog</h1>
+            <p>Browse our extensive collection of rewards and redeem your points for exclusive items and experiences.</p>
+        </div>
+    </section>
+
+    <!-- Points Balance -->
+    <section class="container">
+        <div class="dashboard-widget">
+            <div class="widget-header">
+                <h3>Your Points Balance</h3>
+                <div class="points-balance">12,450 Points</div>
+            </div>
+            <div class="progress-container">
+                <div class="progress-label">
+                    <span>Progress to Premium Status</span>
+                    <span>65%</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill"></div>
+                </div>
+            </div>
+            <div class="milestone-info">
+                <p>Current: Gold Member</p>
+                <p>Next: Platinum (7,550 points to go)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalog Filters -->
+    <section class="container">
+        <div class="catalog-filters">
+            <div class="filter-section">
+                <h3>Categories</h3>
+                <div class="filter-options">
+                    <div class="filter-option active">All</div>
+                    <div class="filter-option">Merchandise</div>
+                    <div class="filter-option">Travel</div>
+                    <div class="filter-option">Dining</div>
+                    <div class="filter-option">Gift Cards</div>
+                    <div class="filter-option">Airline Miles</div>
+                    <div class="filter-option">Experiences</div>
+                </div>
+            </div>
+            <div class="filter-section">
+                <h3>Points Range</h3>
+                <input type="range" min="0" max="50000" value="50000" class="range-slider" id="points-range">
+                <div class="range-values">
+                    <span>0 Points</span>
+                    <span id="range-value">50,000 Points</span>
+                </div>
+            </div>
+            <div class="filter-section">
+                <h3>Sort By</h3>
+                <div class="filter-options">
+                    <div class="filter-option active">Featured</div>
+                    <div class="filter-option">Points: Low to High</div>
+                    <div class="filter-option">Points: High to Low</div>
+                    <div class="filter-option">Newest</div>
+                    <div class="filter-option">Most Popular</div>
+                </div>
+            </div>
+            <div class="search-bar" style="margin-top: 20px;">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" placeholder="Search rewards...">
+            </div>
+        </div>
+    </section>
+
+    <!-- Catalog Grid -->
+    <section class="container">
+        <div class="catalog-grid">
+            <!-- Item 1 -->
+            <div class="catalog-item">
+                <div class="catalog-img">
+                    <img src="https://images.unsplash.com/photo-1585399000684-d2f72660f092?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Premium Headphones">
+                </div>
+                <div class="catalog-content">
+                    <h3>Premium Wireless Headphones</h3>
+                    <p>Noise-cancelling headphones with superior sound quality and comfort.</p>
+                    <div class="catalog-meta">
+                        <span class="catalog-category">Merchandise</span>
+                        <span class="catalog-points">22,000 Points</span>
+                    </div>
+                    <a href="#" class="btn">Redeem Now</a>
+                </div>
+            </div>
+            
+            <!-- Item 2 -->
+            <div class="catalog-item">
+                <div class="catalog-img">
+                    <img src="https://images.unsplash.com/photo-1540959733332-eab4deabeeaf?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Travel Voucher">
+                </div>
+                <div class="catalog-content">
+                    <h3>$200 Travel Voucher</h3>
+                    <p>Use this voucher for flights, hotels, or car rentals with our travel partners.</p>
+                    <div class="catalog-meta">
+                        <span class="catalog-category">Travel</span>
+                        <span class="catalog-points">15,000 Points</span>
+                    </div>
+                    <a href="#" class="btn">Redeem Now</a>
+                </div>
+            </div>
+            
+            <!-- Item 3 -->
+            <div class="catalog-item">
+                <div class="catalog-img">
+                    <img src="https://images.unsplash.com/photo-1414235077428-338989a2e8c0?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Fine Dining">
+                </div>
+                <div class="catalog-content">
+                    <h3>Fine Dining Experience</h3>
+                    <p>$150 voucher for a gourmet dining experience at select restaurants.</p>
+                    <div class="catalog-meta">
+                        <span class="catalog-category">Dining</span>
+                        <span class="catalog-points">12,500 Points</span>
+                    </div>
+                    <a href="#" class="btn">Redeem Now</a>
+                </div>
+            </div>
+            
+            <!-- Item 4 -->
+            <div class="catalog-item">
+                <div class="catalog-img">
+                    <img src="https://images.unsplash.com/photo-1530893609608-32a9af3aa95c?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Smartwatch">
+                </div>
+                <div class="catalog-content">
+                    <h3>Latest Smartwatch</h3>
+                    <p>Track your fitness, receive notifications, and more with this premium smartwatch.</p>
+                    <div class="catalog-meta">
+                        <span class="catalog-category">Merchandise</span>
+                        <span class="catalog-points">30,000 Points</span>
+                    </div>
+                    <a href="#" class="btn">Redeem Now</a>
+                </div>
+            </div>
+            
+            <!-- Item 5 -->
+            <div class="catalog-item">
+                <div class="catalog-img">
+                    <img src="https://images.unsplash.com/photo-1607083206968-13611e3d76db?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Gift Card">
+                </div>
+                <div class="catalog-content">
+                    <h3>$100 Amazon Gift Card</h3>
+                    <p>Digital gift card delivered to your registered email address.</p>
+                    <div class="catalog-meta">
+                        <span class="catalog-category">Gift Cards</span>
+                        <span class="catalog-points">10,000 Points</span>
+                    </div>
+                    <a href="#" class="btn">Redeem Now</a>
+                </div>
+            </div>
+            
+            <!-- Item 6 -->
+            <div class="catalog-item">
+                <div class="catalog-img">
+                    <img src="https://images.unsplash.com/photo-1436491865332-7a61a109cc05?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Airline Miles">
+                </div>
+                <div class="catalog-content">
+                    <h3>10,000 Airline Miles</h3>
+                    <p>Transfer points to your favorite airline's frequent flyer program.</p>
+                    <div class="catalog-meta">
+                        <span class="catalog-category">Airline Miles</span>
+                        <span class="catalog-points">8,000 Points</span>
+                    </div>
+                    <a href="#" class="btn">Redeem Now</a>
+                </div>
+            </div>
+            
+            <!-- Item 7 -->
+            <div class="catalog-item">
+                <div class="catalog-img">
+                    <img src="https://images.unsplash.com/photo-1560169897-fc0cdbdfa4d5?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Tablet">
+                </div>
+                <div class="catalog-content">
+                    <h3>Premium Tablet</h3>
+                    <p>The latest tablet with high-resolution display and powerful performance.</p>
+                    <div class="catalog-meta">
+                        <span class="catalog-category">Merchandise</span>
+                        <span class="catalog-points">45,000 Points</span>
+                    </div>
+                    <a href="#" class="btn">Redeem Now</a>
+                </div>
+            </div>
+            
+            <!-- Item 8 -->
+            <div class="catalog-item">
+                <div class="catalog-img">
+                    <img src="https://images.unsplash.com/photo-1470337458703-46ad1756a187?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Concert Tickets">
+                </div>
+                <div class="catalog-content">
+                    <h3>Concert Tickets</h3>
+                    <p>Two premium tickets to select concerts and live performances.</p>
+                    <div class="catalog-meta">
+                        <span class="catalog-category">Experiences</span>
+                        <span class="catalog-points">20,000 Points</span>
+                    </div>
+                    <a href="#" class="btn">Redeem Now</a>
+                </div>
+            </div>
+            
+            <!-- Item 9 -->
+            <div class="catalog-item">
+                <div class="catalog-img">
+                    <img src="https://images.unsplash.com/photo-1551107696-a4b0c5a0d9a2?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Spa Day">
+                </div>
+                <div class="catalog-content">
+                    <h3>Luxury Spa Day</h3>
+                    <p>Full day spa package including massage, facial, and more at premium locations.</p>
+                    <div class="catalog-meta">
+                        <span class="catalog-category">Experiences</span>
+                        <span class="catalog-points">18,000 Points</span>
+                    </div>
+                    <a href="#" class="btn">Redeem Now</a>
+                </div>
+            </div>
+            
+            <!-- Item 10 -->
+            <div class="catalog-item">
+                <div class="catalog-img">
+                    <img src="https://images.unsplash.com/photo-1581235720704-06d3acfcb36f?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Coffee Maker">
+                </div>
+                <div class="catalog-content">
+                    <h3>Premium Coffee Maker</h3>
+                    <p>Professional-grade coffee maker for the perfect brew every morning.</p>
+                    <div class="catalog-meta">
+                        <span class="catalog-category">Merchandise</span>
+                        <span class="catalog-points">15,000 Points</span>
+                    </div>
+                    <a href="#" class="btn">Redeem Now</a>
+                </div>
+            </div>
+            
+            <!-- Item 11 -->
+            <div class="catalog-item">
+                <div class="catalog-img">
+                    <img src="https://images.unsplash.com/photo-1505623776320-7edecf5f0771?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Hotel Stay">
+                </div>
+                <div class="catalog-content">
+                    <h3>Luxury Hotel Stay</h3>
+                    <p>Two-night stay at a 5-star hotel of your choice in select destinations.</p>
+                    <div class="catalog-meta">
+                        <span class="catalog-category">Travel</span>
+                        <span class="catalog-points">35,000 Points</span>
+                    </div>
+                    <a href="#" class="btn">Redeem Now</a>
+                </div>
+            </div>
+            
+            <!-- Item 12 -->
+            <div class="catalog-item">
+                <div class="catalog-img">
+                    <img src="https://images.unsplash.com/photo-1606144042614-b2417e99c4e3?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60" alt="Gaming Console">
+                </div>
+                <div class="catalog-content">
+                    <h3>Latest Gaming Console</h3>
+                    <p>The newest gaming console with one controller and a game of your choice.</p>
+                    <div class="catalog-meta">
+                        <span class="catalog-category">Merchandise</span>
+                        <span class="catalog-points">40,000 Points</span>
+                    </div>
+                    <a href="#" class="btn">Redeem Now</a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Pagination -->
+    <section class="container">
+        <div class="pagination">
+            <button><i class="fas fa-chevron-left"></i></button>
+            <button class="active">1</button>
+            <button>2</button>
+            <button>3</button>
+            <button>4</button>
+            <button>5</button>
+            <button><i class="fas fa-chevron-right"></i></button>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-column">
+                    <h3>PremiumRewards</h3>
+                    <p>Earn points with every purchase and redeem them for exclusive rewards, travel experiences, and more.</p>
+                    <div class="social-links">
+                        <a href="#"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#"><i class="fab fa-twitter"></i></a>
+                        <a href="#"><i class="fab fa-instagram"></i></a>
+                        <a href="#"><i class="fab fa-linkedin-in"></i></a>
+                    </div>
+                </div>
+                <div class="footer-column">
+                    <h3>Quick Links</h3>
+                    <ul class="footer-links">
+                        <li><a href="index.html">Home</a></li>
+                        <li><a href="points-history.html">Points History</a></li>
+                        <li><a href="redemption-history.html">Redemption History</a></li>
+                        <li><a href="redemption-catalog.html">Rewards Catalog</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Support</h3>
+                    <ul class="footer-links">
+                        <li><a href="#">FAQs</a></li>
+                        <li><a href="#">Contact Us</a></li>
+                        <li><a href="#">Help Center</a></li>
+                        <li><a href="#">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="footer-column">
+                    <h3>Contact</h3>
+                    <ul class="footer-links">
+                        <li><i class="fas fa-map-marker-alt"></i> 123 Financial Street, New York, NY</li>
+                        <li><i class="fas fa-phone"></i> +1 (800) 123-4567</li>
+                        <li><i class="fas fa-envelope"></i> support@premiumrewards.com</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <p>&copy; 2025 PremiumRewards. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script src="js/main.js"></script>
+</body>
+</html>
