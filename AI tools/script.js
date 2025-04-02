@@ -39,7 +39,6 @@ document.addEventListener('DOMContentLoaded', () => {
     }
 
     // Event listener for the toggle switch
-    // Event listener for the toggle switch
     darkModeToggle.addEventListener('change', () => {
         if (darkModeToggle.checked) { // Checked means dark mode
             enableDarkMode();
@@ -114,21 +113,19 @@ document.addEventListener('DOMContentLoaded', () => {
         optimizedPromptOutput.innerHTML = ''; // Clear previous output
         loadingSpinner.style.display = 'block';
 
-
         // 2. Call the Serverless Function
         try {
-            console.log("Calling /api/optimize-prompt with prompt:", originalPrompt);
+            console.log("Calling /api/enhance-prompt with prompt:", originalPrompt);
 
             // --- Actual API Call ---
-            const response = await fetch('/api/optimize-prompt', { // Assumes the function is deployed at this relative path
+            // Update the API path to match our new serverless function name
+            const response = await fetch('/api/enhance-prompt', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
                 },
                 body: JSON.stringify({
                     prompt: originalPrompt
-                    // Optionally add model selection here if needed:
-                    // model: 'llama3-8b-8192'
                 })
             });
 
@@ -139,7 +136,8 @@ document.addEventListener('DOMContentLoaded', () => {
                 throw new Error(data.error || `HTTP error! status: ${response.status}`);
             }
 
-            const optimizedPrompt = data.optimizedPrompt; // Extract from JSON response
+            // Change to match the key we're using in our serverless function
+            const optimizedPrompt = data.optimizedPrompt; 
             // --- End API Call ---
 
             if (!optimizedPrompt) {
@@ -167,5 +165,4 @@ document.addEventListener('DOMContentLoaded', () => {
              if (outputPlaceholder) outputPlaceholder.style.display = 'block';
          }
     });
-
-}); // End DOMContentLoaded
+});
