@@ -4,60 +4,202 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Memory Game</title>
+    <!-- Links from games/index.html -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        /* --- Variables (Copied from main style.css) --- */
+        :root {
+            /* Light Mode Palette */
+            --primary-color-light: #0052cc;
+            --secondary-color-light: #64748B;
+            --background-color-light: #F8FAFC;
+            --surface-color-light: #ffffff;
+            --text-color-light: #1E293B;
+            --heading-color-light: #0F172A;
+            --accent-color-light: #FF5630;
+            --border-color-light: #E2E8F0;
+            --border-color-light-enhanced: #CFD8DC; /* Slightly darker for better contrast */
+            --success-color-light: #36B37E;
+            --highlight-bg-light: rgba(0, 82, 204, 0.05);
+            --toggle-bg-light: #E2E8F0;
+            --toggle-circle-light: white;
+            --toggle-icon-light: #F59E0B;
+
+            /* Dark Mode Palette */
+            --primary-color-dark: #4C9AFF;
+            --secondary-color-dark: #94A3B8;
+            --background-color-dark: #0F172A;
+            --surface-color-dark: #1E293B;
+            --text-color-dark: #CBD5E1;
+            --heading-color-dark: #F1F5F9;
+            --accent-color-dark: #FF8F73;
+            --border-color-dark: #334155;
+            --success-color-dark: #57D9A3;
+            --highlight-bg-dark: rgba(76, 154, 255, 0.1);
+            --toggle-bg-dark: #475569;
+            --toggle-circle-dark: #E2E8F0;
+            --toggle-icon-dark: #A5B4FC;
+
+            /* Default to Light Mode Variables */
+            --primary-color: var(--primary-color-light);
+            --secondary-color: var(--secondary-color-light);
+            --background-color: var(--background-color-light);
+            --surface-color: var(--surface-color-light);
+            --text-color: var(--text-color-light);
+            --heading-color: var(--heading-color-light);
+            --accent-color: var(--accent-color-light);
+            --border-color: var(--border-color-light);
+            --success-color: var(--success-color-light);
+            --highlight-bg: var(--highlight-bg-light);
+            --toggle-bg: var(--toggle-bg-light);
+            --toggle-circle: var(--toggle-circle-light);
+            --toggle-icon-sun: var(--toggle-icon-light);
+            --toggle-icon-moon: var(--toggle-icon-dark);
+
+            /* Fonts */
+            --font-primary: 'Poppins', sans-serif;
+            --base-font-size: 16px;
+            --container-max-width: 1200px;
+        }
+
+        /* Dark Mode Variable Overrides */
+        body.dark-mode {
+            --primary-color: var(--primary-color-dark);
+            --secondary-color: var(--secondary-color-dark);
+            --background-color: var(--background-color-dark);
+            --surface-color: var(--surface-color-dark);
+            --text-color: var(--text-color-dark);
+            --heading-color: var(--heading-color-dark);
+            --accent-color: var(--accent-color-dark);
+            --border-color: var(--border-color-dark);
+            --success-color: var(--success-color-dark);
+            --highlight-bg: var(--highlight-bg-dark);
+            --toggle-bg: var(--toggle-bg-dark);
+            --toggle-circle: var(--toggle-circle-dark);
+        }
+
+        /* --- Base Styles --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html {
+            font-size: var(--base-font-size);
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #fff;
+            font-family: var(--font-primary);
+            line-height: 1.7;
+            background-color: var(--background-color);
+            color: var(--text-color);
             min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding-top: 60px; /* Add padding for fixed elements */
         }
 
-        .nav-button {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            padding: 10px 20px;
-            background-color: #4ecca3;
-            color: #1a1a2e;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-
-        .nav-button:hover {
-            background-color: #45b393;
-            transform: scale(1.05);
-        }
-
-        .game-container {
-            text-align: center;
-            max-width: 800px;
+        .container {
+            max-width: var(--container-max-width);
             margin: 0 auto;
-            padding: 20px;
+            padding: 2rem 1.5rem;
         }
 
         h1 {
-            font-size: 2.5rem;
-            margin: 20px 0;
-            color: #4ecca3;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-size: clamp(2rem, 4vw, 2.5rem); /* Slightly smaller for game page */
+            margin-bottom: 1.5rem;
+            color: var(--heading-color);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            text-align: center;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.2s ease, opacity 0.2s ease;
+        }
+        a:hover {
+            color: var(--primary-color);
+            opacity: 0.8;
+        }
+
+        /* Back Link */
+        .back-link {
+            position: fixed; /* Keep it visible */
+            top: 15px;
+            left: 15px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 15px;
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            z-index: 1001;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .back-link i { margin-right: 5px; }
+        .back-link:hover { opacity: 0.8; background-color: var(--highlight-bg); }
+
+        /* Theme Toggle Styles (Using Variables) */
+        .theme-switch-wrapper {
+            position: fixed; /* Keep it visible */
+            top: 15px;
+            right: 15px;
+            z-index: 1001;
+            background-color: var(--surface-color);
+            padding: 5px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .theme-switch { display: inline-block; height: 26px; position: relative; width: 50px; cursor: pointer; }
+        .theme-switch input { display: none; }
+        .slider {
+            background-color: var(--toggle-bg);
+            bottom: 0; cursor: pointer; left: 0; position: absolute; right: 0; top: 0;
+            transition: background-color 0.3s ease;
+            border-radius: 13px; display: flex; align-items: center; justify-content: space-between; padding: 0 5px;
+        }
+        .slider::before {
+            background-color: var(--toggle-circle);
+            bottom: 3px; content: ""; height: 20px; left: 3px; position: absolute;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            width: 20px; border-radius: 50%; box-shadow: 0 1px 3px rgba(0,0,0,0.1); z-index: 2;
+        }
+        .slider .fa-sun, .slider .fa-moon { font-size: 12px; transition: opacity 0.3s ease, color 0.3s ease; z-index: 1; }
+        .slider .fa-sun { color: var(--toggle-icon-sun); opacity: 1; }
+        .slider .fa-moon { color: var(--toggle-icon-moon); opacity: 0; }
+        input:checked + .slider::before { transform: translateX(24px); }
+        input:checked + .slider .fa-sun { opacity: 0; }
+        input:checked + .slider .fa-moon { opacity: 1; }
+
+        /* Game Specific Styles */
+        .game-container {
+            text-align: center;
+            max-width: 800px;
+            margin: 2rem auto; /* Adjusted margin */
+            padding: 20px;
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color-light-enhanced, var(--border-color));
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        body.dark-mode .game-container {
+            border-color: var(--border-color);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
 
         .game-board {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
-            gap: 10px;
+            gap: 15px; /* Increased gap */
             margin: 20px auto;
             max-width: 600px;
             perspective: 1000px;
@@ -65,7 +207,8 @@
 
         .card {
             height: 120px;
-            background: linear-gradient(135deg, #2196F3, #1a1a2e);
+            background-color: var(--primary-color);
+            border: 1px solid var(--border-color);
             border-radius: 10px;
             cursor: pointer;
             display: flex;
@@ -74,16 +217,22 @@
             font-size: 2.5em;
             position: relative;
             transform-style: preserve-3d;
-            transition: transform 0.6s;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+            transition: transform 0.6s, background-color 0.3s;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+            color: #fff; /* Icon color */
+        }
+        body.dark-mode .card {
+             border-color: var(--border-color-dark);
         }
 
         .card.flipped {
             transform: rotateY(180deg);
+            background-color: var(--surface-color); /* Show surface color when flipped */
+            color: var(--text-color); /* Show text color for symbol */
         }
 
-        .card::before {
-            content: '?';
+        .card::before { /* Card back */
+            content: ''; /* No symbol on back */
             position: absolute;
             width: 100%;
             height: 100%;
@@ -91,19 +240,32 @@
             align-items: center;
             justify-content: center;
             font-size: 2em;
-            color: #4ecca3;
+            background-color: var(--primary-color); /* Match card background */
+            border-radius: 10px;
+            color: #fff;
             backface-visibility: hidden;
+            -webkit-backface-visibility: hidden; /* Safari */
         }
 
         .card.flipped::before {
             display: none;
         }
 
+        .card .symbol { /* Style for the symbol itself */
+             transform: rotateY(180deg); /* Ensure symbol faces correctly */
+             backface-visibility: hidden;
+             -webkit-backface-visibility: hidden; /* Safari */
+             display: block; /* Or flex/inline-flex if needed */
+        }
+
+
         .card.matched {
-            background: linear-gradient(135deg, #4CAF50, #45a049);
+            background-color: var(--success-color);
+            border-color: color-mix(in srgb, var(--success-color) 80%, black);
             transform: rotateY(180deg) scale(0.95);
             pointer-events: none;
             animation: pulse 1s;
+            color: #fff;
         }
 
         @keyframes pulse {
@@ -113,82 +275,93 @@
         }
 
         #moves {
-            font-size: 20px;
-            margin: 10px 0;
+            font-size: 1.1rem;
+            margin: 20px 0;
             padding: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            backdrop-filter: blur(5px);
+            background-color: var(--highlight-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-color);
         }
 
+        /* Restart Button - Styled like .play-button */
         #restart {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #4ecca3;
-            color: #1a1a2e;
-            border: none;
-            border-radius: 25px;
+            display: inline-block;
+            padding: 0.75rem 1.75rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
             cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+            font-size: 0.95rem;
+            text-decoration: none;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            background-color: var(--primary-color);
+            color: #fff;
+            border-color: var(--primary-color);
             margin: 10px;
-            font-weight: bold;
-            transition: all 0.3s ease;
         }
-
         #restart:hover {
-            background-color: #45b393;
-            transform: scale(1.05);
+            background-color: color-mix(in srgb, var(--primary-color) 90%, black);
+            border-color: color-mix(in srgb, var(--primary-color) 90%, black);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
 
+        /* Responsive */
         @media (max-width: 768px) {
-            .game-container {
-                padding: 10px;
-            }
-
-            .game-board {
-                grid-template-columns: repeat(3, 1fr);
-                gap: 8px;
-            }
-
-            .card {
-                height: 100px;
-                font-size: 2em;
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
+            body { padding-top: 80px; } /* Adjust for potentially taller fixed elements */
+            .container { padding: 1rem; }
+            .game-container { margin: 1rem auto; }
+            .game-board { grid-template-columns: repeat(3, 1fr); gap: 10px; }
+            .card { height: 100px; font-size: 2em; }
+            h1 { font-size: 2rem; }
         }
-
         @media (max-width: 480px) {
-            .card {
-                height: 80px;
-                font-size: 1.5em;
-            }
+            .card { height: 80px; font-size: 1.5em; }
         }
     </style>
 </head>
 <body>
-    <a href="index.html" class="nav-button">← Back to Games</a>
+    <!-- Theme Toggle -->
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="dark-mode-toggle">
+            <input type="checkbox" id="dark-mode-toggle" />
+            <div class="slider">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon"></i>
+            </div>
+        </label>
+    </div>
+
+    <!-- Back Link -->
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Games</a>
+
     <div class="game-container">
         <h1>Memory Game</h1>
         <div id="moves">Moves: 0</div>
-        <div class="game-board"></div>
+        <div class="game-board">
+            <!-- Cards will be generated by JS -->
+        </div>
         <button id="restart" onclick="initGame()">Restart Game</button>
     </div>
+
     <script>
+        // Game Logic (existing script)
         let cards = [];
         let flippedCards = [];
         let moves = 0;
-        const symbols = ['🌟', '🎈', '🎨', '🎭', '🎪', '🎯', '🎲', '🎱'];
-        
+        const symbols = ['🌟', '🎈', '🎨', '🎭', '🎪', '🎯', '🎲', '🎱']; // Emojis as symbols
+
         function initGame() {
             moves = 0;
             flippedCards = [];
             document.getElementById('moves').textContent = 'Moves: 0';
             const gameBoard = document.querySelector('.game-board');
             gameBoard.innerHTML = '';
-            
-            // Create card pairs with touch support
+
             cards = [...symbols, ...symbols]
                 .sort(() => Math.random() - 0.5)
                 .map((symbol, index) => ({
@@ -202,9 +375,15 @@
                 const cardElement = document.createElement('div');
                 cardElement.className = 'card';
                 cardElement.dataset.id = card.id;
+                // Add symbol inside a span for better control if needed
+                const symbolSpan = document.createElement('span');
+                symbolSpan.className = 'symbol';
+                symbolSpan.textContent = card.symbol;
+                cardElement.appendChild(symbolSpan);
+
                 cardElement.addEventListener('click', () => flipCard(card.id));
                 cardElement.addEventListener('touchstart', (e) => {
-                    e.preventDefault();
+                    e.preventDefault(); // Prevent potential double tap zoom
                     flipCard(card.id);
                 });
                 gameBoard.appendChild(cardElement);
@@ -217,34 +396,32 @@
 
             card.isFlipped = true;
             flippedCards.push(card);
-            
+
             const cardElement = document.querySelector(`[data-id="${id}"]`);
-            cardElement.textContent = card.symbol;
             cardElement.classList.add('flipped');
 
             if (flippedCards.length === 2) {
                 moves++;
                 document.getElementById('moves').textContent = `Moves: ${moves}`;
-                
+
                 if (flippedCards[0].symbol === flippedCards[1].symbol) {
                     // Match found
-                    flippedCards.forEach(card => {
-                        card.isMatched = true;
-                        document.querySelector(`[data-id="${card.id}"]`).classList.add('matched');
+                    flippedCards.forEach(c => {
+                        c.isMatched = true;
+                        document.querySelector(`[data-id="${c.id}"]`).classList.add('matched');
                     });
                     flippedCards = [];
-                    
+
                     // Check if game is complete
-                    if (cards.every(card => card.isMatched)) {
+                    if (cards.every(c => c.isMatched)) {
                         setTimeout(() => alert(`Congratulations! You won in ${moves} moves!`), 500);
                     }
                 } else {
                     // No match
                     setTimeout(() => {
-                        flippedCards.forEach(card => {
-                            card.isFlipped = false;
-                            const element = document.querySelector(`[data-id="${card.id}"]`);
-                            element.textContent = '';
+                        flippedCards.forEach(c => {
+                            c.isFlipped = false;
+                            const element = document.querySelector(`[data-id="${c.id}"]`);
                             element.classList.remove('flipped');
                         });
                         flippedCards = [];
@@ -255,6 +432,54 @@
 
         // Initialize game on load
         initGame();
+
+        // --- Theme Switching JS (from games/index.html) ---
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const body = document.body;
+        const themeKey = 'theme'; // Use consistent key
+
+        // Function to enable dark mode
+        function enableDarkMode() {
+            body.classList.remove('light-mode');
+            body.classList.add('dark-mode'); // Add dark-mode class
+            if (darkModeToggle) darkModeToggle.checked = true; // Checked for dark mode
+            localStorage.setItem(themeKey, 'dark');
+        }
+
+        // Function to enable light mode
+        function enableLightMode() {
+            body.classList.remove('dark-mode');
+            body.classList.add('light-mode'); // Add light-mode class
+            if (darkModeToggle) darkModeToggle.checked = false; // Unchecked for light mode
+            localStorage.setItem(themeKey, 'light');
+        }
+
+        // Function to load theme preference from localStorage
+        function loadThemePreference() {
+            const savedTheme = localStorage.getItem(themeKey);
+            // Check for saved theme, default to light if none found
+            if (savedTheme === 'dark') {
+                enableDarkMode();
+            } else {
+                enableLightMode(); // Default to light
+            }
+        }
+
+        // Event listener for the toggle switch
+        if (darkModeToggle) {
+            darkModeToggle.addEventListener('change', () => {
+                if (darkModeToggle.checked) { // Checked means dark mode
+                    enableDarkMode();
+                } else { // Unchecked means light mode
+                    enableLightMode();
+                }
+            });
+        }
+
+        // Load the theme preference when the page loads
+        // Run immediately since DOMContentLoaded is already handled for game init
+        loadThemePreference();
+
     </script>
 </body>
 </html>

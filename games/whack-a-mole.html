@@ -2,223 +2,422 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
     <title>Whack-a-Mole</title>
+    <!-- Links from games/index.html -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        /* --- Variables (Copied from main style.css) --- */
+        :root {
+            /* Light Mode Palette */
+            --primary-color-light: #0052cc;
+            --secondary-color-light: #64748B;
+            --background-color-light: #F8FAFC;
+            --surface-color-light: #ffffff;
+            --text-color-light: #1E293B;
+            --heading-color-light: #0F172A;
+            --accent-color-light: #FF5630;
+            --border-color-light: #E2E8F0;
+            --border-color-light-enhanced: #CFD8DC; /* Slightly darker for better contrast */
+            --success-color-light: #36B37E;
+            --highlight-bg-light: rgba(0, 82, 204, 0.05);
+            --toggle-bg-light: #E2E8F0;
+            --toggle-circle-light: white;
+            --toggle-icon-light: #F59E0B;
+
+            /* Dark Mode Palette */
+            --primary-color-dark: #4C9AFF;
+            --secondary-color-dark: #94A3B8;
+            --background-color-dark: #0F172A;
+            --surface-color-dark: #1E293B;
+            --text-color-dark: #CBD5E1;
+            --heading-color-dark: #F1F5F9;
+            --accent-color-dark: #FF8F73;
+            --border-color-dark: #334155;
+            --success-color-dark: #57D9A3;
+            --highlight-bg-dark: rgba(76, 154, 255, 0.1);
+            --toggle-bg-dark: #475569;
+            --toggle-circle-dark: #E2E8F0;
+            --toggle-icon-dark: #A5B4FC;
+
+            /* Default to Light Mode Variables */
+            --primary-color: var(--primary-color-light);
+            --secondary-color: var(--secondary-color-light);
+            --background-color: var(--background-color-light);
+            --surface-color: var(--surface-color-light);
+            --text-color: var(--text-color-light);
+            --heading-color: var(--heading-color-light);
+            --accent-color: var(--accent-color-light);
+            --border-color: var(--border-color-light);
+            --success-color: var(--success-color-light);
+            --highlight-bg: var(--highlight-bg-light);
+            --toggle-bg: var(--toggle-bg-light);
+            --toggle-circle: var(--toggle-circle-light);
+            --toggle-icon-sun: var(--toggle-icon-light);
+            --toggle-icon-moon: var(--toggle-icon-dark);
+
+            /* Fonts */
+            --font-primary: 'Poppins', sans-serif;
+            --base-font-size: 16px;
+            --container-max-width: 1200px;
+        }
+
+        /* Dark Mode Variable Overrides */
+        body.dark-mode {
+            --primary-color: var(--primary-color-dark);
+            --secondary-color: var(--secondary-color-dark);
+            --background-color: var(--background-color-dark);
+            --surface-color: var(--surface-color-dark);
+            --text-color: var(--text-color-dark);
+            --heading-color: var(--heading-color-dark);
+            --accent-color: var(--accent-color-dark);
+            --border-color: var(--border-color-dark);
+            --success-color: var(--success-color-dark);
+            --highlight-bg: var(--highlight-bg-dark);
+            --toggle-bg: var(--toggle-bg-dark);
+            --toggle-circle: var(--toggle-circle-dark);
+        }
+
+        /* --- Base Styles --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html {
+            font-size: var(--base-font-size);
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #fff;
+            font-family: var(--font-primary);
+            line-height: 1.7;
+            background-color: var(--background-color);
+            color: var(--text-color);
             min-height: 100vh;
-            touch-action: manipulation;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding-top: 60px; /* Add padding for fixed elements */
+            touch-action: manipulation; /* Allow tap but prevent zoom/scroll */
         }
 
-        .nav-button {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            padding: 10px 20px;
-            background-color: #4ecca3;
-            color: #1a1a2e;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-
-        .nav-button:hover {
-            background-color: #45b393;
-            transform: scale(1.05);
-        }
-
-        .game-container {
-            text-align: center;
-            max-width: 800px;
+        .container {
+            max-width: var(--container-max-width);
             margin: 0 auto;
-            padding: 20px;
+            padding: 2rem 1.5rem;
         }
 
         h1 {
-            font-size: 2.5rem;
-            margin: 20px 0;
-            color: #4ecca3;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-size: clamp(2rem, 4vw, 2.5rem); /* Slightly smaller for game page */
+            margin-bottom: 1.5rem;
+            color: var(--heading-color);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            text-align: center;
+        }
+
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.2s ease, opacity 0.2s ease;
+        }
+        a:hover {
+            color: var(--primary-color);
+            opacity: 0.8;
+        }
+
+        /* Back Link */
+        .back-link {
+            position: fixed; /* Keep it visible */
+            top: 15px;
+            left: 15px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 15px;
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            z-index: 1001;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .back-link i { margin-right: 5px; }
+        .back-link:hover { opacity: 0.8; background-color: var(--highlight-bg); }
+
+        /* Theme Toggle Styles (Using Variables) */
+        .theme-switch-wrapper {
+            position: fixed; /* Keep it visible */
+            top: 15px;
+            right: 15px;
+            z-index: 1001;
+            background-color: var(--surface-color);
+            padding: 5px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .theme-switch { display: inline-block; height: 26px; position: relative; width: 50px; cursor: pointer; }
+        .theme-switch input { display: none; }
+        .slider {
+            background-color: var(--toggle-bg);
+            bottom: 0; cursor: pointer; left: 0; position: absolute; right: 0; top: 0;
+            transition: background-color 0.3s ease;
+            border-radius: 13px; display: flex; align-items: center; justify-content: space-between; padding: 0 5px;
+        }
+        .slider::before {
+            background-color: var(--toggle-circle);
+            bottom: 3px; content: ""; height: 20px; left: 3px; position: absolute;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            width: 20px; border-radius: 50%; box-shadow: 0 1px 3px rgba(0,0,0,0.1); z-index: 2;
+        }
+        .slider .fa-sun, .slider .fa-moon { font-size: 12px; transition: opacity 0.3s ease, color 0.3s ease; z-index: 1; }
+        .slider .fa-sun { color: var(--toggle-icon-sun); opacity: 1; }
+        .slider .fa-moon { color: var(--toggle-icon-moon); opacity: 0; }
+        input:checked + .slider::before { transform: translateX(24px); }
+        input:checked + .slider .fa-sun { opacity: 0; }
+        input:checked + .slider .fa-moon { opacity: 1; }
+
+        /* Game Specific Styles */
+        .game-container {
+            text-align: center;
+            max-width: 800px;
+            margin: 2rem auto; /* Adjusted margin */
+            padding: 2rem; /* Increased padding */
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color-light-enhanced, var(--border-color));
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        body.dark-mode .game-container {
+            border-color: var(--border-color);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
         }
 
         .grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
-            gap: 15px;
-            max-width: 600px;
+            gap: 20px; /* Increased gap */
+            max-width: 400px; /* Adjusted max-width */
             margin: 20px auto;
             padding: 20px;
-            background: rgba(255, 255, 255, 0.1);
+            background-color: var(--highlight-bg); /* Use highlight bg */
+            border: 1px solid var(--border-color);
             border-radius: 15px;
-            backdrop-filter: blur(5px);
         }
 
         .hole {
             width: 100%;
-            padding-bottom: 100%;
+            padding-bottom: 100%; /* Maintain square aspect ratio */
             position: relative;
             overflow: hidden;
             cursor: pointer;
             border-radius: 50%;
-            background: linear-gradient(145deg, #45322e, #654321);
-            box-shadow: inset 0 -10px 15px rgba(0,0,0,0.5);
+            background-color: color-mix(in srgb, var(--background-color) 80%, black); /* Darker hole */
+            box-shadow: inset 0 5px 10px rgba(0,0,0,0.3);
+            border: 2px solid color-mix(in srgb, var(--background-color) 60%, black);
         }
 
         .mole {
-            width: 100%;
-            height: 100%;
+            width: 80%; /* Mole smaller than hole */
+            height: 80%;
             position: absolute;
-            bottom: -100%;
-            transition: bottom 0.1s;
+            left: 10%;
+            bottom: -100%; /* Start hidden */
+            transition: bottom 0.15s ease-out; /* Slightly slower pop */
             cursor: pointer;
+            background-color: #8B4513; /* Brown color */
+            border-radius: 50% 50% 30% 30%; /* Mole shape */
+            border: 2px solid #654321; /* Darker border */
         }
 
-        .mole::before {
+        .mole::before { /* Eyes */
             content: '';
             position: absolute;
-            width: 100%;
-            height: 100%;
-            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><circle cx="50" cy="50" r="45" fill="%238B4513"/><circle cx="35" cy="40" r="5" fill="white"/><circle cx="65" cy="40" r="5" fill="white"/><path d="M40 60 Q50 70 60 60" stroke="white" fill="none" stroke-width="3"/><ellipse cx="50" cy="30" rx="8" ry="3" fill="%23654321"/></svg>') no-repeat center;
-            background-size: contain;
+            width: 10px;
+            height: 10px;
+            background-color: white;
+            border-radius: 50%;
+            top: 30%;
+            left: 25%;
+            box-shadow: 25px 0 0 white; /* Second eye */
+        }
+         .mole::after { /* Nose */
+            content: '';
+            position: absolute;
+            width: 8px;
+            height: 6px;
+            background-color: #FFC0CB; /* Pink nose */
+            border-radius: 50%;
+            top: 50%;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
+
         .mole.show {
-            bottom: 0;
-            animation: popUp 0.5s ease-out;
+            bottom: 10%; /* Pop up slightly */
+            animation: popUp 0.4s ease-out;
         }
 
         .mole.bonked {
-            transform: scale(0.95);
-            filter: brightness(1.2);
+            transform: scale(0.9);
+            filter: brightness(0.8);
+            transition: transform 0.1s ease, filter 0.1s ease;
         }
 
         @keyframes popUp {
             0% { bottom: -100%; }
-            50% { bottom: 10%; }
-            100% { bottom: 0; }
+            70% { bottom: 15%; } /* Pop up higher */
+            100% { bottom: 10%; }
         }
 
         #score, #time {
-            font-size: 24px;
-            margin: 10px 0;
+            font-size: 1.2rem; /* Adjusted size */
+            margin: 15px 0;
             padding: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            backdrop-filter: blur(5px);
+            background-color: var(--highlight-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-color);
+            display: inline-block; /* Allow side-by-side */
+            min-width: 150px;
         }
 
-        button {
-            padding: 10px 20px;
-            font-size: 16px;
-            background-color: #4ecca3;
-            color: #1a1a2e;
-            border: none;
-            border-radius: 25px;
+        /* Start Button - Styled like .play-button */
+        #start-button {
+            display: inline-block;
+            padding: 0.75rem 1.75rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
             cursor: pointer;
+            transition: all 0.2s ease;
+            border: 2px solid transparent;
+            font-size: 0.95rem;
+            text-decoration: none;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
+            background-color: var(--primary-color);
+            color: #fff;
+            border-color: var(--primary-color);
             margin: 10px;
-            font-weight: bold;
-            transition: all 0.3s ease;
         }
-
-        button:hover {
-            background-color: #45b393;
-            transform: scale(1.05);
+        #start-button:hover {
+            background-color: color-mix(in srgb, var(--primary-color) 90%, black);
+            border-color: color-mix(in srgb, var(--primary-color) 90%, black);
+            color: #fff;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
         }
-
-        button:disabled {
-            background-color: #cccccc;
+        #start-button:disabled {
+            background-color: var(--secondary-color);
+            border-color: var(--secondary-color);
             cursor: not-allowed;
             transform: none;
+            box-shadow: none;
+            opacity: 0.7;
         }
 
+        /* Responsive */
         @media (max-width: 768px) {
-            .game-container {
-                padding: 10px;
-            }
-
-            .grid {
-                gap: 10px;
-                padding: 10px;
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
-
-            #score, #time {
-                font-size: 20px;
-            }
+            body { padding-top: 80px; }
+            .container { padding: 1rem; }
+            .game-container { margin: 1rem auto; padding: 1.5rem; }
+            .grid { max-width: 90%; gap: 15px; }
+            h1 { font-size: 2rem; }
+            #score, #time { font-size: 1rem; }
         }
-
         @media (max-width: 480px) {
-            .grid {
-                gap: 8px;
-            }
+            .grid { gap: 10px; }
         }
     </style>
 </head>
 <body>
-    <a href="index.html" class="nav-button">← Back to Games</a>
+    <!-- Theme Toggle -->
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="dark-mode-toggle">
+            <input type="checkbox" id="dark-mode-toggle" />
+            <div class="slider">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon"></i>
+            </div>
+        </label>
+    </div>
+
+    <!-- Back Link -->
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Games</a>
+
     <div class="game-container">
         <h1>Whack-a-Mole</h1>
         <div id="score">Score: 0</div>
         <div id="time">Time: 30s</div>
         <button id="start-button" onclick="startGame()">Start Game</button>
         <div class="grid">
-            <div class="hole"><div class="mole" onclick="whack(0)"></div></div>
-            <div class="hole"><div class="mole" onclick="whack(1)"></div></div>
-            <div class="hole"><div class="mole" onclick="whack(2)"></div></div>
-            <div class="hole"><div class="mole" onclick="whack(3)"></div></div>
-            <div class="hole"><div class="mole" onclick="whack(4)"></div></div>
-            <div class="hole"><div class="mole" onclick="whack(5)"></div></div>
-            <div class="hole"><div class="mole" onclick="whack(6)"></div></div>
-            <div class="hole"><div class="mole" onclick="whack(7)"></div></div>
-            <div class="hole"><div class="mole" onclick="whack(8)"></div></div>
+            <div class="hole"><div class="mole"></div></div>
+            <div class="hole"><div class="mole"></div></div>
+            <div class="hole"><div class="mole"></div></div>
+            <div class="hole"><div class="mole"></div></div>
+            <div class="hole"><div class="mole"></div></div>
+            <div class="hole"><div class="mole"></div></div>
+            <div class="hole"><div class="mole"></div></div>
+            <div class="hole"><div class="mole"></div></div>
+            <div class="hole"><div class="mole"></div></div>
         </div>
     </div>
+
     <script>
+        // Game Logic (existing script, slightly modified)
         const moles = document.querySelectorAll('.mole');
+        const holes = document.querySelectorAll('.hole'); // Get holes for event delegation
         const startButton = document.getElementById('start-button');
+        const scoreDisplay = document.getElementById('score');
+        const timeDisplay = document.getElementById('time');
+
         let score = 0;
         let timeLeft = 30;
-        let currentMole = -1;
+        let currentMoleIndex = -1;
         let gameTimer;
         let moleTimer;
         let isPlaying = false;
 
-        // Add touch events for mobile
-        moles.forEach((mole, index) => {
-            mole.addEventListener('touchstart', (e) => {
-                e.preventDefault();
-                if (isPlaying) whack(index);
-            });
+        // Use event delegation on the grid for whacking
+        document.querySelector('.grid').addEventListener('click', (e) => {
+            if (isPlaying && e.target.classList.contains('mole')) {
+                 // Find the index of the clicked mole's parent hole
+                 const holeIndex = Array.from(holes).findIndex(hole => hole.contains(e.target));
+                 if (holeIndex === currentMoleIndex) {
+                     whack(holeIndex);
+                 }
+            }
         });
+         // Add touch events using delegation as well
+        document.querySelector('.grid').addEventListener('touchstart', (e) => {
+             if (isPlaying && e.target.classList.contains('mole')) {
+                 e.preventDefault(); // Prevent potential double tap zoom
+                 const holeIndex = Array.from(holes).findIndex(hole => hole.contains(e.target));
+                 if (holeIndex === currentMoleIndex) {
+                     whack(holeIndex);
+                 }
+            }
+        }, { passive: false });
+
 
         function startGame() {
             if (isPlaying) return;
             isPlaying = true;
             score = 0;
             timeLeft = 30;
-            document.getElementById('score').textContent = 'Score: 0';
+            scoreDisplay.textContent = 'Score: 0';
+            timeDisplay.textContent = `Time: ${timeLeft}s`;
             startButton.disabled = true;
-            
+            startButton.textContent = 'Whacking!';
+
             gameTimer = setInterval(() => {
                 timeLeft--;
-                document.getElementById('time').textContent = `Time: ${timeLeft}s`;
+                timeDisplay.textContent = `Time: ${timeLeft}s`;
                 if (timeLeft <= 0) {
                     endGame();
                 }
@@ -229,36 +428,42 @@
 
         function showMole() {
             // Hide previous mole if exists
-            if (currentMole !== -1) {
-                moles[currentMole].classList.remove('show');
+            if (currentMoleIndex !== -1) {
+                moles[currentMoleIndex].classList.remove('show');
             }
 
-            // Show new mole with animation
-            currentMole = Math.floor(Math.random() * moles.length);
-            moles[currentMole].classList.add('show');
+            // Show new mole
+            currentMoleIndex = Math.floor(Math.random() * moles.length);
+            moles[currentMoleIndex].classList.add('show');
 
-            // Random delay between 800ms and 1300ms
-            const delay = Math.random() * 500 + 800;
-            moleTimer = setTimeout(showMole, delay);
+            // Random delay
+            const delay = Math.random() * 500 + 600; // Adjusted delay range
+            moleTimer = setTimeout(() => {
+                 if (isPlaying) { // Only hide if game is still playing
+                    moles[currentMoleIndex].classList.remove('show');
+                    showMole(); // Immediately try to show another
+                 }
+            }, delay);
         }
 
         function whack(index) {
-            if (index === currentMole) {
+            // This function is now mainly for score and feedback,
+            // hiding is handled by showMole timer or next showMole call
+            if (index === currentMoleIndex) {
                 score += 10;
-                document.getElementById('score').textContent = `Score: ${score}`;
-                
-                // Visual and audio feedback
+                scoreDisplay.textContent = `Score: ${score}`;
+
                 const mole = moles[index];
-                mole.classList.add('bonked');
-                
-                // Play whack sound
-                const whackSound = new Audio('data:audio/wav;base64,UklGRjIAAABXQVZFZm10IBAAAAABAAEAQB8AAEAfAAABAAgAAABmYWN0BAAAAAAAAABkYXRhAAAAAA==');
-                whackSound.play().catch(() => {}); // Ignore errors if audio fails
-                
+                mole.classList.add('bonked'); // Visual feedback
+                mole.classList.remove('show'); // Hide immediately
+
+                // Optional: Play whack sound
+                // const whackSound = new Audio('...');
+                // whackSound.play().catch(() => {});
+
                 setTimeout(() => mole.classList.remove('bonked'), 100);
-                
-                // Hide current mole immediately
-                moles[currentMole].classList.remove('show');
+
+                // Clear the timer for the current mole and show the next one faster
                 clearTimeout(moleTimer);
                 showMole();
             }
@@ -266,16 +471,66 @@
 
         function endGame() {
             clearInterval(gameTimer);
-            clearTimeout(moleTimer);
+            clearTimeout(moleTimer); // Clear any pending mole appearance
             isPlaying = false;
-            if (currentMole !== -1) {
-                moles[currentMole].classList.remove('show');
+            if (currentMoleIndex !== -1 && moles[currentMoleIndex]) {
+                 moles[currentMoleIndex].classList.remove('show');
             }
+            currentMoleIndex = -1; // Reset index
             alert(`Game Over! Final Score: ${score}`);
             startButton.disabled = false;
-            timeLeft = 30;
-            document.getElementById('time').textContent = 'Time: 30s';
+            startButton.textContent = 'Start Game';
+            timeLeft = 30; // Reset timer display
+            timeDisplay.textContent = 'Time: 30s';
         }
+
+        // --- Theme Switching JS (from games/index.html) ---
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const body = document.body;
+        const themeKey = 'theme'; // Use consistent key
+
+        // Function to enable dark mode
+        function enableDarkMode() {
+            body.classList.remove('light-mode');
+            body.classList.add('dark-mode'); // Add dark-mode class
+            if (darkModeToggle) darkModeToggle.checked = true; // Checked for dark mode
+            localStorage.setItem(themeKey, 'dark');
+        }
+
+        // Function to enable light mode
+        function enableLightMode() {
+            body.classList.remove('dark-mode');
+            body.classList.add('light-mode'); // Add light-mode class
+            if (darkModeToggle) darkModeToggle.checked = false; // Unchecked for light mode
+            localStorage.setItem(themeKey, 'light');
+        }
+
+        // Function to load theme preference from localStorage
+        function loadThemePreference() {
+            const savedTheme = localStorage.getItem(themeKey);
+            // Check for saved theme, default to light if none found
+            if (savedTheme === 'dark') {
+                enableDarkMode();
+            } else {
+                enableLightMode(); // Default to light
+            }
+        }
+
+        // Event listener for the toggle switch
+        if (darkModeToggle) {
+            darkModeToggle.addEventListener('change', () => {
+                if (darkModeToggle.checked) { // Checked means dark mode
+                    enableDarkMode();
+                } else { // Unchecked means light mode
+                    enableLightMode();
+                }
+            });
+        }
+
+        // Load the theme preference when the page loads
+        // Run immediately since DOMContentLoaded is not needed for this simple script
+         loadThemePreference();
+
     </script>
 </body>
 </html>

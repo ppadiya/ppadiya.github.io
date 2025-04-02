@@ -23,6 +23,8 @@
     --text-primary-light: #212529;
     --text-secondary-light: #6c757d;
     --border-color-light: #DEE2E6;
+    --border-color-light-enhanced: #CFD8DC; /* Slightly darker for better contrast */
+    --border-color-light-enhanced: #CFD8DC; /* Slightly darker for better contrast */
     --accent-primary-light: #007BFF;
     --accent-secondary-light: #1ABC9C;
     --highlight-add-light: rgba(40, 167, 69, 0.15);
@@ -156,7 +158,7 @@ textarea:focus, select:focus {
     padding: var(--spacing-lg);
     display: flex;
     flex-direction: column;
-    border-right: 1px solid var(--border-color);
+    border-right: 1px solid var(--border-color-light-enhanced); /* Use enhanced border for light mode */
     transition: background-color 0.3s ease, border-color 0.3s ease;
     position: fixed; /* Fixed sidebar */
     left: 0;
@@ -200,21 +202,78 @@ textarea:focus, select:focus {
     font-weight: 500;
 }
 
-.theme-toggle {
-    margin-top: auto; /* Pushes toggle to the bottom */
-    text-align: center;
+/* Theme Toggle Styles (Slider) */
+.theme-switch-wrapper {
+    display: flex;
+    align-items: center;
+}
+.theme-switch {
+    display: inline-block;
+    height: 26px; /* Slightly smaller */
+    position: relative;
+    width: 50px; /* Slightly smaller */
+    cursor: pointer;
+}
+.theme-switch input {
+    display: none;
+}
+.slider {
+    background-color: #ccc; /* Default light mode slider bg */
+    bottom: 0;
+    cursor: pointer;
+    left: 0;
+    position: absolute;
+    right: 0;
+    top: 0;
+    transition: .4s;
+    border-radius: 26px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between; /* Align icons */
+    padding: 0 4px; /* Padding for icons */
+}
+.slider i {
+    color: #f0c419; /* Sun color */
+    font-size: 14px; /* Icon size */
+    transition: opacity 0.4s;
+    opacity: 1; /* Show sun initially in light mode (default state is unchecked = light) */
+}
+.slider i.fa-moon {
+    color: var(--accent-primary); /* Moon color (use accent) */
+    opacity: 0; /* Hide moon initially in light mode */
+    opacity: 1; /* Show moon initially in dark mode */
 }
 
-#theme-switch-btn {
-    background-color: var(--bg-primary);
-    color: var(--text-secondary);
-    border: 1px solid var(--border-color);
-    width: 100%;
+/* Styles when toggle is checked (Dark Mode) */
+input:checked + .slider {
+    background-color: #555; /* Darker grey for dark mode slider bg */
 }
-#theme-switch-btn:hover {
-    background-color: var(--border-color);
-    color: var(--text-primary);
+input:checked + .slider i.fa-sun {
+    opacity: 0; /* Hide sun in dark mode */
 }
+input:checked + .slider i.fa-moon {
+    opacity: 1; /* Show moon in dark mode */
+}
+
+/* The moving circle */
+.slider::before {
+    background-color: #fff;
+    bottom: 3px;
+    content: "";
+    height: 20px; /* Smaller circle */
+    left: 3px;
+    position: absolute;
+    transition: .4s;
+    width: 20px; /* Smaller circle */
+    border-radius: 50%;
+    z-index: 1; /* Ensure circle is above icons */
+}
+input:checked + .slider::before {
+    transform: translateX(24px); /* Move circle for dark mode */
+}
+
+/* Adjust slider background for light theme */
+/* Remove redundant/conflicting body.light-theme rules for slider as base rules handle it */
 
 
 .main-content {
@@ -228,7 +287,7 @@ textarea:focus, select:focus {
 .main-header {
     margin-bottom: var(--spacing-lg);
     padding-bottom: var(--spacing-md);
-    border-bottom: 1px solid var(--border-color);
+    border-bottom: 1px solid var(--border-color-light-enhanced); /* Use enhanced border for light mode */
 }
 
 .main-header h1 {
@@ -293,7 +352,7 @@ textarea:focus, select:focus {
     resize: vertical;
     padding: var(--spacing-md);
     padding-right: 40px; /* Space for copy button */
-    border: 1px solid var(--border-color);
+    border: 1px solid var(--border-color-light-enhanced); /* Use enhanced border for light mode */
     border-radius: var(--border-radius-md);
     background-color: var(--bg-glass); /* Glassmorphism background */
     backdrop-filter: blur(5px); /* Glassmorphism blur */
@@ -410,6 +469,30 @@ textarea:focus, select:focus {
     text-decoration: line-through;
     border-radius: var(--border-radius-sm);
     padding: 0 2px;
+}
+
+/* Dark Mode Border Overrides */
+body.dark-mode .sidebar {
+    border-right-color: var(--border-color-dark);
+}
+body.dark-mode .main-header {
+    border-bottom-color: var(--border-color-dark);
+}
+body.dark-mode .prompt-area textarea,
+body.dark-mode .output-display {
+    border-color: var(--border-color-dark);
+}
+
+/* Dark Mode Border Overrides */
+body.dark-mode .sidebar {
+    border-right-color: var(--border-color-dark);
+}
+body.dark-mode .main-header {
+    border-bottom-color: var(--border-color-dark);
+}
+body.dark-mode .prompt-area textarea,
+body.dark-mode .output-display {
+    border-color: var(--border-color-dark);
 }
 
 

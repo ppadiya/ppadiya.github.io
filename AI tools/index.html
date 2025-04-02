@@ -8,6 +8,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> <!-- Font Awesome for icons -->
 </head>
 <body>
     <div class="app-container">
@@ -26,15 +27,21 @@
                      <li><a href="../index.html">&larr; Back to Home</a></li>
                 </ul>
             </nav>
-            <div class="theme-toggle">
-                <button id="theme-switch-btn">Toggle Theme</button> 
-            </div>
         </aside>
 
         <main class="main-content">
             <header class="main-header">
                 <h1>Prompt Optimizer - UNDER CONSTRUCTION</h1>
-                <!-- Optional: Add user profile/settings here -->
+                <!-- Theme Toggle -->
+                <div class="theme-switch-wrapper" style="position: absolute; top: 15px; right: 20px; z-index: 1000;">
+                    <label class="theme-switch" for="dark-mode-toggle">
+                        <input type="checkbox" id="dark-mode-toggle" />
+                        <div class="slider">
+                            <i class="fas fa-sun"></i>
+                            <i class="fas fa-moon"></i>
+                        </div>
+                    </label>
+                </div>
             </header>
 
             <section class="tool-interface">

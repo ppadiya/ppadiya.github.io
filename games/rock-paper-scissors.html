@@ -4,98 +4,250 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rock Paper Scissors</title>
+    <!-- Links from games/index.html -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
+        /* --- Variables (Copied from main style.css) --- */
+        :root {
+            /* Light Mode Palette */
+            --primary-color-light: #0052cc;
+            --secondary-color-light: #64748B;
+            --background-color-light: #F8FAFC;
+            --surface-color-light: #ffffff;
+            --text-color-light: #1E293B;
+            --heading-color-light: #0F172A;
+            --accent-color-light: #FF5630;
+            --border-color-light: #E2E8F0;
+            --border-color-light-enhanced: #CFD8DC; /* Slightly darker for better contrast */
+            --success-color-light: #36B37E;
+            --highlight-bg-light: rgba(0, 82, 204, 0.05);
+            --toggle-bg-light: #E2E8F0;
+            --toggle-circle-light: white;
+            --toggle-icon-light: #F59E0B;
+
+            /* Dark Mode Palette */
+            --primary-color-dark: #4C9AFF;
+            --secondary-color-dark: #94A3B8;
+            --background-color-dark: #0F172A;
+            --surface-color-dark: #1E293B;
+            --text-color-dark: #CBD5E1;
+            --heading-color-dark: #F1F5F9;
+            --accent-color-dark: #FF8F73;
+            --border-color-dark: #334155;
+            --success-color-dark: #57D9A3;
+            --highlight-bg-dark: rgba(76, 154, 255, 0.1);
+            --toggle-bg-dark: #475569;
+            --toggle-circle-dark: #E2E8F0;
+            --toggle-icon-dark: #A5B4FC;
+
+            /* Default to Light Mode Variables */
+            --primary-color: var(--primary-color-light);
+            --secondary-color: var(--secondary-color-light);
+            --background-color: var(--background-color-light);
+            --surface-color: var(--surface-color-light);
+            --text-color: var(--text-color-light);
+            --heading-color: var(--heading-color-light);
+            --accent-color: var(--accent-color-light);
+            --border-color: var(--border-color-light);
+            --success-color: var(--success-color-light);
+            --highlight-bg: var(--highlight-bg-light);
+            --toggle-bg: var(--toggle-bg-light);
+            --toggle-circle: var(--toggle-circle-light);
+            --toggle-icon-sun: var(--toggle-icon-light);
+            --toggle-icon-moon: var(--toggle-icon-dark);
+
+            /* Fonts */
+            --font-primary: 'Poppins', sans-serif;
+            --base-font-size: 16px;
+            --container-max-width: 1200px;
+        }
+
+        /* Dark Mode Variable Overrides */
+        body.dark-mode {
+            --primary-color: var(--primary-color-dark);
+            --secondary-color: var(--secondary-color-dark);
+            --background-color: var(--background-color-dark);
+            --surface-color: var(--surface-color-dark);
+            --text-color: var(--text-color-dark);
+            --heading-color: var(--heading-color-dark);
+            --accent-color: var(--accent-color-dark);
+            --border-color: var(--border-color-dark);
+            --success-color: var(--success-color-dark);
+            --highlight-bg: var(--highlight-bg-dark);
+            --toggle-bg: var(--toggle-bg-dark);
+            --toggle-circle: var(--toggle-circle-dark);
+        }
+
+        /* --- Base Styles --- */
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
 
+        html {
+            font-size: var(--base-font-size);
+        }
+
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            line-height: 1.6;
-            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
-            color: #fff;
+            font-family: var(--font-primary);
+            line-height: 1.7;
+            background-color: var(--background-color);
+            color: var(--text-color);
             min-height: 100vh;
+            transition: background-color 0.3s ease, color 0.3s ease;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            padding-top: 60px; /* Add padding for fixed elements */
         }
 
-        .game-container {
-            text-align: center;
-            max-width: 800px;
+        .container {
+            max-width: var(--container-max-width);
             margin: 0 auto;
-            padding: 20px;
-        }
-
-        .nav-button {
-            position: fixed;
-            top: 20px;
-            left: 20px;
-            padding: 10px 20px;
-            background-color: #4ecca3;
-            color: #1a1a2e;
-            border: none;
-            border-radius: 25px;
-            cursor: pointer;
-            font-weight: bold;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            z-index: 1000;
-        }
-
-        .nav-button:hover {
-            background-color: #45b393;
-            transform: scale(1.05);
+            padding: 2rem 1.5rem;
         }
 
         h1 {
-            font-size: 2.5rem;
-            margin: 20px 0;
-            color: #4ecca3;
-            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+            font-size: clamp(2rem, 4vw, 2.5rem); /* Slightly smaller for game page */
+            margin-bottom: 1.5rem;
+            color: var(--heading-color);
+            font-weight: 700;
+            letter-spacing: -0.02em;
+            text-align: center;
         }
 
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.2s ease, opacity 0.2s ease;
+        }
+        a:hover {
+            color: var(--primary-color);
+            opacity: 0.8;
+        }
+
+        /* Back Link */
+        .back-link {
+            position: fixed; /* Keep it visible */
+            top: 15px;
+            left: 15px;
+            color: var(--primary-color);
+            text-decoration: none;
+            font-weight: 600;
+            padding: 8px 15px;
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            z-index: 1001;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .back-link i { margin-right: 5px; }
+        .back-link:hover { opacity: 0.8; background-color: var(--highlight-bg); }
+
+        /* Theme Toggle Styles (Using Variables) */
+        .theme-switch-wrapper {
+            position: fixed; /* Keep it visible */
+            top: 15px;
+            right: 15px;
+            z-index: 1001;
+            background-color: var(--surface-color);
+            padding: 5px;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        .theme-switch { display: inline-block; height: 26px; position: relative; width: 50px; cursor: pointer; }
+        .theme-switch input { display: none; }
+        .slider {
+            background-color: var(--toggle-bg);
+            bottom: 0; cursor: pointer; left: 0; position: absolute; right: 0; top: 0;
+            transition: background-color 0.3s ease;
+            border-radius: 13px; display: flex; align-items: center; justify-content: space-between; padding: 0 5px;
+        }
+        .slider::before {
+            background-color: var(--toggle-circle);
+            bottom: 3px; content: ""; height: 20px; left: 3px; position: absolute;
+            transition: transform 0.3s ease, background-color 0.3s ease;
+            width: 20px; border-radius: 50%; box-shadow: 0 1px 3px rgba(0,0,0,0.1); z-index: 2;
+        }
+        .slider .fa-sun, .slider .fa-moon { font-size: 12px; transition: opacity 0.3s ease, color 0.3s ease; z-index: 1; }
+        .slider .fa-sun { color: var(--toggle-icon-sun); opacity: 1; }
+        .slider .fa-moon { color: var(--toggle-icon-moon); opacity: 0; }
+        input:checked + .slider::before { transform: translateX(24px); }
+        input:checked + .slider .fa-sun { opacity: 0; }
+        input:checked + .slider .fa-moon { opacity: 1; }
+
+        /* Game Specific Styles */
+        .game-container {
+            text-align: center;
+            max-width: 800px;
+            margin: 2rem auto; /* Adjusted margin */
+            padding: 2rem; /* Increased padding */
+            background-color: var(--surface-color);
+            border: 1px solid var(--border-color-light-enhanced, var(--border-color));
+            border-radius: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+        }
+        body.dark-mode .game-container {
+            border-color: var(--border-color);
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+        }
+
+        /* Choice Buttons - Style like .btn */
         .choice-btn {
-            padding: 15px 30px;
-            margin: 10px;
-            font-size: 18px;
+            display: inline-block;
+            padding: 0.75rem 1.75rem;
+            border-radius: 8px;
+            font-weight: 600;
+            text-align: center;
             cursor: pointer;
-            background: rgba(255, 255, 255, 0.1);
-            color: white;
-            border: none;
-            border-radius: 15px;
-            transition: all 0.3s ease;
-            backdrop-filter: blur(5px);
+            transition: all 0.2s ease;
+            border: 1px solid var(--border-color); /* Use theme border */
+            font-size: 1rem; /* Adjusted size */
+            margin: 10px;
+            background-color: var(--surface-color); /* Use surface color */
+            color: var(--text-color); /* Use text color */
             min-width: 150px;
+            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
         }
-
         .choice-btn:hover {
-            transform: translateY(-5px);
-            background: rgba(255, 255, 255, 0.2);
-            box-shadow: 0 5px 15px rgba(78, 204, 163, 0.2);
+            transform: translateY(-3px);
+            background-color: var(--highlight-bg); /* Use highlight bg on hover */
+            border-color: var(--primary-color);
+            color: var(--primary-color);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        body.dark-mode .choice-btn {
+             border-color: var(--border-color-dark);
+        }
+        body.dark-mode .choice-btn:hover {
+             border-color: var(--primary-color);
         }
 
-        #score {
-            font-size: 24px;
+
+        #score, #result {
+            font-size: 1.1rem; /* Adjusted size */
             margin: 20px 0;
             padding: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            backdrop-filter: blur(5px);
+            background-color: var(--highlight-bg);
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            color: var(--text-color);
         }
 
         #result {
-            margin: 20px 0;
-            font-size: 20px;
             font-weight: bold;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
+            min-height: 50px; /* Ensure space for result text */
             animation: fadeIn 0.5s ease;
         }
 
         .choice-icons {
             font-size: 2em;
             margin: 20px 0;
+            color: var(--secondary-color); /* Use secondary color */
         }
 
         @keyframes fadeIn {
@@ -103,29 +255,32 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        /* Responsive */
         @media (max-width: 768px) {
-            .game-container {
-                padding: 10px;
-            }
-
-            .choice-btn {
-                padding: 12px 24px;
-                font-size: 16px;
-                min-width: 120px;
-            }
-
-            h1 {
-                font-size: 2rem;
-            }
-
-            #score, #result {
-                font-size: 18px;
-            }
+            body { padding-top: 80px; }
+            .container { padding: 1rem; }
+            .game-container { margin: 1rem auto; padding: 1.5rem; }
+            .choice-btn { padding: 0.6rem 1.2rem; font-size: 0.9rem; min-width: 120px; margin: 5px; }
+            h1 { font-size: 2rem; }
+            #score, #result { font-size: 1rem; }
         }
     </style>
 </head>
 <body>
-    <a href="index.html" class="nav-button">← Back to Games</a>
+    <!-- Theme Toggle -->
+    <div class="theme-switch-wrapper">
+        <label class="theme-switch" for="dark-mode-toggle">
+            <input type="checkbox" id="dark-mode-toggle" />
+            <div class="slider">
+                <i class="fas fa-sun"></i>
+                <i class="fas fa-moon"></i>
+            </div>
+        </label>
+    </div>
+
+    <!-- Back Link -->
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Games</a>
+
     <div class="game-container">
         <h1>Rock Paper Scissors</h1>
         <div id="score">Your Score: <span id="playerScore">0</span> - Computer Score: <span id="computerScore">0</span></div>
@@ -135,48 +290,103 @@
             <button class="choice-btn" onclick="play('paper')">📄 Paper</button>
             <button class="choice-btn" onclick="play('scissors')">✂️ Scissors</button>
         </div>
-        <div id="result"></div>
+        <div id="result">Choose your weapon!</div>
     </div>
+
     <script>
+        // Game Logic (existing script)
         let playerScore = 0;
         let computerScore = 0;
 
         function play(playerChoice) {
             const choices = ['rock', 'paper', 'scissors'];
             const computerChoice = choices[Math.floor(Math.random() * 3)];
-            
+
             let result = '';
+            let resultClass = ''; // For potential styling
+
             if (playerChoice === computerChoice) {
                 result = 'Tie! 🤝';
+                resultClass = 'tie';
             } else if (
                 (playerChoice === 'rock' && computerChoice === 'scissors') ||
                 (playerChoice === 'paper' && computerChoice === 'rock') ||
                 (playerChoice === 'scissors' && computerChoice === 'paper')
             ) {
                 result = 'You win! 🎉';
+                resultClass = 'win';
                 playerScore++;
             } else {
                 result = 'Computer wins! 💻';
+                resultClass = 'lose';
                 computerScore++;
             }
-            
+
             const emojis = {
                 rock: '🪨',
                 paper: '📄',
                 scissors: '✂️'
             };
-            
+
             document.getElementById('playerScore').textContent = playerScore;
             document.getElementById('computerScore').textContent = computerScore;
-            document.getElementById('result').innerHTML = 
-                `You chose ${emojis[playerChoice]}, computer chose ${emojis[computerChoice]}. ${result}`;
-            
-            // Animate the result
             const resultElement = document.getElementById('result');
+            resultElement.innerHTML =
+                `You chose ${emojis[playerChoice]}, computer chose ${emojis[computerChoice]}. <span class="${resultClass}">${result}</span>`;
+
+            // Animate the result
             resultElement.style.animation = 'none';
             resultElement.offsetHeight; // Trigger reflow
             resultElement.style.animation = 'fadeIn 0.5s ease';
         }
+
+        // --- Theme Switching JS (from games/index.html) ---
+        const darkModeToggle = document.getElementById('dark-mode-toggle');
+        const body = document.body;
+        const themeKey = 'theme'; // Use consistent key
+
+        // Function to enable dark mode
+        function enableDarkMode() {
+            body.classList.remove('light-mode');
+            body.classList.add('dark-mode'); // Add dark-mode class
+            if (darkModeToggle) darkModeToggle.checked = true; // Checked for dark mode
+            localStorage.setItem(themeKey, 'dark');
+        }
+
+        // Function to enable light mode
+        function enableLightMode() {
+            body.classList.remove('dark-mode');
+            body.classList.add('light-mode'); // Add light-mode class
+            if (darkModeToggle) darkModeToggle.checked = false; // Unchecked for light mode
+            localStorage.setItem(themeKey, 'light');
+        }
+
+        // Function to load theme preference from localStorage
+        function loadThemePreference() {
+            const savedTheme = localStorage.getItem(themeKey);
+            // Check for saved theme, default to light if none found
+            if (savedTheme === 'dark') {
+                enableDarkMode();
+            } else {
+                enableLightMode(); // Default to light
+            }
+        }
+
+        // Event listener for the toggle switch
+        if (darkModeToggle) {
+            darkModeToggle.addEventListener('change', () => {
+                if (darkModeToggle.checked) { // Checked means dark mode
+                    enableDarkMode();
+                } else { // Unchecked means light mode
+                    enableLightMode();
+                }
+            });
+        }
+
+        // Load the theme preference when the page loads
+        // Run immediately since DOMContentLoaded is not needed for this simple script
+         loadThemePreference();
+
     </script>
 </body>
 </html>

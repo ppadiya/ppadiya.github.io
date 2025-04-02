@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    const themeSwitchBtn = document.getElementById('theme-switch-btn');
+    const darkModeToggle = document.getElementById('dark-mode-toggle'); // New toggle input
     const enhanceBtn = document.getElementById('enhance-btn');
     const originalPromptTextarea = document.getElementById('original-prompt');
     const optimizedPromptOutput = document.getElementById('optimized-prompt-output');
@@ -7,25 +7,49 @@ document.addEventListener('DOMContentLoaded', () => {
     const outputPlaceholder = optimizedPromptOutput.querySelector('.placeholder');
     const copyBtns = document.querySelectorAll('.copy-btn');
 
-    // --- Theme Switching ---
-    const applyTheme = (theme) => {
-        if (theme === 'light') {
-            document.body.classList.add('light-theme');
-            themeSwitchBtn.textContent = 'Switch to Dark Mode';
+    // --- Theme Switching (Slider Toggle) ---
+    const themeKey = 'theme'; // Use consistent key
+
+    // Function to enable dark mode
+    function enableDarkMode() {
+        document.body.classList.remove('light-theme');
+        // Ensure dark-mode class isn't accidentally added if not used by this page's CSS
+        // document.body.classList.add('dark-mode'); // CSS uses :root variables primarily
+        darkModeToggle.checked = true; // Slider is checked for dark mode
+        localStorage.setItem(themeKey, 'dark');
+    }
+
+    // Function to enable light mode
+    function enableLightMode() {
+        document.body.classList.add('light-theme');
+        // document.body.classList.remove('dark-mode'); // CSS uses :root variables primarily
+        darkModeToggle.checked = false; // Slider is unchecked for light mode
+        localStorage.setItem(themeKey, 'light');
+    }
+
+    // Function to load theme preference from localStorage
+    function loadThemePreference() {
+        const savedTheme = localStorage.getItem(themeKey);
+        // Check for saved theme, default to dark if none found
+        if (savedTheme === 'light') {
+            enableLightMode();
         } else {
-            document.body.classList.remove('light-theme');
-            themeSwitchBtn.textContent = 'Switch to Light Mode';
+            enableDarkMode();
         }
-        localStorage.setItem('aiToolsHubTheme', theme);
-    };
+    }
 
-    const currentTheme = localStorage.getItem('aiToolsHubTheme') || 'dark'; // Default to dark
-    applyTheme(currentTheme);
-
-    themeSwitchBtn.addEventListener('click', () => {
-        const newTheme = document.body.classList.contains('light-theme') ? 'dark' : 'light';
-        applyTheme(newTheme);
+    // Event listener for the toggle switch
+    // Event listener for the toggle switch
+    darkModeToggle.addEventListener('change', () => {
+        if (darkModeToggle.checked) { // Checked means dark mode
+            enableDarkMode();
+        } else { // Unchecked means light mode
+            enableLightMode();
+        }
     });
+
+    // Load the theme preference when the page loads
+    loadThemePreference();
 
     // --- Copy Button Functionality ---
     copyBtns.forEach(btn => {
