@@ -3,7 +3,7 @@ const path = require('path');
 // Removed: const Groq = require('groq-sdk');
 
 // --- Configuration ---
-const KNOWLEDGE_BASE_PATH = path.resolve(__dirname, '../../data/knowledge_base.txt');
+const KNOWLEDGE_BASE_PATH = path.join(__dirname, '../../data/knowledge_base.txt'); // Use path.join
 const EMBEDDING_MODEL = 'Xenova/all-MiniLM-L6-v2'; // Model for embeddings
 const OPENROUTER_MODEL = 'deepseek/deepseek-chat-v3-0324:free'; // Using OpenRouter Deepseek model
 const MAX_CONTEXT_TOKENS = 3000; // Approx token limit for context sent to LLM
@@ -49,11 +49,28 @@ function estimateTokens(text) {
 
 // --- Initialization ---
 async function initialize() {
+    console.log("[Initialize] Starting initialization...");
     // Check for OpenRouter API Key
     if (!process.env.OPENROUTER_API_KEY) {
         console.error("OPENROUTER_API_KEY environment variable not set or empty.");
         // No need to initialize a client, but we need the key later
     }
+// Check if knowledge base file exists
+const kbExists = fs.existsSync(KNOWLEDGE_BASE_PATH);
+console.log(`[Initialize] Knowledge base exists: ${kbExists} at path: ${KNOWLEDGE_BASE_PATH}`);
+
+// Check if embedding model directory exists (not a perfect check, but helpful)
+// const embeddingModelDir = path.join(__dirname, 'node_modules', '@xenova', 'transformers', EMBEDDING_MODEL);
+// const modelDirExists = fs.existsSync(embeddingModelDir);
+// console.log(`[Initialize] Embedding model directory exists: ${modelDirExists} at path: ${embeddingModelDir}`);
+
+try {
+    const transformersVersion = require('@xenova/transformers/package.json').version;
+    console.log(`[Initialize] @xenova/transformers version: ${transformersVersion}`);
+} catch (error) {
+    console.warn("[Initialize] Could not determine @xenova/transformers version.");
+}
+
 
     // Load embedding pipeline (only once)
     if (!pipeline) {
