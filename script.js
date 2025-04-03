@@ -209,4 +209,109 @@ document.addEventListener('DOMContentLoaded', () => {
         }
     });
 
+    // --- Chatbot Functionality ---
+    const chatFab = document.getElementById('chat-fab');
+    const chatWindow = document.getElementById('chat-window');
+    const chatCloseBtn = document.getElementById('chat-close-btn');
+    const chatMessages = document.getElementById('chat-messages');
+    const chatForm = document.getElementById('chat-form');
+    const chatInput = document.getElementById('chat-input');
+    const chatSendBtn = document.getElementById('chat-send-btn');
+
+    // Function to add a message to the chat window
+    const addMessage = (sender, text) => {
+        const messageDiv = document.createElement('div');
+        messageDiv.classList.add('message', `${sender}-message`);
+        
+        // Basic sanitization (replace potential HTML tags)
+        const sanitizedText = text.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+        
+        // Simple markdown support (bold, italics) - can be expanded
+        let formattedText = sanitizedText
+            .replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>') // Bold
+            .replace(/\*(.*?)\*/g, '<em>$1</em>');       // Italics
+
+        // Handle newlines
+        formattedText = formattedText.replace(/\n/g, '<br>');
+
+        messageDiv.innerHTML = `<span>${formattedText}</span>`; // Use innerHTML for formatting
+        chatMessages.appendChild(messageDiv);
+        // Scroll to the bottom
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+        return messageDiv; // Return the element if needed (e.g., for removal)
+    };
+
+    // Function to show/hide thinking indicator
+    let thinkingIndicator = null;
+    const showThinking = (show = true) => {
+        if (show && !thinkingIndicator) {
+            thinkingIndicator = addMessage('thinking', '...');
+        } else if (!show && thinkingIndicator) {
+            thinkingIndicator.remove();
+            thinkingIndicator = null;
+        }
+    };
+
+    // Toggle chat window visibility
+    if (chatFab && chatWindow) {
+        chatFab.addEventListener('click', () => {
+            const isHidden = chatWindow.hidden;
+            chatWindow.hidden = !isHidden;
+            if (!isHidden) {
+                 chatInput.focus(); // Focus input when opening
+            }
+        });
+    }
+
+    // Close chat window
+    if (chatCloseBtn && chatWindow) {
+        chatCloseBtn.addEventListener('click', () => {
+            chatWindow.hidden = true;
+        });
+    }
+
+    // Handle chat form submission
+    if (chatForm && chatInput && chatSendBtn && chatMessages) {
+        chatForm.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const userQuery = chatInput.value.trim();
+
+            if (!userQuery) return; // Do nothing if input is empty
+
+            addMessage('user', userQuery);
+            chatInput.value = ''; // Clear input
+            chatSendBtn.disabled = true; // Disable send button
+            showThinking(true); // Show thinking indicator
+
+            try {
+                const response = await fetch('/.netlify/functions/chatbot', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify({ query: userQuery }),
+                });
+
+                showThinking(false); // Hide thinking indicator
+
+                if (!response.ok) {
+                    const errorData = await response.json().catch(() => ({ error: 'Failed to parse error response.' }));
+                    console.error('Chatbot API Error:', response.status, errorData);
+                    addMessage('bot', `Sorry, something went wrong. ${errorData.error || 'Please try again later.'}`);
+                } else {
+                    const data = await response.json();
+                    addMessage('bot', data.response || "Sorry, I couldn't get a response.");
+                }
+
+            } catch (error) {
+                showThinking(false); // Hide thinking indicator
+                console.error('Error sending message:', error);
+                addMessage('bot', 'Sorry, there was an error connecting to the chatbot. Please check your connection and try again.');
+            } finally {
+                 chatSendBtn.disabled = false; // Re-enable send button
+                 chatInput.focus(); // Keep focus on input
+            }
+        });
+    }
+
 });
