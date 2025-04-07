@@ -1,5 +1,11 @@
 const axios = require('axios');
 
+// Configuration
+const OPENROUTER_API_ENDPOINT = 'https://openrouter.ai/api/v1/chat/completions';
+const OPENROUTER_MODEL = 'deepseek/deepseek-chat-v3-0324:free';
+const SITE_URL = process.env.URL || 'http://localhost:8888';
+const SITE_NAME = 'Pratik Padiya Portfolio';
+
 exports.handler = async function(event, context) {
   // Only allow POST requests
   if (event.httpMethod !== 'POST') {
@@ -17,28 +23,38 @@ exports.handler = async function(event, context) {
       };
     }
 
-    // Use a different Groq model that exists
-    const groqData = {
+    // Check for API key
+    const openRouterApiKey = process.env.OPENROUTER_API_KEY;
+    if (!openRouterApiKey) {
+      return {
+        statusCode: 500,
+        body: JSON.stringify({ error: 'OpenRouter API Key is not configured. Check environment variables.' })
+      };
+    }
+
+    // Prepare the request data
+    const requestData = {
+      model: OPENROUTER_MODEL,
       messages: [
         { 
           role: "system", 
-          content: "You are a helpful assistant who enhances prompts. Make the prompt more detailed, specific, and effective." 
+          content: "You are an expert prompt optimizer. Enhance the user's prompt to be clearer, more specific, and more effective for large language models. Return only the optimized prompt text, without any preamble or explanation."
         },
         { 
           role: "user", 
           content: `Enhance this prompt to make it more effective: ${prompt}` 
         }
       ],
-      model: "llama-3.3-70b-versatile", // Changed model name
-      temperature: 0.7,
-      max_tokens: 1024
+      temperature: 0.3
     };
 
-    // Make the API call to Groq
-    const response = await axios.post('https://api.groq.com/openai/v1/chat/completions', groqData, {
+    // Make the API call to OpenRouter
+    const response = await axios.post(OPENROUTER_API_ENDPOINT, requestData, {
       headers: {
-        'Authorization': `Bearer ${process.env.GROQ_API_KEY}`,
-        'Content-Type': 'application/json'
+        'Authorization': `Bearer ${openRouterApiKey}`,
+        'Content-Type': 'application/json',
+        'HTTP-Referer': SITE_URL,
+        'X-Title': SITE_NAME
       }
     });
 
@@ -54,7 +70,23 @@ exports.handler = async function(event, context) {
     };
   } catch (error) {
     console.error("Error optimizing prompt:", error.message);
-    // Don't log the full error object
-    optimizedPromptOutput.innerHTML = `<span class="error-message">Error: Could not optimize prompt. Please try again later.</span>`;
-}
+    
+    let errorMessage = 'Could not optimize prompt. Please try again later.';
+    if (error.response) {
+      // Log OpenRouter API error details
+      console.error('OpenRouter API Error:', error.response.data);
+      errorMessage = `API Error: ${error.response.status} - ${error.response.data.error || error.message}`;
+    }
+    
+    return {
+      statusCode: 500,
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        error: errorMessage,
+        details: error.message
+      })
+    };
+  }
 };

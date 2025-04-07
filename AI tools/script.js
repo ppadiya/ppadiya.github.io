@@ -115,11 +115,8 @@ document.addEventListener('DOMContentLoaded', () => {
 
         // 2. Call the Serverless Function
         try {
-            console.log("Calling /api/enhance-prompt with prompt:", originalPrompt);
-
-            // --- Actual API Call ---
-            // Update the API path to match our new serverless function name
-            const response = await fetch('/api/enhance-prompt', {
+            console.log("Calling enhance-prompt function...");
+            const response = await fetch('/.netlify/functions/enhance-prompt', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json',
