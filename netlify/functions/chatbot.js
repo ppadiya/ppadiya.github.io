@@ -10,37 +10,24 @@ const KNOWLEDGE_BASE_PATH = path.join(__dirname, '../../data/knowledge_base.txt'
 const EMBEDDING_MODEL = 'Xenova/all-MiniLM-L6-v2';
 const OPENROUTER_MODEL = 'deepseek/deepseek-chat-v3-0324:free';
 const OPENROUTER_API_ENDPOINT = 'https://openrouter.ai/api/v1/chat/completions';
-const MAX_CONTEXT_TOKENS = 1500; // Further reduced to save memory
-const TOP_K = 2; // Keep at 2 to save memory
+const MAX_CONTEXT_TOKENS = 1500; // Further reduced to save processing time
+const TOP_K = 2;
+const BATCH_SIZE = 5; // Process embeddings in small batches
 const SITE_URL = process.env.URL || 'http://localhost:8888';
 const SITE_NAME = 'Pratik Padiya Portfolio';
-const BATCH_SIZE = 5; // Process embeddings in smaller batches
+const CACHE_FILE = '/tmp/embeddings_cache.json';
 
 // --- Helper Functions ---
 function chunkText(text) {
-    // Create smaller chunks to reduce memory usage
-    const paragraphs = text.split(/\n\s*\n/).map(chunk => chunk.trim()).filter(chunk => chunk.length > 0);
-    // Further split long paragraphs if needed
-    let chunks = [];
-    for (const paragraph of paragraphs) {
-        if (paragraph.length > 500) {
-            // Split into smaller chunks of ~500 chars
-            const sentences = paragraph.split(/(?<=\.|\?|\!)\s+/);
-            let currentChunk = '';
-            for (const sentence of sentences) {
-                if ((currentChunk + sentence).length > 500) {
-                    if (currentChunk) chunks.push(currentChunk.trim());
-                    currentChunk = sentence;
-                } else {
-                    currentChunk += ' ' + sentence;
-                }
-            }
-            if (currentChunk) chunks.push(currentChunk.trim());
-        } else {
-            chunks.push(paragraph);
+    const chunks = text.split(/\n\s*\n/).map(chunk => chunk.trim()).filter(chunk => chunk.length > 0);
+    // Further chunk long paragraphs
+    return chunks.reduce((acc, chunk) => {
+        if (chunk.length > 500) { // If chunk is too long, split it
+            const sentences = chunk.match(/[^.!?]+[.!?]+/g) || [chunk];
+            return [...acc, ...sentences];
         }
-    }
-    return chunks;
+        return [...acc, chunk];
+    }, []);
 }
 
 function cosineSimilarity(vecA, vecB) {
@@ -56,14 +43,13 @@ function cosineSimilarity(vecA, vecB) {
 }
 
 function estimateTokens(text) {
-    return Math.ceil(text.split(/\s+/).length * 1.3); // More conservative token estimate
+    return text.split(/\s+/).length;
 }
 
 // --- Initialization with optimized loading ---
 let pipelinePromise = null;
 let knowledgeBaseChunks = [];
-let knowledgeBaseEmbeddings = [];
-let isInitialized = false;
+let knowledgeBaseEmbeddings = null;
 
 async function getPipeline() {
     if (!pipelinePromise) {
@@ -82,58 +68,79 @@ async function getPipeline() {
     return pipelinePromise;
 }
 
-// Process embeddings in batches to reduce memory usage
-async function processEmbeddingsInBatches(pipeline, chunks) {
-    const embeddings = [];
+async function processChunkBatch(pipeline, chunks, startIdx) {
+    const batchChunks = chunks.slice(startIdx, startIdx + BATCH_SIZE);
+    if (batchChunks.length === 0) return [];
     
-    for (let i = 0; i < chunks.length; i += BATCH_SIZE) {
-        const batchChunks = chunks.slice(i, i + BATCH_SIZE);
-        console.log(`Processing batch ${Math.floor(i/BATCH_SIZE) + 1}/${Math.ceil(chunks.length/BATCH_SIZE)}`);
-        
-        const batchEmbeddings = await pipeline(batchChunks, {
-            pooling: 'mean',
-            normalize: true,
-            max_length: 256 // Reduced from 512 to save memory
-        });
-        
-        // Add batch embeddings to our collection
-        const batchEmbeddingsList = batchEmbeddings.tolist();
-        for (const embedding of batchEmbeddingsList) {
-            embeddings.push(embedding);
+    console.log(`Processing batch ${Math.floor(startIdx/BATCH_SIZE) + 1}/${Math.ceil(chunks.length/BATCH_SIZE)}`);
+    const embeddings = await pipeline(batchChunks, {
+        pooling: 'mean',
+        normalize: true,
+        max_length: 512
+    });
+    return embeddings.tolist();
+}
+
+async function loadCache() {
+    try {
+        if (fs.existsSync(CACHE_FILE)) {
+            const cache = JSON.parse(fs.readFileSync(CACHE_FILE, 'utf-8'));
+            return cache;
         }
-        
-        // Force garbage collection between batches
-        if (global.gc) {
-            global.gc();
-        }
+    } catch (error) {
+        console.warn('Cache load failed:', error);
     }
-    
-    return embeddings;
+    return null;
+}
+
+async function saveCache(chunks, embeddings) {
+    try {
+        fs.writeFileSync(CACHE_FILE, JSON.stringify({ chunks, embeddings }));
+    } catch (error) {
+        console.warn('Cache save failed:', error);
+    }
 }
 
 async function initialize() {
-    if (isInitialized) return;
-    
     if (!process.env.OPENROUTER_API_KEY) {
         throw new Error("OPENROUTER_API_KEY environment variable not set");
     }
 
-    try {
-        console.log("Loading knowledge base...");
-        const knowledgeBaseText = fs.readFileSync(KNOWLEDGE_BASE_PATH, 'utf-8');
-        knowledgeBaseChunks = chunkText(knowledgeBaseText);
-        
-        console.log("Initializing pipeline...");
-        const pipeline = await getPipeline();
-        
-        console.log("Generating embeddings...");
-        knowledgeBaseEmbeddings = await processEmbeddingsInBatches(pipeline, knowledgeBaseChunks);
-        
-        isInitialized = true;
-        console.log("Initialization complete.");
-    } catch (error) {
-        console.error("Initialization error:", error);
-        throw error;
+    // Try to load from cache first
+    const cache = await loadCache();
+    if (cache) {
+        console.log("Loading from cache...");
+        knowledgeBaseChunks = cache.chunks;
+        knowledgeBaseEmbeddings = cache.embeddings;
+        return;
+    }
+
+    // If no cache, process knowledge base
+    if (knowledgeBaseChunks.length === 0 || !knowledgeBaseEmbeddings) {
+        try {
+            console.log("Loading knowledge base...");
+            const knowledgeBaseText = fs.readFileSync(KNOWLEDGE_BASE_PATH, 'utf-8');
+            knowledgeBaseChunks = chunkText(knowledgeBaseText);
+            
+            console.log("Initializing pipeline...");
+            const pipeline = await getPipeline();
+            
+            console.log("Generating embeddings...");
+            knowledgeBaseEmbeddings = [];
+            
+            // Process in small batches
+            for (let i = 0; i < knowledgeBaseChunks.length; i += BATCH_SIZE) {
+                const batchEmbeddings = await processChunkBatch(pipeline, knowledgeBaseChunks, i);
+                knowledgeBaseEmbeddings.push(...batchEmbeddings);
+            }
+            
+            // Save to cache
+            await saveCache(knowledgeBaseChunks, knowledgeBaseEmbeddings);
+            console.log("Initialization complete.");
+        } catch (error) {
+            console.error("Initialization error:", error);
+            throw error;
+        }
     }
 }
 
@@ -155,22 +162,17 @@ exports.handler = async (event, context) => {
         const queryEmbedding = (await pipeline(query, {
             pooling: 'mean',
             normalize: true,
-            max_length: 256 // Reduced from 512 to save memory
+            max_length: 512
         })).tolist()[0];
 
         // Find relevant chunks with memory-efficient processing
-        const similarities = [];
-        for (let i = 0; i < knowledgeBaseEmbeddings.length; i++) {
-            const score = cosineSimilarity(queryEmbedding, knowledgeBaseEmbeddings[i]);
-            similarities.push({ index: i, score });
-        }
-        
-        // Sort and get top results
-        similarities.sort((a, b) => b.score - a.score);
-        const topResults = similarities.slice(0, TOP_K);
+        const similarities = knowledgeBaseEmbeddings
+            .map((embedding, index) => ({ index, score: cosineSimilarity(queryEmbedding, embedding) }))
+            .sort((a, b) => b.score - a.score)
+            .slice(0, TOP_K);
 
         // Build context efficiently
-        let context = topResults
+        let context = similarities
             .map(({ index }) => knowledgeBaseChunks[index])
             .join("\n\n");
 

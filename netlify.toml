@@ -10,8 +10,8 @@
 [functions.chatbot]
   memory = 1536
   timeout = 60
-  node_options = ["--expose-gc"]
   environment = { TRANSFORMERS_CACHE = "/tmp", TORCH_HOME = "/tmp" }
+  durable_object_namespace = "chatbot_cache"
 
 [functions.enhance-prompt]
   memory = 128
