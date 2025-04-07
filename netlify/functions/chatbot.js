@@ -13,6 +13,12 @@ const SITE_URL = process.env.URL || 'http://localhost:8888';
 const SITE_NAME = 'Pratik Padiya Portfolio';
 const CACHE_FILE = path.join(__dirname, 'embeddings_cache.json');
 
+// Configure environment for transformers
+process.env.DISABLE_SHARP = "true";
+process.env.TRANSFORMERS_CACHE = '/tmp';
+process.env.TORCH_HOME = '/tmp';
+process.env.USE_ONNX = "1";
+
 // --- Helper Functions ---
 function chunkText(text) {
     const chunks = text.split(/\n\s*\n/).map(chunk => chunk.trim()).filter(chunk => chunk.length > 0);
@@ -76,7 +82,13 @@ async function getPipeline() {
             const { pipeline } = await import('@xenova/transformers');
             pipelinePromise = pipeline('feature-extraction', EMBEDDING_MODEL, {
                 quantized: true,
-                progress_callback: null
+                progress_callback: null,
+                revision: 'main',
+                config: {
+                    use_auth_token: false,
+                    local_files_only: false,
+                    cpu_only: true
+                }
             });
         } catch (error) {
             console.error('Pipeline initialization error:', error);
@@ -93,7 +105,8 @@ async function processChunkBatch(pipeline, chunks, startIdx) {
     console.log(`Processing batch ${Math.floor(startIdx/BATCH_SIZE) + 1}/${Math.ceil(chunks.length/BATCH_SIZE)}`);
     const embeddings = await pipeline(batchChunks, {
         pooling: 'mean',
-        normalize: true
+        normalize: true,
+        max_length: 512
     });
     return embeddings.tolist();
 }
@@ -158,7 +171,8 @@ exports.handler = async (event, context) => {
         const pipeline = await getPipeline();
         const queryEmbedding = (await pipeline(query, {
             pooling: 'mean',
-            normalize: true
+            normalize: true,
+            max_length: 512
         })).tolist()[0];
 
         // Find relevant chunks

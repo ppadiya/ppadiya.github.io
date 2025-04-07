@@ -10,6 +10,12 @@
 [functions.chatbot]
   memory = 1024
   timeout = 10
+  environment = { 
+    TRANSFORMERS_CACHE = "/tmp",
+    TORCH_HOME = "/tmp",
+    DISABLE_SHARP = "true",
+    USE_ONNX = "1"
+  }
 
 [functions.enhance-prompt]
   memory = 128
