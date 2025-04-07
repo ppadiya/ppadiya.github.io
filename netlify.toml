@@ -8,8 +8,9 @@
   included_files = ["data/knowledge_base.txt"]
 
 [functions.chatbot]
-  memory = 1024
-  timeout = 30
+  memory = 1536
+  timeout = 60
+  node_options = ["--expose-gc"]
   environment = { TRANSFORMERS_CACHE = "/tmp", TORCH_HOME = "/tmp" }
 
 [functions.enhance-prompt]
