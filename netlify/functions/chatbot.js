@@ -1,13 +1,17 @@
 const fs = require('fs');
 const path = require('path');
 
+// Configure transformers to use RAM-based caching
+process.env.TRANSFORMERS_CACHE = '/tmp';
+process.env.TORCH_HOME = '/tmp';
+
 // --- Configuration ---
 const KNOWLEDGE_BASE_PATH = path.join(__dirname, '../../data/knowledge_base.txt');
 const EMBEDDING_MODEL = 'Xenova/all-MiniLM-L6-v2';
 const OPENROUTER_MODEL = 'deepseek/deepseek-chat-v3-0324:free';
 const OPENROUTER_API_ENDPOINT = 'https://openrouter.ai/api/v1/chat/completions';
-const MAX_CONTEXT_TOKENS = 3000;
-const TOP_K = 3;
+const MAX_CONTEXT_TOKENS = 2000; // Reduced from 3000 to save memory
+const TOP_K = 2; // Reduced from 3 to save memory
 const SITE_URL = process.env.URL || 'http://localhost:8888';
 const SITE_NAME = 'Pratik Padiya Portfolio';
 
@@ -32,15 +36,24 @@ function estimateTokens(text) {
     return text.split(/\s+/).length;
 }
 
-// --- Initialization with lazy loading ---
+// --- Initialization with optimized loading ---
 let pipelinePromise = null;
 let knowledgeBaseChunks = [];
 let knowledgeBaseEmbeddings = null;
 
 async function getPipeline() {
     if (!pipelinePromise) {
-        const { pipeline } = await import('@xenova/transformers');
-        pipelinePromise = pipeline('feature-extraction', EMBEDDING_MODEL, { quantized: true });
+        try {
+            const { pipeline } = await import('@xenova/transformers');
+            pipelinePromise = pipeline('feature-extraction', EMBEDDING_MODEL, {
+                quantized: true,
+                cache_dir: '/tmp',
+                local_files_only: false
+            });
+        } catch (error) {
+            console.error('Pipeline initialization error:', error);
+            throw error;
+        }
     }
     return pipelinePromise;
 }
@@ -50,12 +63,29 @@ async function initialize() {
         throw new Error("OPENROUTER_API_KEY environment variable not set");
     }
 
+    // Load and process knowledge base only if not already done
     if (knowledgeBaseChunks.length === 0 || !knowledgeBaseEmbeddings) {
-        const knowledgeBaseText = fs.readFileSync(KNOWLEDGE_BASE_PATH, 'utf-8');
-        knowledgeBaseChunks = chunkText(knowledgeBaseText);
-        const pipeline = await getPipeline();
-        const embeddings = await pipeline(knowledgeBaseChunks, { pooling: 'mean', normalize: true });
-        knowledgeBaseEmbeddings = embeddings.tolist();
+        try {
+            console.log("Loading knowledge base...");
+            const knowledgeBaseText = fs.readFileSync(KNOWLEDGE_BASE_PATH, 'utf-8');
+            knowledgeBaseChunks = chunkText(knowledgeBaseText);
+            
+            console.log("Initializing pipeline...");
+            const pipeline = await getPipeline();
+            
+            console.log("Generating embeddings...");
+            const embeddings = await pipeline(knowledgeBaseChunks, {
+                pooling: 'mean',
+                normalize: true,
+                max_length: 512
+            });
+            
+            knowledgeBaseEmbeddings = embeddings.tolist();
+            console.log("Initialization complete.");
+        } catch (error) {
+            console.error("Initialization error:", error);
+            throw error;
+        }
     }
 }
 
@@ -72,27 +102,32 @@ exports.handler = async (event, context) => {
             throw new Error("Missing or invalid 'query' in request body.");
         }
 
+        console.log("Processing query:", query);
         const pipeline = await getPipeline();
-        const queryEmbedding = (await pipeline(query, { pooling: 'mean', normalize: true })).tolist()[0];
+        const queryEmbedding = (await pipeline(query, {
+            pooling: 'mean',
+            normalize: true,
+            max_length: 512
+        })).tolist()[0];
 
-        // Find relevant chunks
+        // Find relevant chunks with memory-efficient processing
         const similarities = knowledgeBaseEmbeddings
             .map((embedding, index) => ({ index, score: cosineSimilarity(queryEmbedding, embedding) }))
-            .sort((a, b) => b.score - a.score);
+            .sort((a, b) => b.score - a.score)
+            .slice(0, TOP_K); // Only keep top K to save memory
 
-        // Build context from top chunks
-        let context = "";
-        let currentTokens = 0;
-        for (let i = 0; i < Math.min(TOP_K, similarities.length); i++) {
-            const chunk = knowledgeBaseChunks[similarities[i].index];
-            const chunkTokens = estimateTokens(chunk);
-            if (currentTokens + chunkTokens <= MAX_CONTEXT_TOKENS) {
-                context += chunk + "\n\n";
-                currentTokens += chunkTokens;
-            }
+        // Build context efficiently
+        let context = similarities
+            .map(({ index }) => knowledgeBaseChunks[index])
+            .join("\n\n");
+
+        // Trim context if it exceeds token limit
+        if (estimateTokens(context) > MAX_CONTEXT_TOKENS) {
+            const words = context.split(/\s+/);
+            context = words.slice(0, MAX_CONTEXT_TOKENS).join(' ');
         }
 
-        // Call OpenRouter API
+        console.log("Calling OpenRouter API...");
         const response = await fetch(OPENROUTER_API_ENDPOINT, {
             method: 'POST',
             headers: {

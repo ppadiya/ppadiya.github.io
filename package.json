@@ -5,7 +5,7 @@
   "main": "script.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm install --omit=dev && npm prune"
+    "build": "npm install --production && npm prune"
   },
   "repository": {
     "type": "git",
@@ -20,11 +20,8 @@
   },
   "homepage": "https://github.com/ppadiya/ppadiya.github.io#readme",
   "dependencies": {
-    "axios": "^1.8.4",
-    "groq-sdk": "^0.19.0"
-  },
-  "peerDependencies": {
-    "@xenova/transformers": "^2.17.2"
+    "@xenova/transformers": "^2.17.2",
+    "axios": "^1.8.4"
   },
   "engines": {
     "node": ">=18.0.0"
