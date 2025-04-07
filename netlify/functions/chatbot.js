@@ -1,7 +1,8 @@
 const fs = require('fs');
 const path = require('path');
 
-// Set transformer.js cache directory to a writable location in the lambda environment
+// Set environment variables for sharp and transformers
+process.env.SHARP_IGNORE_GLOBAL_LIBVIPS = "1";
 process.env.TRANSFORMERS_CACHE = '/tmp/transformers';
 
 // --- Configuration ---

@@ -5,7 +5,7 @@
   "main": "script.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "npm install --platform=linux --arch=x64 sharp && npm install @xenova/transformers"
+    "build": "npm install --platform=linux --arch=x64 sharp && SHARP_IGNORE_GLOBAL_LIBVIPS=1 npm install @xenova/transformers"
   },
   "repository": {
     "type": "git",

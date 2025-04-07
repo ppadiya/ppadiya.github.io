@@ -1,14 +1,16 @@
 [build]
   functions = "netlify/functions"
-  command = "npm run build"
+  command = "SHARP_IGNORE_GLOBAL_LIBVIPS=1 npm run build"
 
 [functions]
   node_bundler = "esbuild"
-  external_node_modules = ["@xenova/transformers"]
+  external_node_modules = ["@xenova/transformers", "sharp"]
+  included_files = ["data/knowledge_base.txt"]
 
 [build.environment]
   NODE_VERSION = "18"
   TRANSFORMERS_CACHE = "/tmp/transformers"
+  SHARP_IGNORE_GLOBAL_LIBVIPS = "1"
   # Increase function timeout for model loading
   AWS_LAMBDA_FUNCTION_TIMEOUT = "30"
 
