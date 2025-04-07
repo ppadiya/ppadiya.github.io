@@ -4,9 +4,13 @@
 
 [functions]
   node_bundler = "esbuild"
+  external_node_modules = ["@xenova/transformers"]
 
 [build.environment]
   NODE_VERSION = "18"
+  TRANSFORMERS_CACHE = "/tmp/transformers"
+  # Increase function timeout for model loading
+  AWS_LAMBDA_FUNCTION_TIMEOUT = "30"
 
 [[redirects]]
   from = "/api/*"

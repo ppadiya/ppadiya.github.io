@@ -1,6 +1,8 @@
 const fs = require('fs');
 const path = require('path');
-// Removed: const Groq = require('groq-sdk');
+
+// Set transformer.js cache directory to a writable location in the lambda environment
+process.env.TRANSFORMERS_CACHE = '/tmp/transformers';
 
 // --- Configuration ---
 const KNOWLEDGE_BASE_PATH = path.join(__dirname, '../../data/knowledge_base.txt'); // Use path.join
