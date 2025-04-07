@@ -1,28 +1,23 @@
 const fs = require('fs');
 const path = require('path');
 
-// Configure transformers to use RAM-based caching
-process.env.TRANSFORMERS_CACHE = '/tmp';
-process.env.TORCH_HOME = '/tmp';
-
 // --- Configuration ---
-// KNOWLEDGE_BASE_PATH is no longer needed here as embeddings are pre-computed
-const EMBEDDING_MODEL = 'Xenova/all-MiniLM-L6-v2'; // Still needed for query embedding
+const KNOWLEDGE_BASE_PATH = path.join(__dirname, '../../data/knowledge_base.txt');
+const EMBEDDING_MODEL = 'Xenova/all-MiniLM-L6-v2';
 const OPENROUTER_MODEL = 'deepseek/deepseek-chat-v3-0324:free';
 const OPENROUTER_API_ENDPOINT = 'https://openrouter.ai/api/v1/chat/completions';
 const MAX_CONTEXT_TOKENS = 1500;
 const TOP_K = 2;
-// BATCH_SIZE is no longer needed for generation within the function
+const BATCH_SIZE = 5;
 const SITE_URL = process.env.URL || 'http://localhost:8888';
 const SITE_NAME = 'Pratik Padiya Portfolio';
-const PRECOMPUTED_EMBEDDINGS_PATH = path.join(__dirname, './embeddings_cache.json'); // Path to the pre-computed file
+const CACHE_FILE = path.join(__dirname, 'embeddings_cache.json');
 
 // --- Helper Functions ---
 function chunkText(text) {
     const chunks = text.split(/\n\s*\n/).map(chunk => chunk.trim()).filter(chunk => chunk.length > 0);
-    // Further chunk long paragraphs
     return chunks.reduce((acc, chunk) => {
-        if (chunk.length > 500) { // If chunk is too long, split it
+        if (chunk.length > 500) {
             const sentences = chunk.match(/[^.!?]+[.!?]+/g) || [chunk];
             return [...acc, ...sentences];
         }
@@ -46,7 +41,30 @@ function estimateTokens(text) {
     return text.split(/\s+/).length;
 }
 
-// --- Initialization with optimized loading ---
+// --- Cache Management ---
+async function loadCache() {
+    try {
+        if (fs.existsSync(CACHE_FILE)) {
+            console.log("Loading pre-computed embeddings from cache...");
+            const cache = JSON.parse(fs.readFileSync(CACHE_FILE, 'utf-8'));
+            return cache;
+        }
+    } catch (error) {
+        console.warn('Cache load failed:', error);
+    }
+    return null;
+}
+
+async function saveCache(chunks, embeddings) {
+    try {
+        fs.writeFileSync(CACHE_FILE, JSON.stringify({ chunks, embeddings }));
+        console.log("Cache saved successfully");
+    } catch (error) {
+        console.warn('Cache save failed:', error);
+    }
+}
+
+// --- Initialization ---
 let pipelinePromise = null;
 let knowledgeBaseChunks = [];
 let knowledgeBaseEmbeddings = null;
@@ -54,11 +72,11 @@ let knowledgeBaseEmbeddings = null;
 async function getPipeline() {
     if (!pipelinePromise) {
         try {
+            console.log("Initializing embedding pipeline...");
             const { pipeline } = await import('@xenova/transformers');
             pipelinePromise = pipeline('feature-extraction', EMBEDDING_MODEL, {
                 quantized: true,
-                cache_dir: '/tmp',
-                local_files_only: false
+                progress_callback: null
             });
         } catch (error) {
             console.error('Pipeline initialization error:', error);
@@ -68,46 +86,58 @@ async function getPipeline() {
     return pipelinePromise;
 }
 
-// processChunkBatch, loadCache, and saveCache are no longer needed as embeddings are pre-computed
-
-let isInitialized = false;
+async function processChunkBatch(pipeline, chunks, startIdx) {
+    const batchChunks = chunks.slice(startIdx, startIdx + BATCH_SIZE);
+    if (batchChunks.length === 0) return [];
+    
+    console.log(`Processing batch ${Math.floor(startIdx/BATCH_SIZE) + 1}/${Math.ceil(chunks.length/BATCH_SIZE)}`);
+    const embeddings = await pipeline(batchChunks, {
+        pooling: 'mean',
+        normalize: true
+    });
+    return embeddings.tolist();
+}
 
 async function initialize() {
-    if (isInitialized) return; // Prevent re-initialization
-
     if (!process.env.OPENROUTER_API_KEY) {
         throw new Error("OPENROUTER_API_KEY environment variable not set");
     }
 
-    // Load pre-computed embeddings directly
+    // Try to load from cache first
+    const cache = await loadCache();
+    if (cache) {
+        console.log(`Loaded ${cache.chunks.length} chunks and ${cache.embeddings.length} embeddings.`);
+        knowledgeBaseChunks = cache.chunks;
+        knowledgeBaseEmbeddings = cache.embeddings;
+        return;
+    }
+
+    // If no cache, process knowledge base
     if (knowledgeBaseChunks.length === 0 || !knowledgeBaseEmbeddings) {
         try {
-            console.log(`Loading pre-computed embeddings from ${PRECOMPUTED_EMBEDDINGS_PATH}...`);
-            if (!fs.existsSync(PRECOMPUTED_EMBEDDINGS_PATH)) {
-                throw new Error(`Pre-computed embeddings file not found at ${PRECOMPUTED_EMBEDDINGS_PATH}. Run the generation script first.`);
+            console.log("Loading knowledge base...");
+            const knowledgeBaseText = fs.readFileSync(KNOWLEDGE_BASE_PATH, 'utf-8');
+            knowledgeBaseChunks = chunkText(knowledgeBaseText);
+            
+            const pipeline = await getPipeline();
+            
+            console.log("Generating embeddings...");
+            knowledgeBaseEmbeddings = [];
+            
+            // Process in small batches
+            for (let i = 0; i < knowledgeBaseChunks.length; i += BATCH_SIZE) {
+                const batchEmbeddings = await processChunkBatch(pipeline, knowledgeBaseChunks, i);
+                knowledgeBaseEmbeddings.push(...batchEmbeddings);
+                
+                // Save cache after each batch to preserve progress
+                await saveCache(knowledgeBaseChunks, knowledgeBaseEmbeddings);
             }
-            const cacheData = JSON.parse(fs.readFileSync(PRECOMPUTED_EMBEDDINGS_PATH, 'utf-8'));
-            knowledgeBaseChunks = cacheData.chunks;
-            knowledgeBaseEmbeddings = cacheData.embeddings;
-
-            if (!knowledgeBaseChunks || !knowledgeBaseEmbeddings || knowledgeBaseChunks.length === 0 || knowledgeBaseEmbeddings.length === 0) {
-                throw new Error("Pre-computed embeddings file is invalid or empty.");
-            }
-
-            console.log(`Loaded ${knowledgeBaseChunks.length} chunks and ${knowledgeBaseEmbeddings.length} embeddings.`);
-            isInitialized = true; // Mark as initialized
-
+            
+            console.log("Initialization complete.");
         } catch (error) {
-            console.error("Error loading pre-computed embeddings:", error);
-            // Set to empty arrays to prevent partial state issues
-            knowledgeBaseChunks = [];
-            knowledgeBaseEmbeddings = null;
-            isInitialized = false; // Ensure it can retry if applicable, though likely fatal
-            throw error; // Re-throw the error to fail the function execution
+            console.error("Initialization error:", error);
+            throw error;
         }
-    } else {
-        console.log("Embeddings already loaded.");
-        isInitialized = true; // Mark as initialized if already loaded
     }
 }
 
@@ -128,22 +158,20 @@ exports.handler = async (event, context) => {
         const pipeline = await getPipeline();
         const queryEmbedding = (await pipeline(query, {
             pooling: 'mean',
-            normalize: true,
-            max_length: 512
+            normalize: true
         })).tolist()[0];
 
-        // Find relevant chunks with memory-efficient processing
+        // Find relevant chunks
         const similarities = knowledgeBaseEmbeddings
             .map((embedding, index) => ({ index, score: cosineSimilarity(queryEmbedding, embedding) }))
             .sort((a, b) => b.score - a.score)
             .slice(0, TOP_K);
 
-        // Build context efficiently
+        // Build context
         let context = similarities
             .map(({ index }) => knowledgeBaseChunks[index])
             .join("\n\n");
 
-        // Trim context if it exceeds token limit
         if (estimateTokens(context) > MAX_CONTEXT_TOKENS) {
             const words = context.split(/\s+/);
             context = words.slice(0, MAX_CONTEXT_TOKENS).join(' ');

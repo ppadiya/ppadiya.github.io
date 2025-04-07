@@ -8,10 +8,8 @@
   included_files = ["data/knowledge_base.txt", "netlify/functions/embeddings_cache.json"]
 
 [functions.chatbot]
-  memory = 1536
-  timeout = 60
-  environment = { TRANSFORMERS_CACHE = "/tmp", TORCH_HOME = "/tmp" }
-  durable_object_namespace = "chatbot_cache"
+  memory = 1024
+  timeout = 10
 
 [functions.enhance-prompt]
   memory = 128
