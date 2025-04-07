@@ -4,18 +4,11 @@
 
 [functions]
   node_bundler = "esbuild"
-  external_node_modules = ["@xenova/transformers"]
   included_files = ["data/knowledge_base.txt", "netlify/functions/embeddings_cache.json"]
 
 [functions.chatbot]
   memory = 1024
   timeout = 10
-
-[functions.chatbot.environment]
-  TRANSFORMERS_CACHE = "/tmp"
-  TORCH_HOME = "/tmp"
-  DISABLE_SHARP = "true"
-  USE_ONNX = "1"
 
 [functions.enhance-prompt]
   memory = 128

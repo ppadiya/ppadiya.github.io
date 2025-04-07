@@ -1,23 +1,17 @@
 const fs = require('fs');
 const path = require('path');
+const axios = require('axios');
 
 // --- Configuration ---
 const KNOWLEDGE_BASE_PATH = path.join(__dirname, '../../data/knowledge_base.txt');
-const EMBEDDING_MODEL = 'Xenova/all-MiniLM-L6-v2';
+const EMBEDDING_MODEL = 'xenova/all-minilm-l6-v2';
 const OPENROUTER_MODEL = 'deepseek/deepseek-chat-v3-0324:free';
 const OPENROUTER_API_ENDPOINT = 'https://openrouter.ai/api/v1/chat/completions';
 const MAX_CONTEXT_TOKENS = 1500;
 const TOP_K = 2;
-const BATCH_SIZE = 5;
 const SITE_URL = process.env.URL || 'http://localhost:8888';
 const SITE_NAME = 'Pratik Padiya Portfolio';
 const CACHE_FILE = path.join(__dirname, 'embeddings_cache.json');
-
-// Configure environment for transformers
-process.env.DISABLE_SHARP = "true";
-process.env.TRANSFORMERS_CACHE = '/tmp';
-process.env.TORCH_HOME = '/tmp';
-process.env.USE_ONNX = "1";
 
 // --- Helper Functions ---
 function chunkText(text) {
@@ -47,7 +41,6 @@ function estimateTokens(text) {
     return text.split(/\s+/).length;
 }
 
-// --- Cache Management ---
 async function loadCache() {
     try {
         if (fs.existsSync(CACHE_FILE)) {
@@ -70,46 +63,9 @@ async function saveCache(chunks, embeddings) {
     }
 }
 
-// --- Initialization ---
-let pipelinePromise = null;
+// Cache for embeddings and chunks
 let knowledgeBaseChunks = [];
 let knowledgeBaseEmbeddings = null;
-
-async function getPipeline() {
-    if (!pipelinePromise) {
-        try {
-            console.log("Initializing embedding pipeline...");
-            const { pipeline } = await import('@xenova/transformers');
-            pipelinePromise = pipeline('feature-extraction', EMBEDDING_MODEL, {
-                quantized: true,
-                progress_callback: null,
-                revision: 'main',
-                config: {
-                    use_auth_token: false,
-                    local_files_only: false,
-                    cpu_only: true
-                }
-            });
-        } catch (error) {
-            console.error('Pipeline initialization error:', error);
-            throw error;
-        }
-    }
-    return pipelinePromise;
-}
-
-async function processChunkBatch(pipeline, chunks, startIdx) {
-    const batchChunks = chunks.slice(startIdx, startIdx + BATCH_SIZE);
-    if (batchChunks.length === 0) return [];
-    
-    console.log(`Processing batch ${Math.floor(startIdx/BATCH_SIZE) + 1}/${Math.ceil(chunks.length/BATCH_SIZE)}`);
-    const embeddings = await pipeline(batchChunks, {
-        pooling: 'mean',
-        normalize: true,
-        max_length: 512
-    });
-    return embeddings.tolist();
-}
 
 async function initialize() {
     if (!process.env.OPENROUTER_API_KEY) {
@@ -131,21 +87,25 @@ async function initialize() {
             console.log("Loading knowledge base...");
             const knowledgeBaseText = fs.readFileSync(KNOWLEDGE_BASE_PATH, 'utf-8');
             knowledgeBaseChunks = chunkText(knowledgeBaseText);
+
+            // For now, we'll use a simple fallback method that creates basic embeddings
+            // This is temporary until we can properly fix the transformer integration
+            knowledgeBaseEmbeddings = knowledgeBaseChunks.map(chunk => {
+                const words = chunk.toLowerCase().split(/\W+/);
+                const vector = new Array(300).fill(0); // Simple word vector
+                words.forEach((word, i) => {
+                    // Simple hash function to create a basic embedding
+                    const hash = word.split('').reduce((acc, char) => {
+                        return ((acc << 5) - acc) + char.charCodeAt(0);
+                    }, 0);
+                    vector[Math.abs(hash) % 300] += 1;
+                });
+                // Normalize the vector
+                const magnitude = Math.sqrt(vector.reduce((acc, val) => acc + val * val, 0));
+                return vector.map(val => val / (magnitude || 1));
+            });
             
-            const pipeline = await getPipeline();
-            
-            console.log("Generating embeddings...");
-            knowledgeBaseEmbeddings = [];
-            
-            // Process in small batches
-            for (let i = 0; i < knowledgeBaseChunks.length; i += BATCH_SIZE) {
-                const batchEmbeddings = await processChunkBatch(pipeline, knowledgeBaseChunks, i);
-                knowledgeBaseEmbeddings.push(...batchEmbeddings);
-                
-                // Save cache after each batch to preserve progress
-                await saveCache(knowledgeBaseChunks, knowledgeBaseEmbeddings);
-            }
-            
+            await saveCache(knowledgeBaseChunks, knowledgeBaseEmbeddings);
             console.log("Initialization complete.");
         } catch (error) {
             console.error("Initialization error:", error);
@@ -168,12 +128,18 @@ exports.handler = async (event, context) => {
         }
 
         console.log("Processing query:", query);
-        const pipeline = await getPipeline();
-        const queryEmbedding = (await pipeline(query, {
-            pooling: 'mean',
-            normalize: true,
-            max_length: 512
-        })).tolist()[0];
+        
+        // Create a simple embedding for the query using the same method
+        const words = query.toLowerCase().split(/\W+/);
+        const queryVector = new Array(300).fill(0);
+        words.forEach(word => {
+            const hash = word.split('').reduce((acc, char) => {
+                return ((acc << 5) - acc) + char.charCodeAt(0);
+            }, 0);
+            queryVector[Math.abs(hash) % 300] += 1;
+        });
+        const magnitude = Math.sqrt(queryVector.reduce((acc, val) => acc + val * val, 0));
+        const queryEmbedding = queryVector.map(val => val / (magnitude || 1));
 
         // Find relevant chunks
         const similarities = knowledgeBaseEmbeddings
