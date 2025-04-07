@@ -1,18 +1,23 @@
 [build]
   functions = "netlify/functions"
-  command = "SHARP_IGNORE_GLOBAL_LIBVIPS=1 npm run build"
+  command = "npm run build"
 
 [functions]
   node_bundler = "esbuild"
-  external_node_modules = ["@xenova/transformers", "sharp"]
+  external_node_modules = ["@xenova/transformers"]
   included_files = ["data/knowledge_base.txt"]
+  
+[functions.chatbot]
+  memory = 3008
+  timeout = 30
+
+[functions.enhance-prompt]
+  memory = 128
 
 [build.environment]
   NODE_VERSION = "18"
   TRANSFORMERS_CACHE = "/tmp/transformers"
   SHARP_IGNORE_GLOBAL_LIBVIPS = "1"
-  # Increase function timeout for model loading
-  AWS_LAMBDA_FUNCTION_TIMEOUT = "30"
 
 [[redirects]]
   from = "/api/*"
