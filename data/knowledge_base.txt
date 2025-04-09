@@ -1,399 +1,529 @@
-# Pratik Padiya - Professional Profile
+Causes You Care About
 
-## Summary
+Children
+Education
+Health
+Science and Technology
+----------------------------------------
+Certifications
 
-**From LinkedIn Profile:**
-Strategic Product Leader & Solutions Architect | Scaling Innovation in Fintech, Payments, and SaaS Driving end-to-end product strategy and technical solutions for global financial institutions, payment processors, and SaaS enterprises. With 9+ years of experience at companies like Mastercard, I specialize in bridging business objectives with cutting-edge technology to deliver scalable, secure, and user-centric products that drive revenue growth, operational efficiency, and market differentiation. I solve critical challenges for banks, fintechs, payment companies and others by: • Leading Product Innovation: Designing API-first, cloud-native solutions (e.g. SSO integrations, and SaaS platforms) that streamline compliance, reduce time-to-market, and improve customer retention. • Architecting Client-Centric Solutions: Translating complex business needs into actionable technical roadmaps as a trusted advisor to C-suite stakeholders and cross-functional teams. • Accelerating GTM Success: Building and launching products across APAC markets, including a 50% faster adoption rate for Mastercard’s localized solutions in APAC through agile execution and data-driven UX optimization. • Pre-Sales Excellence: Collaborating with sales and engineering teams to craft tailored demos, RFPs, and ROI-driven proposals that convert pipeline opportunities into $6M+ enterprise contracts. Core Expertise: | Product Leadership: Ideation-to-launch lifecycle management, Agile, KPI-driven roadmaps. | Fintech & Payments: API integrations, tokenization, digital wallets, fraud detection, regulatory compliance (PCI-DSS, GDPR). | Pre-Sales & Partnerships: Stakeholder alignment, competitive analysis, client workshops, partner ecosystem development. Career Highlights • APAC Market Expansion @ Mastercard: Drove $10M+ revenue by launching localized products across different countries, integrating multi-currency/multi-language support and region-specific compliance frameworks. • API Ecosystem Development: Architected a unified API gateway, reducing third-party integration costs by 30% and enabling 50% faster and seamless integration. • Operational Digitization @ Nisa Group: Built a performance management platform that automated 80% of manual workflows, saving thousands of hours annually. Let’s connect to discuss how I can help your organization drive revenue, streamline operations, or outpace competitors in the evolving financial landscape. Open to Roles: Product Manager | Solutions Architect | Solutions Engineer | Pre-Sales Leadership
+Name: Delivery Tips for Speaking in Public
+Authority: LinkedIn
+Started On: Sep 2019
 
-**From Resume:**
-As a seasoned and versatile Product Manager and Solutions Leader, I specialize in driving revenue growth, enhancing customer experience, and developing innovative solutions across diverse industries, particularly in fintech and payments. My expertise includes spearheading cross-functional teams, collaborating with senior stakeholders, and implementing strategic initiatives globally. I possess a strong ability to navigate complex market landscapes, consistently exceeding organizational targets and positioning myself as an asset to any dynamic organization.
+Name: PRINCE2 Agile® Foundation & Practitioner
+Authority: APMG International
+Started On: Jun 2016
+Finished On: Jun 2021
 
-## Headline
+Name: UX Foundations: Research
+Authority: LinkedIn
+Started On: Dec 2020
 
-Product Manager | Solutions Engineer | Pre-Sales & Project Management | AI Enthusiast | Driving Customer-Centric Solutions | Agile Leadership | Cross-Functional Collaboration | Stakeholder & Vendor Engagement
+Name: Artificial Intelligence Foundations: Thinking Machines
+Authority: LinkedIn
+Started On: Dec 2020
 
-## Core Competencies (from Resume)
+Name: Product Innovation for Product Managers
+Authority: LinkedIn
+Started On: Dec 2020
 
-*   Product & Market Strategy: Proficient in managing multiple global and regional products, successfully aligning strategies with customer demands and market trends.
-*   Cross-functional Leadership: Skilled in managing diverse teams and promoting collaboration across departments, resulting in achievement of organizational goals.
-*   End-User Experiences: Enhanced end-user experiences by integrating customer feedback and implementing innovative UX/UI enhancements, ensuring seamless functionality.
+Name: Agile Foundations
+Authority: LinkedIn
+Started On: Dec 2020
 
-## Key Achievements (from Resume)
+Name: Selling with Stories, Part 1: What Makes a Great Story?
+Authority: LinkedIn
+Started On: Dec 2020
 
-*   Spearheaded the launch of global products in Asia Pacific for Mastercard scaling adoption across diverse markets and increasing revenue by localizing content, tailoring products, and managing pricing strategies.
-*   Led digital transformation for Mastercard's payment card benefits, developing APIs, API standardization, and integrating web-view and Single Sign-On features making the solutions more secure and easy to use & consume increasing the overall adoption.
-*   Digitalized operations and performance management system at Nisa Group that streamlined the processes, improved efficiency, and led to a unified system across the organization.
+Name: PRINCE2® 2009 Certifications
+Authority: AXELOS Global Best Practice
+Started On: Jun 2016
+Finished On: Jun 2021
 
-## Skills
+Name: Product Management Essentials
+Authority: Coursera
+Started On: Oct 2024
 
-**From LinkedIn:**
+Name: Product Management: Building AI-Powered Products
+Authority: SkillUp Online
+Started On: Oct 2024
+License Number: OSICWV5T9BPW
+
+Name: Create User Stories in Jira
+Authority: Coursera
+Started On: Oct 2024
+License Number: ERORPMWH16SA
+
+Name: ChatGPT for Product Management and Innovation Course
+Authority: Agile Enterprise Coach
+Started On: Oct 2024
+
+Name: Becoming an AI-First Product Leader
+Authority: LinkedIn
+Started On: Nov 2024
+
+Name: Data-Driven Product Management
+Authority: LinkedIn
+Started On: Dec 2024
+
+Name: Introduction to Generative AI
+Authority: Google
+Started On: Jan 2025
+
+Name: Closing the Green Skills Gap to Power a Greener Economy and Drive Sustainability
+Authority: LinkedIn
+Started On: Jan 2025
+
+----------------------------------------
+Company Follows
+
+OpenAI, Followed On: Tue Apr 01 2025
+AIA Singapore, Followed On: Wed Mar 26 2025
+Stripe, Followed On: Tue Mar 25 2025
+Miro, Followed On: Mon Mar 24 2025
+Ant International, Followed On: Mon Mar 24 2025
+Oracle, Followed On: Fri Mar 21 2025
+Trulyyy, Followed On: Fri Mar 21 2025
+SRA Solar, Followed On: Wed Mar 19 2025
+NETS, Followed On: Tue Mar 18 2025
+eTeam, Followed On: Fri Jan 31 2025
+Avenir Group, Followed On: Thu Jan 30 2025
+Bank of America, Followed On: Thu Jan 30 2025
+Millennium Hotels and Resorts, Followed On: Thu Jan 30 2025
+IMDA, Followed On: Tue Jan 28 2025
+OXZ Capital, Followed On: Tue Jan 28 2025
+Lendela, Followed On: Tue Jan 28 2025
+ERA Singapore
+DBS Bank, Followed On: Thu Jan 23 2025
+OPay, Followed On: Thu Jan 23 2025
+Amazon, Followed On: Thu Jan 23 2025
+Citi, Followed On: Thu Jan 23 2025
+UOB, Followed On: Thu Jan 23 2025
+Worldpay, Followed On: Tue Jan 21 2025
+Positive Intelligence, Followed On: Wed Jan 08 2025
+Crypto.com, Followed On: Thu Jan 02 2025
+FairPrice Group, Followed On: Thu Jan 02 2025
+Assurity Trusted Solutions Pte Ltd, Followed On: Wed Dec 04 2024
+Google DeepMind, Followed On: Mon Dec 02 2024
+Kerry Consulting, Followed On: Fri Nov 29 2024
+Bitget, Followed On: Fri Nov 29 2024
+YouTrip, Followed On: Wed Nov 27 2024
+Google, Followed On: Tue Nov 26 2024
+NTUC FairPrice, Followed On: Tue Nov 19 2024
+SmarterChains, Followed On: Thu Oct 17 2024
+StubHub International, Followed On: Wed Oct 16 2024
+Liemur Limited, Followed On: Wed Oct 16 2024
+Sangfor Technologies, Followed On: Wed Oct 16 2024
+Business Insights, Followed On: Mon Oct 07 2024
+Critical Thinking, Followed On: Mon Oct 07 2024
+Mindera, Followed On: Sun Sep 22 2024
+Xe.com, Followed On: Thu Jul 25 2024
+Numbers Never Lie| Numerologist & Tarot Card Reader, Followed On: Wed Mar 20 2024
+Atome, Followed On: Sat Oct 02 2021
+VML, Followed On: Tue Sep 14 2021
+Pulse iD, Followed On: Thu Apr 29 2021
+Good Doctor Technology, Followed On: Tue Apr 20 2021
+Ezy Net Pte Ltd, Followed On: Mon Apr 19 2021
+Workmate, Followed On: Mon Apr 19 2021
+Fiserv, Followed On: Sat Apr 17 2021
+Evolution Singapore, Followed On: Sat Apr 17 2021
+Aspire Lifestyles, Followed On: Fri Apr 16 2021
+Razer Inc., Followed On: Fri Apr 16 2021
+Intuit, Followed On: Fri Apr 16 2021
+Maybank, Followed On: Fri Apr 16 2021
+saferay Group, Followed On: Tue Apr 13 2021
+EdgeProp Singapore, Followed On: Mon Apr 12 2021
+Arrow (YC S21), Followed On: Fri Apr 09 2021
+Hodlnaut, Followed On: Fri Apr 09 2021
+University of Mumbai, Followed On: Thu Jan 14 2021
+Bridge Alliance, Followed On: Sun Dec 06 2020
+hoolah, Followed On: Mon Nov 30 2020
+Visa, Followed On: Thu Jan 30 2020
+HSBC, Followed On: Wed Jul 24 2019
+EMVCo, Followed On: Tue Dec 04 2018
+Welingkar Institute of Management, Followed On: Wed Dec 07 2016
+Bhavans College, Followed On: Tue Dec 06 2016
+Mastercard Data & Services, Followed On: Fri Aug 07 2015
+Mastercard, Followed On: Fri Aug 07 2015
+Pinpoint, MasterCard Loyalty Solutions, Followed On: Wed Jun 03 2015
+Analytics Careers, Followed On: Mon Feb 16 2015
+
+
+----------------------------------------
+Education
+
+School Name: Welingkar Institute of Management
+Start Date: 2007
+End Date: 2009
+Degree Name: PGDBA
+
+School Name: University of Mumbai
+Start Date: 2003
+End Date: 2006
+Degree Name: Bachelor of Commerce
+
+----------------------------------------
+Endorsements Given
+Endorsement Date: 2020/06/28, Skill Name: New Business Development, Endorsement Status: ACCEPTED
+Endorsement Date: 2020/06/28, Skill Name: Analytical Skills, Endorsement Status: ACCEPTED
+Endorsement Date: 2020/06/28, Skill Name: Brand Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2016/07/18, Skill Name: Team Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2016/07/18, Skill Name: Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2016/05/11, Skill Name: Quality Assurance, Endorsement Status: ACCEPTED
+Endorsement Date: 2016/05/11, Skill Name: Mobile Applications, Endorsement Status: ACCEPTED
+Endorsement Date: 2015/08/25, Skill Name: Functional Testing, Endorsement Status: ACCEPTED
+Endorsement Date: 2014/04/02, Skill Name: Sales Operations, Endorsement Status: ACCEPTED
+Endorsement Date: 2014/04/02, Skill Name: Market Research, Endorsement Status: ACCEPTED
+Endorsement Date: 2014/04/02, Skill Name: Market Analysis, Endorsement Status: ACCEPTED
+Endorsement Date: 2014/04/02, Skill Name: Business Development, Endorsement Status: ACCEPTED
+
+----------------------------------------
+Endorsements Received
+
+Endorsement Date: 2024/04/16, Skill Name: Information Architecture, Endorsement Status: ACCEPTED
+Endorsement Date: 2024/04/16, Skill Name: Product Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2024/04/16, Skill Name: Storytelling, Endorsement Status: ACCEPTED
+Endorsement Date: 2024/04/16, Skill Name: Customer Relationship Management (CRM), Endorsement Status: ACCEPTED
+Endorsement Date: 2024/04/16, Skill Name: Business Development, Endorsement Status: ACCEPTED
+Endorsement Date: 2024/04/16, Skill Name: CRM, Endorsement Status: ACCEPTED
+Endorsement Date: 2024/04/16, Skill Name: Sales, Endorsement Status: ACCEPTED
+Endorsement Date: 2024/04/16, Skill Name: Market Research, Endorsement Status: ACCEPTED
+Endorsement Date: 2024/04/16, Skill Name: Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2024/04/16, Skill Name: Interpersonal Relationships, Endorsement Status: ACCEPTED
+Endorsement Date: 2024/04/16, Skill Name: Product Design, Endorsement Status: ACCEPTED
+Endorsement Date: 2024/04/16, Skill Name: Strategic Thinking, Endorsement Status: ACCEPTED
+Endorsement Date: 2024/04/16, Skill Name: User Experience (UX), Endorsement Status: ACCEPTED
+Endorsement Date: 2024/04/16, Skill Name: Cross-functional Collaborations, Endorsement Status: ACCEPTED
+Endorsement Date: 2024/04/16, Skill Name: Strategic Partnerships, Endorsement Status: ACCEPTED
+Endorsement Date: 2023/08/08, Skill Name: User Experience (UX), Endorsement Status: ACCEPTED
+Endorsement Date: 2023/08/08, Skill Name: Cross-functional Collaborations, Endorsement Status: ACCEPTED
+Endorsement Date: 2023/08/08, Skill Name: Strategic Partnerships, Endorsement Status: ACCEPTED
+Endorsement Date: 2022/05/19, Skill Name: Market Research, Endorsement Status: ACCEPTED
+Endorsement Date: 2022/05/19, Skill Name: Team Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2017/02/23, Skill Name: Team Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2016/09/10, Skill Name: Business Analysis, Endorsement Status: ACCEPTED
+Endorsement Date: 2016/09/10, Skill Name: Customer Relationship Management (CRM), Endorsement Status: ACCEPTED
+Endorsement Date: 2016/09/10, Skill Name: Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2016/09/10, Skill Name: Team Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2016/09/10, Skill Name: Vendor Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2016/07/21, Skill Name: Team Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2016/07/04, Skill Name: Business Analysis, Endorsement Status: ACCEPTED
+Endorsement Date: 2016/07/04, Skill Name: Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2016/07/04, Skill Name: Market Research, Endorsement Status: ACCEPTED
+Endorsement Date: 2016/07/04, Skill Name: Strategy, Endorsement Status: ACCEPTED
+Endorsement Date: 2016/07/04, Skill Name: Team Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2016/06/22, Skill Name: Business Development, Endorsement Status: ACCEPTED
+Endorsement Date: 2016/05/17, Skill Name: Team Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2016/05/17, Skill Name: CRM, Endorsement Status: ACCEPTED
+Endorsement Date: 2016/05/14, Skill Name: Team Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2016/03/01, Skill Name: Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2016/01/02, Skill Name: Business Analysis, Endorsement Status: ACCEPTED
+Endorsement Date: 2015/11/06, Skill Name: Strategy, Endorsement Status: ACCEPTED
+Endorsement Date: 2015/11/06, Skill Name: CRM, Endorsement Status: ACCEPTED
+Endorsement Date: 2015/10/31, Skill Name: Vendor Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2015/10/31, Skill Name: Team Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2015/10/16, Skill Name: Team Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2015/10/16, Skill Name: Vendor Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2015/09/07, Skill Name: CRM, Endorsement Status: ACCEPTED
+Endorsement Date: 2015/08/10, Skill Name: CRM, Endorsement Status: ACCEPTED
+Endorsement Date: 2015/05/08, Skill Name: Business Objects, Endorsement Status: ACCEPTED
+Endorsement Date: 2015/05/08, Skill Name: Team Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2015/05/08, Skill Name: Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2015/05/08, Skill Name: Business Analysis, Endorsement Status: ACCEPTED
+Endorsement Date: 2015/05/08, Skill Name: CRM, Endorsement Status: ACCEPTED
+Endorsement Date: 2015/01/24, Skill Name: Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2014/12/28, Skill Name: CRM, Endorsement Status: ACCEPTED
+Endorsement Date: 2014/08/06, Skill Name: CRM, Endorsement Status: ACCEPTED
+Endorsement Date: 2014/08/06, Skill Name: Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2014/08/06, Skill Name: Market Research, Endorsement Status: ACCEPTED
+Endorsement Date: 2014/08/06, Skill Name: Training, Endorsement Status: ACCEPTED
+Endorsement Date: 2014/08/06, Skill Name: Vendor Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2014/06/30, Skill Name: Marketing, Endorsement Status: ACCEPTED
+Endorsement Date: 2014/06/30, Skill Name: Market Research, Endorsement Status: ACCEPTED
+Endorsement Date: 2014/06/27, Skill Name: Business Development, Endorsement Status: ACCEPTED
+Endorsement Date: 2014/06/27, Skill Name: Business Analysis, Endorsement Status: ACCEPTED
+Endorsement Date: 2014/06/20, Skill Name: CRM, Endorsement Status: ACCEPTED
+Endorsement Date: 2014/06/20, Skill Name: Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2014/06/20, Skill Name: Team Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2014/06/20, Skill Name: Training, Endorsement Status: ACCEPTED
+Endorsement Date: 2014/06/20, Skill Name: Vendor Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2014/06/10, Skill Name: Training, Endorsement Status: ACCEPTED
+Endorsement Date: 2014/06/10, Skill Name: Business Development, Endorsement Status: ACCEPTED
+Endorsement Date: 2014/05/14, Skill Name: Market Research, Endorsement Status: ACCEPTED
+Endorsement Date: 2014/04/03, Skill Name: Business Development, Endorsement Status: ACCEPTED
+Endorsement Date: 2014/04/03, Skill Name: Market Research, Endorsement Status: ACCEPTED
+Endorsement Date: 2014/04/03, Skill Name: CRM, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/11/18, Skill Name: CRM, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/11/18, Skill Name: Strategy, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/11/18, Skill Name: Team Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/11/15, Skill Name: Business Analysis, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/11/15, Skill Name: CRM, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/11/15, Skill Name: Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/11/15, Skill Name: Market Research, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/11/15, Skill Name: Team Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/08/24, Skill Name: Marketing, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/08/24, Skill Name: Microsoft Office, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/08/24, Skill Name: Strategy, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/08/24, Skill Name: Vendor Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/08/24, Skill Name: Event Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/08/24, Skill Name: Team Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/08/24, Skill Name: Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/08/24, Skill Name: Strategic Communications, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/08/24, Skill Name: Business Analysis, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/08/24, Skill Name: Market Research, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/08/24, Skill Name: CRM, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/07/31, Skill Name: Training, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/07/31, Skill Name: Analysis, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/07/23, Skill Name: CRM, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/07/23, Skill Name: Strategic Communications, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/07/23, Skill Name: Strategy, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/07/23, Skill Name: Business Analysis, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/07/06, Skill Name: Market Research, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/07/06, Skill Name: Management, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/07/05, Skill Name: Market Research, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/05/06, Skill Name: CRM, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/03/05, Skill Name: CRM, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/03/05, Skill Name: Market Research, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/03/05, Skill Name: Microsoft Office, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/02/06, Skill Name: CRM, Endorsement Status: ACCEPTED
+Endorsement Date: 2013/01/16, Skill Name: Strategic Communications, Endorsement Status: ACCEPTED
+Endorsement Date: 2012/12/10, Skill Name: Business Analysis, Endorsement Status: ACCEPTED
+Endorsement Date: 2012/09/26, Skill Name: Strategy, Endorsement Status: ACCEPTED
+
+----------------------------------------
+
+Hashtag Follows
+
+india, CreatedTime: 2016-08-07, LastModifiedTime: 2016-08-07, State: Follow
+bigdata, CreatedTime: 2014-07-08, LastModifiedTime: 2014-07-08, State: Follow
+businessintelligence, CreatedTime: 2014-07-08, LastModifiedTime: 2014-07-08, State: Follow
+data, CreatedTime: 2014-07-08, LastModifiedTime: 2014-07-08, State: Follow
+datamining, CreatedTime: 2014-07-08, LastModifiedTime: 2014-07-08, State: Follow
+analytics, CreatedTime: 2014-07-08, LastModifiedTime: 2014-07-08, State: Follow
+bestadvice, CreatedTime: 2014-07-08, LastModifiedTime: 2014-07-08, State: Follow
+editorspicks, CreatedTime: 2014-07-08, LastModifiedTime: 2014-07-08, State: Follow
+management, CreatedTime: 2014-07-08, LastModifiedTime: 2014-07-08, State: Follow
+personalbranding, CreatedTime: 2014-07-08, LastModifiedTime: 2014-07-08, State: Follow
+careers, CreatedTime: 2014-07-08, LastModifiedTime: 2014-07-08, State: Follow
+motivation, CreatedTime: 2014-07-08, LastModifiedTime: 2014-07-08, State: Follow
+personaldevelopment, CreatedTime: 2014-07-08, LastModifiedTime: 2014-07-08, State: Follow
+
+----------------------------------------
+
+Job Applicant Saved Screening Questions
+
+Question: What is your level of proficiency in eng? Answer: Professional
+Question: How many years of work experience do you have with Cross-team Collaboration? Answer: 12+
+Question: How many years of work experience do you have with Java? Answer: 0
+Question: Have you completed the following level of education: Doctor of Philosophy? Answer: No
+Question: Are you legally authorized to work in Singapore? Answer: Yes
+Question: How many years of work experience do you have with Customer Experience? Answer: 9
+Question: Mobile phone number Answer: Please email
+Question: What is your level of proficiency in spanish? Answer: Basic
+Question: How many years of work experience do you have with Content Management Systems (CMS)? Answer: 3
+Question: How many years of work experience do you have with Design Thinking? Answer: 1
+Question: How many years of work experience do you have with Microsoft Excel? Answer: 15
+Question: How many years of work experience do you have with Product Management? Answer: 12
+Question: How many years of work experience do you have with Microsoft PowerPoint? Answer: 15
+Question: What is your level of proficiency in chinese? Answer: None
+Question: Do you speak English? Answer: Yes
+Question: How many years of work experience do you have with Software as a Service (SaaS)? Answer: 12
+Question: Do you speak Spanish? Answer: Yes
+Question: Are you legally authorized to work in Singapore? Answer: Yes
+Question: How many years of work experience do you have with Business Acumen? Answer: 10
+Question: Are you legally authorized to work in SG? Answer: Yes
+Question: How many years of work experience do you have with People Management? Answer: 6
+Question: Do you speak Chinese? Answer: No
+Question: How many years of work experience do you have with Microsoft Office? Answer: 15
+Question: Have you completed the following level of education: Master's Degree? Answer: No
+Question: How many years of work experience do you have with Team Collaboration? Answer: 12
+Question: Do you speak Japanese? Answer: No
+Question: Have you completed the following level of education: Master of Business Administration? Answer: Yes
+Question: What is your level of proficiency in ita? Answer: None
+Question: Are you comfortable working in an onsite setting? Answer: Yes
+Question: How many years of PRDM experience do you currently have? Answer: 12
+Question: Have you completed the following level of education: Bachelor's Degree? Answer: Yes
+
+----------------------------------------
+
+Languages
+
+Name: English, Proficiency: Professional working proficiency
+Name: Hindi, Proficiency: Professional working proficiency
+Name: Gujarati, Proficiency: Professional working proficiency
+Name: Marathi, Proficiency: Professional working proficiency
+
+----------------------------------------
+
+Positions
+
+Company Name: Seeking Opportunities in Finance, Technology, Fintechs & SaaS companies
+Title: Pre-Sales Solution Engineer and Product Manager
+Location: Singapore
+Started On: Oct 2024
+
+
+
+Company Name: Mastercard
+Title: Director Solutions Engineering
+Description: Design and deliver customized Loyalty Solutions for specific customer needs. Break down complex components into user-friendly forms, optimizing user experience (UX). Draft detailed Solution Assessment documents for seamless implementation. Collaborate with cross-functional teams for successful solution launches and client satisfaction. Drive innovation, identifying opportunities for product enhancements and new solutions. Cultivate strategic partnerships with internal and external stakeholders.
+Location: Singapore
+Started On: Jan 2022
+Finished On: Oct 2024
+
+
+Company Name: MasterCard
+Title: Product Manager
+Description: Managing Payment Card Benefits for AP region: - Personalization Platform - Various loyalty products (Card Benefits) - New product development Leading API development and Customer Experience (UX/UI) initiatives for the department Regional Lead for Loyalty Benefits DBMS 3rd Party Vendor Management Create and drive Proof-of-Concepts and Demonstration systems Solutions Architect & Sales Support
+Location: Singapore
+Started On: Sep 2017
+Finished On: Dec 2021
+
+
+Company Name: Mastercard
+Title: Product Manager
+Description: AP Regional Product Lead for Data Roaming Service Launched a X-Border Loyalty Program Managed New Loyalty Data Analytics Managed Merchant Data Analytics for existing Loyalty Programs
+Location: India
+Started On: Jun 2015
+Finished On: Aug 2017
+
+
+Company Name: S2 Infotech International Ltd
+Title: Business Development Manager
+Description: New Business Development. Study/Analyse current processes and planning and implementing changes for improvement. Coordinating with Pan India team and clients for feedback and continuous improvement. Key Account Management/ Client Servicing Online Marketing Strategies MIS and Business Analysis.
+Started On: Nov 2013
+Finished On: May 2015
+
+
+Company Name: NISA Industrial Services pvt Ltd
+Title: Product Manager (Strategist Business Developer & IT Interface).
+Description: Heading Business Excellence Cell, Customer relationship Mgmt. ERP – Functional Consultant, DBMS - MySQL Business Analysis, Process Improvement & Documenting SOPs. Monitoring, Analyzing & Reporting Operational Activity & Branch Financial. Training Ops team at Pan India level; Inducting new hires at all level. Single point of contact/liaison between Corporate office and Operations team across India for PMS, Marketing & Business Development. Performing research to identify potential clients and providing the database to marketing teams. Upselling/Cross-Selling to contribute towards Business Development. Laid Marketing Program and General Business Solutions resulting in increased customer traffic. Employed Merchandising and Promotional Strategies. Implemented Digital Marketing Strategies SEO, SMO, ORM, Web Designing.
+Started On: Dec 2009
+Finished On: Jul 2013
+
+
+Company Name: Hutchinson 3 Global Services Pvt Limited
+Title: Team Coach
+Description: Customer Services - Team Manager. Manage a team of 24 members and look after their overall performance. Monitor the quality of work done. ERP – Functional Consultant Peoplesoft CRM, Business Objects Etc. Constantly Liaise with UK teams for Business review and Development. Keep check on customer satisfaction and provide continuous feedback to team members. Suggest significant new products that satisfy consumer wants and needs. Measure and report success/learning from initiatives launched and tactics executed. Develop programs to meet needs of both consumers and retail customers.
+Location: Mumbai, Maharashtra, India
+Started On: Nov 2004
+Finished On: Nov 2009
+
+
+Company Name: Zenta
+Title: Sr. Customer Relation Executive
+Description: Catering to US customers, selling financial products. Educate customers about their credit profile. Always the best in performance and meeting SLA. Won award for best productivity. Organized training for new employees. Handle customer disputes and enhance customer experience.
+Started On: Apr 2003
+Finished On: Oct 2004
+
+----------------------------------------
+
+Profile
+
+First Name: Pratik
+Last Name: Padiya
+Headline: Product Manager | Solutions Engineer | Pre-Sales & Project Management | AI Enthusiast | Driving Customer-Centric Solutions | Agile Leadership | Cross-Functional Collaboration | Stakeholder & Vendor Engagement
+Summary: Strategic Product Leader & Solutions Architect | Scaling Innovation in Fintech, Payments, and SaaS Driving end-to-end product strategy and technical solutions for global financial institutions, payment processors, and SaaS enterprises. With 9+ years of experience at companies like Mastercard, I specialize in bridging business objectives with cutting-edge technology to deliver scalable, secure, and user-centric products that drive revenue growth, operational efficiency, and market differentiation. I solve critical challenges for banks, fintechs, payment companies and others by: • Leading Product Innovation: Designing API-first, cloud-native solutions (e.g. SSO integrations, and SaaS platforms) that streamline compliance, reduce time-to-market, and improve customer retention. • Architecting Client-Centric Solutions: Translating complex business needs into actionable technical roadmaps as a trusted advisor to C-suite stakeholders and cross-functional teams. • Accelerating GTM Success: Building and launching products across APAC markets, including a 50% faster adoption rate for Mastercard’s localized solutions in APAC through agile execution and data-driven UX optimization. • Pre-Sales Excellence: Collaborating with sales and engineering teams to craft tailored demos, RFPs, and ROI-driven proposals that convert pipeline opportunities into $6M+ enterprise contracts. Core Expertise: | Product Leadership: Ideation-to-launch lifecycle management, Agile, KPI-driven roadmaps. | Fintech & Payments: API integrations, tokenization, digital wallets, fraud detection, regulatory compliance (PCI-DSS, GDPR). | Pre-Sales & Partnerships: Stakeholder alignment, competitive analysis, client workshops, partner ecosystem development. Career Highlights • APAC Market Expansion @ Mastercard: Drove $10M+ revenue by launching localized products across different countries, integrating multi-currency/multi-language support and region-specific compliance frameworks. • API Ecosystem Development: Architected a unified API gateway, reducing third-party integration costs by 30% and enabling 50% faster and seamless integration. • Operational Digitization @ Nisa Group: Built a performance management platform that automated 80% of manual workflows, saving thousands of hours annually. Let’s connect to discuss how I can help your organization drive revenue, streamline operations, or outpace competitors in the evolving financial landscape. Open to Roles: Product Manager | Solutions Architect | Solutions Engineer | Pre-Sales Leadership
+Industry: Technology, Information and Media
+Geo Location: Singapore, Singapore
+Websites: PERSONAL
+
+----------------------------------------
+
+
+Resume Summary
+
+Core Competencies:
+
+Product Strategy & Market Fit: Proficient in driving product-market fit by analyzing customer needs, market trends, Local market requirements and competitive landscapes to shape effective product and commercial strategies.
+Cross-Functional Leadership: Skilled in managing diverse teams and promoting collaboration across departments to achieve organizational goals.
+Operational Excellence: Built and optimized operational processes to execute strategies at scale, ensuring quality, speed, and efficiency.
+Go-To-Market Execution: Experienced in conceptualizing and executing go-to-market strategies that drive adoption and revenue growth.
+Data-Driven Decision-Making: Leveraged analytics and first principles-led problem-solving to deliver actionable insights and recommendations to senior stakeholders.
+
+
+Key Achievements:
+
+Spearheaded the launch of global payment card benefits in the Asia-Pacific region for Mastercard, scaling adoption across diverse markets and increasing revenue through localized content, tailored products, and optimized pricing strategies.
+Led digital transformation initiatives for Mastercard’s payment card benefits, developing APIs, standardizing API frameworks, and integrating web-view and Single Sign-On (SSO) features, making solutions more secure and user-friendly, thereby increasing overall adoption.
+Digitized operations and performance management systems at NISA Group, streamlining processes, improving efficiency, and creating a unified system across the organization.
+Conducted pre-sales product demonstrations and led proof-of-concept (POC) developments, showcasing value to clients and stakeholders, resulting in increased adoption and revenue.
+Delivered thoroughly researched recommendations and structured updates to senior stakeholders, including executive leadership, influencing product strategies and enhancing market presence.
+
+Projects
+
+Title: Digitisation of Operations and Performance Mgmt System
+Description: Planning the project with Board of Directors (BOD) and IT team along with Documenting the entire Project. Liaise with BOD and various departments including HR, Finance and Operations. Perform GAP analysis, highlight the GAPS and suggest workarounds, Peer reviews. Prepare Functional specifications, screen designs and process flow diagrams. Co-ordinate with development team and provide necessary support. Provide Training to different teams across the country. Continuously monitor and improvise.
+Started On: Apr 2012
+Finished On: Jun 2013
+
+Title: Process Transition
+Description: Liaise with colleagues & process stake holders in UK Understanding various processes and documenting the SOPs. Training the team on these processes. Monitor the performance and implementation while simultaneously giving feedback and improvising. Handed over the processes to respective departments.
+Started On: Aug 2007
+Finished On: Jun 2009
+
+Title: Launched Global Payment Card Benefits in Asia Pacific
+Description: Performing all market readiness tasks for AP region including Jurisdiction Review, Language localisation, Product Customisation, Fixing Local Pricing etc.
+Started On: Oct 2016
+Finished On: Oct 2017
+
+Title: Digital Enhancement of existing Products/Platforms
+Description: Leading the project to make all the Payment Card Benefits (Product/Platforms) Digitally Advanced which includes API development, API standardisation, developing web-view and Single Sign-On etc.
+Started On: Oct 2019
+
+----------------------------------------
+
+
+Recommendations Received
+
+Company: Uniglobe Holding
+Job Title: Trade Marketing Manager
+Text: I had the privilege of working with Pratik, a remarkable professional who exemplifies excellence in business operations and customer relationship management. Heading the Business Excellence Cell, Pratik has consistently demonstrated his expertise across diverse domains, including ERP as a Functional Consultant, DBMS (MySQL), business analysis, and process improvement. Pratik’s ability to analyze and streamline operations is unparalleled. He has successfully monitored, analyzed, and reported operational activity and branch financials, providing invaluable insights that have significantly enhanced efficiency. His skill in documenting SOPs and training operations teams at a pan-India level is a testament to his leadership and commitment to continuous improvement. As the single point of contact between the corporate office and operations teams across India, Pratik has showcased exceptional coordination and communication skills. His efforts in PMS, marketing, and business development have been instrumental in aligning strategies and ensuring seamless execution. His expertise in digital marketing—SEO, SMO, ORM, and web designing—further highlights his versatility and forward-thinking approach. Pratik is not just a professional but a true asset to any team. His dedication, strategic mindset, and ability to drive results make him an invaluable contributor to organizational success. I wholeheartedly recommend him to anyone seeking a dynamic and results-driven professional.
+Creation Date: 12/10/24
+Status: VISIBLE
+
+Company: AU SMALL FINANCE BANK
+Job Title: Vice President - Strategic Alliances and Partnerships
+Text: Pratik is a visionary leader and strategic thinker, driving business growth through innovative solutions and exceptional team management. His expertise in Product Strategy & Roadmap, Digital transformation, UX Enhancement, Strategy Development, adds significant value to organizations. His collaborative approach, attention to detail, and inspiring leadership style make him an invaluable asset. I wish him all the very best for his future endeavours.
+Creation Date: 12/08/24
+Status: VISIBLE
+
+Company: MasterCard
+Job Title: Leader - Market Product Management
+Text: It was my pleasure working with Pratik at Mastercard in Loyalty Solutions team. His seasoned knowledge of Payments, Digital and Loyalty Solutions handling multiple stakeholders to push towards success is amazing. He always ensured that his clients were satisfied and was key in supporting business development processes that led to winning competitive projects. I was always astonished about his ability to get work done out of people he engaged with. His Analytical and Project Management skills bring out the best in him. I would welcome the opportunity to work with him again in future!
+Creation Date: 12/06/24
+Status: VISIBLE
+
+Company: Tekskills Inc.
+Job Title: Client Engagement India
+Text: Well, I could say, I have had the privilege of knowing Pratik for ages now, both personally and professionally. We first met while my short stint with Zenta and later we worked together for S2 Infotech and since then, I have had the pleasure of watching him grow into an exceptional professional. Pratik is a passionate traveler, constantly seeking new perspectives and learning from different cultures. This curiosity and openness to the world have shaped him into someone who approaches every challenge with a unique and thoughtful perspective. One of the things that stands out most about Pratik is his incredible patience. Whether he's tackling a complex project or navigating through tough situations, he consistently maintains a calm demeanor and a logical approach. His ability to stay level-headed and make decisions based on sound reasoning is a rare and valuable trait that sets him apart. In addition, Pratik always ensures that his logic is thorough and well-considered. His analytical mind enables him to break down complex problems and find practical, effective solutions. He's not just someone who looks at the surface but digs deeper to understand the bigger picture. I wholeheartedly recommend Pratik to anyone looking for someone who brings a thoughtful, patient, and logical approach to their work. Whether in the workplace or in life, he is someone you can trust to deliver solid, well-reasoned results.""
+Creation Date: 12/06/24
+Status: VISIBLE
+
+Company: Mastercard
+Job Title: Product Lead AP Financial Crime Solutions
+Text: I had the pleasure of working with Pratik in the Loyalty Solutions team at Mastercard, where we collaborated on implementing and delivering complex platform-based solutions for Financial Institutions that required deep integration. Pratik's exceptional attention to detail and perseverance in addressing the myriad client questions truly stood out. His ability to navigate challenges with resilience and a thoughtful approach played a key role in ensuring we progressed steadily and successfully towards achieving our goals. Pratik’s dedication and problem-solving skills were very helpful in moving our projects forward.
+Creation Date: 12/05/24
+Status: VISIBLE
+
+Company: Eutropia Tech
+Job Title: Human Resources Associate
+Text: It is my pleasure to recommend Pratik Padiya, with whom I had the opportunity to work closely during his tenure as a Strategist Business Developer & IT Interface at Nisa Industrial Services Pvt. Ltd. Pratik consistently demonstrated a high level of professionalism, strategic thinking, and dedication to achieving business goals. His ability to identify opportunities, craft effective strategies, and implement innovative solutions was instrumental in driving positive outcomes for the organization. Working with Pratik, I observed his strong leadership and collaborative skills. He seamlessly coordinated with cross-functional teams and stakeholders, ensuring smooth project execution and alignment with business objectives. His expertise in IT interfacing added immense value, bridging the gap between technical and business needs. What truly stood out about Pratik was his proactive approach to problem-solving and his unwavering focus on delivering customer-centric solutions. His passion for innovation and drive for excellence made him a reliable and valuable colleague. I have no hesitation in recommending Pratik as a talented and result-oriented professional. He would be a tremendous asset to any organization fortunate to have him on their team.
+Creation Date: 11/26/24
+Status: VISIBLE
+
+----------------------------------------
+
+Skills
 Generative AI, Cross-functional Team Leadership, Data Analytics, Director level, Product Strategy & Roadmapping, Stakeholder Management, Problem Solving, Security and compliance, Project Planning, Workload Prioritization, Technical knowledge, Technical Writing, Mentoring, Conflict Resolution, 360 Feedback, Product Vision, Product Road Mapping, Requirements Gathering, Product Design, Revenue Forecasting, Cost Management, Trend Analysis, Market Analysis, Competitive Analysis, Financial Analysis, Customer Service, Employee Training, Team Leadership, Coaching, Sales, Communication, Microsoft Office, Presentation Skills, Customer Insight, Product Lifecycle Management, Customer-Centric Innovation, Cross-functional Collaborations, Digital Transformation & API Management, Data-driven Decision Making, User Stories, Jira, Project Management, Artificial Intelligence (AI), User Experience (UX), Strategic Thinking, Business Case Preparation, Business Analysis, Product Innovation, Product Management, Agile Methodologies, Market Research, Vendor Management, Team Management, CRM, Business Development, Product Leadership, Artificial Intelligence for Business, Green Jobs, Green Economy, Environmental Sustainability
 
-**From Resume:**
-Strategic Planning and Development, Customer Insights and Analysis, Cross-Functional Leadership (Stakeholder Management) and Team Management, Project Management, Performance Monitoring and Optimization, Digital Transformation and Innovation, Market Research and Analysis, Communication
+----------------------------------------
 
-## Work Experience
+Volunteering
 
-**Seeking Opportunities in Finance, Technology, Fintechs & SaaS companies**
-*   Title: Pre-Sales Solution Engineer and Product Manager
-*   Location: Singapore
-*   Dates: Oct 2024 – Present
-
-**Mastercard (Singapore)**
-*   Title: Director Solutions Engineering (Jan 2022 - Oct 2024)
-    *   LinkedIn Description: Design and deliver customized Loyalty Solutions for specific customer needs. Break down complex components into user-friendly forms, optimizing user experience (UX). Draft detailed Solution Assessment documents for seamless implementation. Collaborate with cross-functional teams for successful solution launches and client satisfaction. Drive innovation, identifying opportunities for product enhancements and new solutions. Cultivate strategic partnerships with internal and external stakeholders.
-    *   Resume Details (Sep 2017 – Oct 2024): Led product management initiatives by gathering insights and analyzing data to identify customer pain points, developing clear product strategies and roadmaps that enhance customer experiences. Enhanced existing products and solutions by integrating customer feedback and analyzing market trends, while developing new features and functionalities to adapt to evolving customer demands and drive customer loyalty. Led the full product lifecycle from ideation to market launch, managing product development and localization efforts across APAC, with a focus on loyalty programs and payment card benefits. Collaborated with markets to craft and execute comprehensive go-to-market strategies for both new and existing solutions, scaling offerings across diverse regions and segments to maximize market impact. Prepared and deliver detailed solution assessments that outline the scope, objectives, benefits, risks, and costs associated with proposed solutions, facilitating informed decision-making among stakeholders. Led sales enablement and internal education initiatives, effectively communicating the value of engagement solutions to teams and clients, positioning Mastercard as a leader in digital payments. Spearheaded thought leadership initiatives on customer loyalty trends, influencing product strategies and enhancing Mastercard’s market presence.
-*   Title: Product Manager (Sep 2017 - Dec 2021)
-    *   LinkedIn Description: Managing Payment Card Benefits for AP region: - Personalization Platform - Various loyalty products (Card Benefits) - New product development Leading API development and Customer Experience (UX/UI) initiatives for the department Regional Lead for Loyalty Benefits DBMS 3rd Party Vendor Management Create and drive Proof-of-Concepts and Demonstration systems Solutions Architect & Sales Support.
-
-**Mastercard (India)**
-*   Title: Product Manager (Jun 2015 - Aug 2017)
-    *   LinkedIn Description: AP Regional Product Lead for Data Roaming Service Launched a X-Border Loyalty Program Managed New Loyalty Data Analytics Managed Merchant Data Analytics for existing Loyalty Programs.
-    *   Resume Details (Leader, Market Product Management): Managed loyalty and engagement solutions for the APAC region, expanding value-added services. Developed new capabilities in response to emerging client needs, ensuring competitiveness in the payments landscape. Launched a new Loyalty Program at national level targeting in-bound foreign travellers. Managed vendor relationships for timely and cost-effective service delivery.
-
-**S2 Infotech International Ltd (Mumbai, India)**
-*   Title: Business Development Manager (Nov 2013 - May 2015)
-    *   LinkedIn Description: New Business Development. Study/Analyse current processes and planning and implementing changes for improvement. Coordinating with Pan India team and clients for feedback and continuous improvement. Key Account Management/ Client Servicing Online Marketing Strategies MIS and Business Analysis.
-    *   Resume Details: Led B2B sales initiatives and managed key accounts, driving business growth through innovative solutions. Conducted business analysis and managed MIS systems, providing insights for strategic decision-making.
-
-**NISA Industrial Services pvt Ltd (Mumbai, India)**
-*   Title: Product Manager (Strategist Business Developer & IT Interface) (Dec 2009 - Jul 2013)
-    *   LinkedIn Description: Heading Business Excellence Cell, Customer relationship Mgmt. ERP – Functional Consultant, DBMS - MySQL Business Analysis, Process Improvement & Documenting SOPs. Monitoring, Analyzing & Reporting Operational Activity & Branch Financial. Training Ops team at Pan India level; Inducting new hires at all level. Single point of contact/liaison between Corporate office and Operations team across India for PMS, Marketing & Business Development. Performing research to identify potential clients and providing the database to marketing teams. Upselling/Cross-Selling to contribute towards Business Development. Laid Marketing Program and General Business Solutions resulting in increased customer traffic. Employed Merchandising and Promotional Strategies. Implemented Digital Marketing Strategies SEO, SMO, ORM, Web Designing.
-    *   Resume Details: Developed and implemented data entry and MIS tools, improving operational efficiency. Managed cross-functional teams to ensure seamless communication and project execution.
-
-**Hutchinson 3 Global Services Pvt Limited (Mumbai, India)**
-*   Title: Team Coach (Nov 2004 - Nov 2009)
-    *   LinkedIn Description: Customer Services - Team Manager. Manage a team of 24 members and look after their overall performance. Monitor the quality of work done. ERP – Functional Consultant Peoplesoft CRM, Business Objects Etc. Constantly Liaise with UK teams for Business review and Development. Keep check on customer satisfaction and provide continuous feedback to team members. Suggest significant new products that satisfy consumer wants and needs. Measure and report success/learning from initiatives launched and tactics executed. Develop programs to meet needs of both consumers and retail customers.
-    *   Resume Details: Supervised a team of customer service representatives, optimizing team performance and customer satisfaction. Developed and implemented process improvements, enhancing task distribution and efficiency.
-
-**Zenta**
-*   Title: Sr. Customer Relation Executive (Apr 2003 - Oct 2004)
-    *   LinkedIn Description: Catering to US customers, selling financial products. Educate customers about their credit profile. Always the best in performance and meeting SLA. Won award for best productivity. Organized training for new employees. Handle customer disputes and enhance customer experience.
-
-## Projects
-
-**Digitisation of Operations and Performance Mgmt System**
-*   Dates: Apr 2012 - Jun 2013
-*   Description: Planning the project with Board of Directors (BOD) and IT team along with Documenting the entire Project. Liaise with BOD and various departments including HR, Finance and Operations. Perform GAP analysis, highlight the GAPS and suggest workarounds, Peer reviews. Prepare Functional specifications, screen designs and process flow diagrams. Co-ordinate with development team and provide necessary support. Provide Training to different teams across the country. Continuously monitor and improvise.
-
-**Process Transition**
-*   Dates: Aug 2007 - Jun 2009
-*   Description: Liaise with colleagues & process stake holders in UK Understanding various processes and documenting the SOPs. Training the team on these processes. Monitor the performance and implementation while simultaneously giving feedback and improvising. Handed over the processes to respective departments.
-
-**Launched Global Payment Card Benefits in Asia Pacific**
-*   Dates: Oct 2016 - Oct 2017
-*   Description: Performing all market readiness tasks for AP region including Jurisdiction Review, Language localisation, Product Customisation, Fixing Local Pricing etc.
-
-**Digital Enhancement of existing Products/Platforms**
-*   Dates: Oct 2019 - Present
-*   Description: Leading the project to make all the Payment Card Benefits (Product/Platforms) Digitally Advanced which includes API development, API standardisation, developing web-view and Single Sign-On etc.
-
-## Education
-
-**Welingkar Institute of Management**
-*   Degree: PGDBA (Post Graduate Diploma in Management – Finance)
-*   Dates: 2007 - 2009
-*   Board: Maharashtra Board (from Resume)
-
-**University of Mumbai**
-*   Degree: Bachelor of Commerce
-*   Dates: 2003 - 2006
-*   Institution: Institute of Distance Education (from Resume)
-
-**Certifications (from Resume)**
-*   Product Management Essentials - Issued by Coursera, Authorized by IBM
-*   Product Management: Building AI-Powered Products - Issued by Coursera/ SkillUp EdTech
-
-
-File: Causes You Care About.csv
-Rows: 4
-Columns: Supported Cause
-Sample data (first 5 rows):
-          Supported Cause
-0                Children
-1               Education
-2                  Health
-3  Science and Technology
-
-File: Certifications.csv
-Rows: 16
-Columns: Name, Url, Authority, Started On, Finished On, License Number
-Sample data (first 5 rows):
-                                                     Name                                                Url           Authority Started On Finished On License Number
-0                    Delivery Tips for Speaking in Public                                                NaN            LinkedIn   Sep 2019         NaN            NaN
-1                PRINCE2 Agile® Foundation & Practitioner                                                NaN  APMG International   Jun 2016    Jun 2021            NaN
-2                                UX Foundations: Research                                                NaN            LinkedIn   Dec 2020         NaN            NaN
-3  Artificial Intelligence Foundations: Thinking Machines                                                NaN            LinkedIn   Dec 2020         NaN            NaN
-4                 Product Innovation for Product Managers                                                NaN            LinkedIn   Dec 2020         NaN            NaN
-
-File: Company Follows.csv
-Rows: 70
-Columns: Organization, Followed On
-Sample data (first 5 rows):
-        Organization                   Followed On
-0             OpenAI  Tue Apr 01 03:35:29 UTC 2025
-1      AIA Singapore  Wed Mar 26 04:03:34 UTC 2025
-2             Stripe  Tue Mar 25 03:37:45 UTC 2025
-3               Miro  Mon Mar 24 04:46:16 UTC 2025
-4  Ant International  Mon Mar 24 03:45:43 UTC 2025
-
-File: Education.csv
-Rows: 2
-Columns: School Name, Start Date, End Date, Notes, Degree Name, Activities
-Sample data (first 5 rows):
-                         School Name  Start Date  End Date  Notes           Degree Name  Activities
-0  Welingkar Institute of Management        2007      2009    NaN                 PGDBA         NaN
-1               University of Mumbai        2003      2006    NaN  Bachelor of Commerce         NaN
-
-File: Endorsement_Given_Info.csv
-Rows: 12
-Columns: Endorsement Date, Skill Name, Endorsee First Name, Endorsee Last Name, Endorsee Public Url, Endorsement Status
-Sample data (first 5 rows):
-          Endorsement Date                Skill Name  Endorsee First Name  Endorsee Last Name  Endorsee Public Url Endorsement Status
-0  2020/06/28 13:57:20 UTC  New Business Development                [REDACTED]        [REDACTED]              [REDACTED]           ACCEPTED
-1  2020/06/28 13:57:11 UTC         Analytical Skills                [REDACTED]        [REDACTED]              [REDACTED]           ACCEPTED
-2  2020/06/28 13:56:53 UTC          Brand Management                [REDACTED]        [REDACTED]              [REDACTED]           ACCEPTED
-3  2016/07/18 09:25:07 UTC           Team Management                [REDACTED]        [REDACTED]              [REDACTED]           ACCEPTED
-4  2016/07/18 09:25:04 UTC                Management                [REDACTED]        [REDACTED]              [REDACTED]           ACCEPTED
-
-File: Endorsement_Received_Info.csv
-Rows: 109
-Columns: Endorsement Date, Skill Name, Endorser First Name, Endorser Last Name, Endorser Public Url, Endorsement Status
-Sample data (first 5 rows):
-          Endorsement Date                              Skill Name  Endorser First Name  Endorser Last Name  Endorser Public Url Endorsement Status
-0  2024/04/16 13:31:08 UTC                Information Architecture           [REDACTED]         [REDACTED]           [REDACTED]           ACCEPTED
-1  2024/04/16 13:30:59 UTC                      Product Management           [REDACTED]         [REDACTED]           [REDACTED]           ACCEPTED
-2  2024/04/16 13:30:53 UTC                            Storytelling           [REDACTED]         [REDACTED]           [REDACTED]           ACCEPTED
-3  2024/04/16 13:30:45 UTC  Customer Relationship Management (CRM)           [REDACTED]         [REDACTED]           [REDACTED]           ACCEPTED
-4  2024/04/16 13:30:33 UTC                    Business Development           [REDACTED]         [REDACTED]           [REDACTED]           ACCEPTED
-
-File: Hashtag_Follows.csv
-Rows: 13
-Columns: HashTag, CreatedTime, LastModifiedTime, State
-Sample data (first 5 rows):
-                HashTag          CreatedTime     LastModifiedTime   State
-0                 india  2016-08-07 04:07:00  2016-08-07 04:07:00  Follow
-1               bigdata  2014-07-08 05:16:21  2014-07-08 05:16:21  Follow
-2  businessintelligence  2014-07-08 05:16:21  2014-07-08 05:16:21  Follow
-3                  data  2014-07-08 05:16:21  2014-07-08 05:16:21  Follow
-4            datamining  2014-07-08 05:16:21  2014-07-08 05:16:21  Follow
-
-File: Job Applicant Saved Screening Question Responses.csv
-Rows: 51
-Columns: Question, Answer
-Sample data (first 5 rows):
-                                                                       Question        Answer
-0                                     What is your level of proficiency in eng?  Professional
-1  How many years of work experience do you have with Cross-team Collaboration?            12
-2                                                                  Cover letter           NaN
-3                      How many years of work experience do you have with Java?             0
-4    Have you completed the following level of education: Doctor of Philosophy?            No
-
-File: Languages.csv
-Rows: 4
-Columns: Name, Proficiency
-Sample data (first 5 rows):
-       Name                       Proficiency
-0   English  Professional working proficiency
-1     Hindi  Professional working proficiency
-2  Gujarati  Professional working proficiency
-3   Marathi  Professional working proficiency
-
-File: Positions.csv
-Rows: 8
-Columns: Company Name, Title, Description, Location, Started On, Finished On
-Sample data (first 5 rows):
-                                                              Company Name                                            Title                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          Description   Location Started On Finished On
-0  Seeking Opportunities in Finance, Technology, Fintechs & SaaS companies  Pre-Sales Solution Engineer and Product Manager                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  NaN  Singapore   Oct 2024         NaN
-1                                                               Mastercard                   Director Solutions Engineering  Design and deliver customized Loyalty Solutions for specific customer needs. Break down complex components into user-friendly forms, optimizing user experience (UX). Draft detailed Solution Assessment documents for seamless implementation. Collaborate with cross-functional teams for successful solution launches and client satisfaction. Drive innovation, identifying opportunities for product enhancements and new solutions. Cultivate strategic partnerships with internal and external stakeholders.  Singapore   Jan 2022    Oct 2024
-2                                                               MasterCard                                  Product Manager                                                                                                       Managing Payment Card Benefits for AP region: -\tPersonalization Platform  -\tVarious loyalty products (Card Benefits) -\tNew product development  Leading API development and Customer Experience (UX/UI) initiatives for the department Regional Lead for Loyalty Benefits DBMS 3rd Party Vendor Management Create and drive Proof-of-Concepts and Demonstration systems Solutions Architect & Sales Support  Singapore   Sep 2017    Dec 2021
-3                                                               Mastercard                                  Product Manager                                                                                                                                                                                                                                                                                                                              AP Regional Product Lead for Data Roaming Service Launched a X-Border Loyalty Program Managed New Loyalty Data Analytics Managed Merchant Data Analytics for existing Loyalty Programs       India   Jun 2015    Aug 2017
-4                                            S2 Infotech International Ltd                     Business Development Manager                                                                                                                                                                                                               New Business Development. Study/Analyse current processes and planning and implementing changes for improvement. Coordinating with Pan India team and clients for feedback and continuous improvement. Key Account Management/ Client Servicing Online Marketing Strategies MIS and Business Analysis.        NaN   Nov 2013    May 2015
-
-File: Profile Summary.csv
-Rows: 0
-Columns: Profile Summary
-Sample data (first 5 rows):
-Empty DataFrame
-Columns: [Profile Summary]
-Index: []
-
-File: Profile.csv
-Rows: 1
-Columns: First Name, Last Name, Maiden Name, Address, Birth Date, Headline, Summary, Industry, Zip Code, Geo Location, Twitter Handles, Websites, Instant Messengers
-Sample data (first 5 rows):
-  First Name Last Name  Maiden Name  Address   Birth Date                                            Headline                                            Summary                           Industry  Zip Code          Geo Location  Twitter Handles                                                Websites     Instant Messengers
-0  [REDACTED] [REDACTED]          NaN      NaN  [REDACTED]  Product Manager | Solutions Engineer | Pre-Sales & Project Management  Strategic Product Leader & Solutions Architect...  Technology, Information and Media    427334  Singapore, Singapore              NaN                       [REDACTED]           [REDACTED]
-
-File: Projects.csv
-Rows: 4
-Columns: Title, Description, Url, Started On, Finished On
-Sample data (first 5 rows):
-                                                    Title                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        Description  Url Started On Finished On
-0  Digitisation of Operations and Performance Mgmt System  Planning the project with Board of Directors (BOD) and IT team along with Documenting the entire Project. Liaise with BOD and various departments including HR, Finance and Operations. Perform GAP analysis, highlight the GAPS and suggest workarounds, Peer reviews. Prepare Functional specifications, screen designs and process flow diagrams. Co-ordinate with development team and provide necessary support. Provide Training to different teams across the country. Continuously monitor and improvise.  NaN   Apr 2012    Jun 2013
-1                                      Process Transition                                                                                                                                                                                                         Liaise with colleagues & process stake holders in UK Understanding various processes and documenting the SOPs. Training the team on these processes. Monitor the performance and implementation while simultaneously giving feedback and improvising. Handed over the processes to respective departments.  NaN   Aug 2007    Jun 2009
-2   Launched Global Payment Card Benefits in Asia Pacific                                                                                                                                                                                                                                                                                                                                                      Performing all market readiness tasks for AP region including Jurisdiction Review, Language localisation,   Product Customisation, Fixing Local Pricing etc.   NaN   Oct 2016    Oct 2017
-3      Digital Enhancement of existing Products/Platforms                                                                                                                                                                                                                                                                                                                 Leading the project to make all the Payment Card Benefits (Product/Platforms) Digitally Advanced which includes API development, API standardisation, developing web-view and Single Sign-On etc.   NaN   Oct 2019         NaN
-
-File: Recommendations_Given.csv
-Rows: 10
-Columns: First Name, Last Name, Company, Job Title, Text, Creation Date, Status
-Sample data (first 5 rows):
-  First Name Last Name                Company                                              Job Title                                            Text       Creation Date  Status
-0  [REDACTED] [REDACTED]             MasterCard                     Leader - Market Product Management                                    [REDACTED]  12/09/24, 12:45 AM     NaN
-1  [REDACTED] [REDACTED]  AU SMALL FINANCE BANK  Vice President - Strategic Alliances and Partnerships                                    [REDACTED]  12/09/24, 12:38 AM     NaN
-2  [REDACTED] [REDACTED]              Capgemini                  Senior Manager-Compensation & Benefits (C&B)                             [REDACTED]  12/05/24, 08:51 AM     NaN
-3  [REDACTED] [REDACTED]        Teleperformance  Inside Sales & Customer Success Manager - Google Campaign                               [REDACTED]  12/05/24, 08:48 AM     NaN
-4  [REDACTED] [REDACTED]       Uniglobe Holding                                Trade Marketing Manager                                    [REDACTED]  12/05/24, 08:45 AM     NaN
-
-File: Recommendations_Received.csv
-Rows: 6
-Columns: First Name, Last Name, Company, Job Title, Text, Creation Date, Status
-Sample data (first 5 rows):
-  First Name Last Name                Company                                              Job Title                                            Text       Creation Date   Status
-0  [REDACTED] [REDACTED]       Uniglobe Holding                                Trade Marketing Manager                                    [REDACTED]  12/10/24, 06:26 AM  VISIBLE
-1  [REDACTED] [REDACTED]  AU SMALL FINANCE BANK  Vice President - Strategic Alliances and Partnerships                                    [REDACTED]  12/08/24, 11:23 AM  VISIBLE
-2  [REDACTED] [REDACTED]             MasterCard                     Leader - Market Product Management                                    [REDACTED]  12/06/24, 11:02 AM  VISIBLE
-3  [REDACTED] [REDACTED]         Tekskills Inc.                                Client Engagement India                                    [REDACTED]  12/06/24, 06:36 AM  VISIBLE
-4  [REDACTED] [REDACTED]             Mastercard              Product Lead AP Financial Crime Solutions                                    [REDACTED]  12/05/24, 08:28 AM  VISIBLE
-
-File: Shares.csv
-Rows: 33
-Columns: Date, ShareLink, ShareCommentary, SharedUrl, MediaUrl, Visibility
-Sample data (first 5 rows):
-                  Date                                                                      ShareLink                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                             ShareCommentary SharedUrl  MediaUrl      Visibility
-0  2025-04-01 04:01:13    https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7312685444108849155  Young Consumers Embrace Secured Credit Cards to Build Financial Success "\n""\n"Secured credit cards are becoming a powerful financial tool for Gen Z and Millennials! With more young adults prioritizing credit-building strategies, secured cards offer an accessible way to establish or rebuild credit responsibly."\n"Key benefits:"\n" - Easy approval for those with limited credit history"\n" - A path to improve credit scores with on-time payments"\n" - A stepping stone to unsecured cards and better financial opportunities"\n""\n"As 84% of Gen Z (ages 22-24) are now holding credit cards, this shift is a testament to their proactive approach toward personal finance. Let's encourage smarter credit habits and financial literacy! "\n""\n"#PersonalFinance #CreditCards #GenZ #CreditBuilding #FinancialFreedom #SecuredCreditCards #Millennials #FinancialLiteracy"\n""\n"Full article here: https://lnkd.in/gD6db3MY"\n""\n"Visa, Mastercard, American Express       NaN       NaN  MEMBER_NETWORK
-1  2025-02-24 02:45:54  https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7299620528359620609                                                                                                                                                                                                                               This breakdown of 7 essential responsibilities for product managers is a must-read for anyone looking to break into the field or seasoned professionals."\n""\n"From crafting a vision to constant iteration, each step is vital for building products that make an impact."\n""\n"Sachin Sharma, key takeaway for me -  Product Management is about so much more than just features—it's about strategy, collaboration, and adaptability. Nailing these skills means you're not just launching products, but shaping meaningful experiences."\n""\n"Which of these responsibilities do you find most challenging? Would love to hear your thoughts and discuss!"\n""\n"#ProductManagement #Leadership #Strategy #Innovation #CareerGrowth #AspiringPMs #Tech       NaN       NaN  MEMBER_NETWORK
-2  2025-01-31 10:10:59    https://www.linkedin.com/feed/update/urn%3Ali%3Ashare%3A7291035228381294592                                                                                                                    When Product Management Moves Markets: The DeepSeek Disruption"\n""\n"In a dramatic turn of events, the U.S. stock market—particularly the tech sector—took a hit, and a single product played a key role."\n""\n"DeepSeek, a rising AI company, launched a highly efficient and cost-effective model that undercut competitors while delivering exceptional performance. The result? Market leaders saw their valuations tumble as investors recalibrated expectations."\n""\n"This moment underscores a crucial lesson: Product management decisions—pricing, performance, and positioning—can shift entire industries. The right mix of innovation and affordability doesn’t just disrupt markets; it rewrites them."\n""\n"💡 Have you tried Deepseek yet?"\n""\n"#ProductManagement #MarketDisruption #AI #TechTrends #PricingStrategy #Innovation #BusinessStrategy       NaN       NaN  MEMBER_NETWORK
-3  2025-01-17 04:18:16  https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7285873032647032832                                                                                                                                                                                                                                                                                                                                                                                                                                                        🚀 Exciting News! 🚀"\n"I’m thrilled to announce that I’ve earned a new certification: Introduction to Generative AI from Google! 🎉"\n""\n"This certification has deepened my understanding of the rapidly evolving field of generative AI and its transformative potential. Looking forward to applying this knowledge and staying at the forefront of innovation!"\n""\n"#GenerativeAI #AI #MachineLearning #ArtificialIntelligence #GoogleCertification #TechInnovation #LearningJourney #AIforGood #FutureOfAI #ContinuousLearning       NaN       NaN  MEMBER_NETWORK
-4  2025-01-14 02:29:54  https://www.linkedin.com/feed/update/urn%3Ali%3AugcPost%3A7284758600449773568                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                          Great tip Adrienne Tom! I used to have the same feeling every year during my annual appraisal meetings with my manager. In recent years, I started organizing emails with specific details into a dedicated folder—it’s been a game changer for tracking accomplishments and providing clear examples when needed.       NaN       NaN  MEMBER_NETWORK
-
-File: Skills.csv
-Rows: 60
-Columns: Name
-Sample data (first 5 rows):
-                               Name
-0                     Generative AI
-1  Cross-functional Team Leadership
-2                    Data Analytics
-3                    Director level
-4    Product Strategy & Roadmapping
-
-File: Volunteering.csv
-Rows: 1
-Columns: Company Name, Role, Cause, Started On, Finished On, Description
-Sample data (first 5 rows):
-  Company Name              Role      Cause Started On  Finished On  Description
-0       Aidha   Education Mentor  education   Jan 2018          NaN          NaN
-
-HTML CONTENT SUMMARY
---------------------------------------------------------------------------------
-Total tables: 0
-Total paragraphs: 9
-Total headings: 1
-
-HEADINGS:
-# Fake Posts - Asking for Likes, Comments, Mobile No. Etc
-
-SAMPLE PARAGRAPHS (first 10):
-1. Created on 2015-01-19 05:29
-
-2. Published on 2015-01-19 05:29
-
-3. I have seen a lot of posts where a user mentions of some or the other opening/vacancy and asks for viewers/readers to like and or comment. I feel it is a cheap stunt to gain some visibility on Social Media (LinkedIn) and improve ranking (Don't understand the joy they get in doing so).
-
-4. If I am a recruiter and need candidates, I would share my email ID and or contact number so people can share their CV and call me for that opening. I DEFINITELY WONT be going through thousands of profiles who have liked the post or commented something like "I am interested, consider me, view my profile etc". if you just like the comment, the person wont be able to see your profile anyways unless he/she is added as connection or security settings of your profile is set to display your complete profile to everyone on LinkedIn (and not restricted to your connections)
-
-5. In another instance, I have come across a post where user is asking for mobile number and creating some sort of group (Eg: group where jobs will be posted etc) on whatsapp. MOST IMPORTANTLY, it mentions that it is for HR professionals only and we HR can share our openings. If I am HR professional, What will I do knowing the opening/vacancy in other companies?? Instead if it was to ask Job Seekers to join the group, it might make some sense.
-
-6. Again, there are thousands of comments with mobile numbers mentioned. What kind of technology is that user using to accommodate these many number of people on whatsapp group?? Why do you even give your number when you see more than 100 comments already there. Instead now your personal number is Public and can be misused or sold to marketing companies and you start receiving telemarketing calls and maybe more trouble!!
-
-7. There could be some genuine/newbie recruiters who would have posted an opening/ vacancy without sharing their contact details too. I would recommend recruiters to share atleast an email address for people to share their resumes instead of asking for their contact details/comments and likes.
-
-8. There could be more such scams or fake posts. Lets be wise and think before we blindly follow any post. Understand it by carefully observing and only then choose to share your contact details. I would say send them a message instead of making your personal contact details public. You can always check the company name and search online for the company website and their boardline and get in touch with the user who posted the opening.
-
-9. P.S. - This is my personal observation and opinion.
-
-PDF CONTENT SUMMARY
---------------------------------------------------------------------------------
-Total pages with text: 2
-Total tables: 0
-
-SAMPLE TEXT (first 3 pages):
---- Page 1 ---
-Professional Summary:
-As a seasoned and versatile Product Manager and Solutions Leader, I specialize in driving revenue growth, enhancing
-customer experience, and developing innovative solutions across diverse industries, particularly in fintech and
-payments. My expertise includes spearheading cross-functional teams, collaborating with senior stakeholders, and
-implementing strategic initiatives globally. I possess a strong ability to navigate complex market landscapes,
-consistently exceeding organizational targets and positioning myself as an asset to any dynamic organization.
-Core Competencies:
-• Product & Market Strategy: Proficient in managing multiple global and regional products, successfully aligning
-strategies with customer demands and market trends.
-• Cross-functional Leadership: Skilled in managing diverse teams and promoting collaboration across departments,
-resulting in achievement of organizational goals.
-• End-User Experiences: Enhanced end-user experiences by integrating customer feedback and implementing
-innovative UX/UI enhancements, ensuring seamless functionality.
-Key Achievements:
-• Spearheaded the launch of global products in Asia Pacific for Mastercard scaling adoption across diverse markets
-and increasing revenue by localizing content, tailoring products, and managing pricing strategies.
-• Led digital transformation for Mastercard's payment card benefits, developing APIs, API standardization, and
-integrating web-view and Single Sign-On features making the solutions more secure and easy to use & consume
-increasing the overall adoption.
-• Digitalized operations and performance management system at Nisa Group that streamlined the processes,
-improved efficiency, and led to a unified system across the organization.
-Skills and Interests:
-• Strategic Planning and Development
-• Customer Insights and Analysis
-• Cross-Functional Leadership (Stakeholder Management) and Team Management
-• Project Management
-• Performance Monitoring and Optimization
-• Digital Transformation and Innovation
-• Market Research and Analysis
-• Communication
-Education:
-• Product Management Essentials - Issued by Coursera, Authorized by IBM
-• Product Management: Building AI-Powered Products - Issued by Coursera/ SkillUp EdTech
-• Post Graduate Diploma in Management – Finance | Welingkar Institute of Management Studies | Maharashtra
-Board
-• Bachelor of Commerce | Institute of Distance Education | Mumbai University
-
---- Page 2 ---
-Work Experience:
-Mastercard (Singapore) Sep 2017 – Oct 2024
-Designation: Director, Solutions Engineering / Manager, Market Product Management
-• Led product management initiatives by gathering insights and analyzing data to identify customer pain points,
-developing clear product strategies and roadmaps that enhance customer experiences.
-• Enhanced existing products and solutions by integrating customer feedback and analyzing market trends, while
-developing new features and functionalities to adapt to evolving customer demands and drive customer loyalty.
-• Led the full product lifecycle from ideation to market launch, managing product development and localization
-efforts across APAC, with a focus on loyalty programs and payment card benefits.
-• Collaborated with markets to craft and execute comprehensive go-to-market strategies for both new and existing
-solutions, scaling offerings across diverse regions and segments to maximize market impact.
-• Prepared and deliver detailed solution assessments that outline the scope, objectives, benefits, risks, and costs
-associated with proposed solutions, facilitating informed decision-making among stakeholders.
-• Led sales enablement and internal education initiatives, effectively communicating the value of engagement
-solutions to teams and clients, positioning Mastercard as a leader in digital payments.
-• Spearheaded thought leadership initiatives on customer loyalty trends, influencing product strategies and
-enhancing Mastercard’s market presence.
-Mastercard (India) Jun 2015 – Aug 2017
-Designation: Leader, Market Product Management
-• Managed loyalty and engagement solutions for the APAC region, expanding value-added services.
-• Developed new capabilities in response to emerging client needs, ensuring competitiveness in the payments
-landscape.
-• Launched a new Loyalty Program at national level targeting in-bound foreign travellers. • Managed vendor
-relationships for timely and cost-effective service delivery.
-S2 Infotech Pvt Ltd. (Mumbai, India) Nov 2013 – May 2015
-Designation: Business Development Manager
-• Led B2B sales initiatives and managed key accounts, driving business growth through innovative solutions. •
-Conducted business analysis and managed MIS systems, providing insights for strategic decision-making.
-NISA Group of Companies (Mumbai, India) Dec 2009 – Jul 2013
-Designation: Product Manager (Strategist Business Developer & IT Interface).
-• Developed and implemented data entry and MIS tools, improving operational efficiency.
-• Managed cross-functional teams to ensure seamless communication and project execution.
-Hutchison 3 Global Services Pvt. Ltd. (Mumbai, India) Nov 2004 – Nov 2009
-Designation: Team Coach.
-• Supervised a team of customer service representatives, optimizing team performance and customer satisfaction.
-• Developed and implemented process improvements, enhancing task distribution and efficiency.
-
-
+Company Name: Aidha
+Role: Education Mentor
+Cause: education
+Started On: Jan 2018
+----------------------------------------
