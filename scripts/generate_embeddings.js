@@ -10,7 +10,7 @@ process.env.HF_HUB_CACHE = path.join(__dirname, '../.cache/huggingface'); // Rec
 const KNOWLEDGE_BASE_PATH = path.join(__dirname, '../data/knowledge_base.txt');
 const EMBEDDING_MODEL = 'Xenova/all-MiniLM-L6-v2';
 const BATCH_SIZE = 5; // Keep batching for memory efficiency locally too
-const OUTPUT_CACHE_FILE = path.join(__dirname, '../netlify/functions/embeddings_cache.json');
+const OUTPUT_CACHE_FILE = path.join(__dirname, '../data/embeddings.json');
 
 // --- Helper Functions (Copied from chatbot.js) ---
 function chunkText(text) {

@@ -3,4 +3,7 @@ node_modules/
 # Local Netlify folder
 .netlify
 LinkedinData/
+knowledge_base_old.txt
+knowledge_base.json
+.gitignore
 
