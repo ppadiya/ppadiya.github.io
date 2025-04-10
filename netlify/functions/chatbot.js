@@ -50,7 +50,7 @@ const MAX_CONTEXT_TOKENS = 1500;
 const TOP_K = 2;
 const SITE_URL = process.env.URL || 'http://localhost:8888';
 const SITE_NAME = 'Pratik Padiya Portfolio';
-const EMBEDDINGS_FILE_PATH = path.join(process.cwd(), 'data/embeddings.json'); // Use process.cwd() for reliable path from project root
+const EMBEDDINGS_FILE_PATH = path.join(__dirname, '../../data/embeddings.json'); // Path relative to the function file
 
 // --- Helper Functions ---
 // Note: chunkText is no longer needed at runtime if chunks are pre-computed
