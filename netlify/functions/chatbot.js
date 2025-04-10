@@ -30,7 +30,14 @@ async function getEmbeddingPipeline() {
         try {
             console.log("Initializing embedding pipeline...");            // Use require for better compatibility with Netlify Functions
             const { pipeline } = require('@xenova/transformers');
-            embeddingPipeline = await pipeline('feature-extraction', EMBEDDING_MODEL, { quantized: true, revision: 'main' });
+            // Configure the environment for transformers
+            process.env.TRANSFORMERS_JS_NO_LOCAL_FILES = 'true';
+            process.env.MODEL_DIR = '/tmp/transformers_cache';
+            embeddingPipeline = await pipeline('feature-extraction', EMBEDDING_MODEL, {
+                quantized: true,
+                revision: 'main',
+                cache_dir: '/tmp/transformers_cache'
+            });
             console.log("Embedding pipeline initialized successfully.");
         } catch (error) {
             console.error("Failed to initialize embedding pipeline:", error);
