@@ -5,7 +5,7 @@ const os = require('os'); // Import os module for tmpdir
 
 // --- START: Transformer Setup ---
 // Set Cache Directory for Transformers
-const cacheDir = path.join(os.tmpdir(), 'transformers_cache');
+const cacheDir = path.join('/tmp', 'transformers_cache');
 if (!fs.existsSync(cacheDir)) {
     try {
         fs.mkdirSync(cacheDir, { recursive: true });
@@ -14,6 +14,8 @@ if (!fs.existsSync(cacheDir)) {
         console.error(`Failed to create cache directory ${cacheDir}:`, e);
     }
 }
+
+// Configure environment variables before importing transformers
 process.env.TRANSFORMERS_CACHE = cacheDir;
 process.env.HF_HUB_CACHE = cacheDir;
 process.env.TRANSFORMERS_OFFLINE = '1'; // Force offline mode
@@ -26,10 +28,9 @@ let embeddingPipeline = null;
 async function getEmbeddingPipeline() {
     if (!embeddingPipeline) {
         try {
-            console.log("Initializing embedding pipeline...");
-            // Dynamically import the pipeline function ONLY when needed
-            const { pipeline } = await import('@xenova/transformers');
-            embeddingPipeline = await pipeline('feature-extraction', EMBEDDING_MODEL, { quantized: true });
+            console.log("Initializing embedding pipeline...");            // Use require for better compatibility with Netlify Functions
+            const { pipeline } = require('@xenova/transformers');
+            embeddingPipeline = await pipeline('feature-extraction', EMBEDDING_MODEL, { quantized: true, revision: 'main' });
             console.log("Embedding pipeline initialized successfully.");
         } catch (error) {
             console.error("Failed to initialize embedding pipeline:", error);
