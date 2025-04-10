@@ -4,7 +4,7 @@
 
 [functions]
   node_bundler = "esbuild"
-  included_files = ["data/knowledge_base.txt", "netlify/functions/embeddings_cache.json"]
+  included_files = ["data/embeddings.json"] # Include the pre-computed embeddings file
 
 [functions.chatbot]
   memory = 1024
