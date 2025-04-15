@@ -55,7 +55,7 @@ const EMBEDDING_MODEL = 'Xenova/all-MiniLM-L6-v2'; // Ensure model name matches 
 const OPENROUTER_MODEL = 'deepseek/deepseek-chat-v3-0324:free';
 const OPENROUTER_API_ENDPOINT = 'https://openrouter.ai/api/v1/chat/completions';
 const MAX_CONTEXT_TOKENS = 1500;
-const TOP_K = 2;
+const TOP_K = 6; // Increase for better recall
 const SITE_URL = process.env.URL || 'http://localhost:8888';
 const SITE_NAME = 'Pratik Padiya Portfolio';
 const EMBEDDINGS_FILE_PATH = path.join(__dirname, '../../data/embeddings.json'); // Path relative to the function file
@@ -87,6 +87,17 @@ function cosineSimilarity(vecA, vecB) {
 
 function estimateTokens(text) {
     return text.split(/\s+/).length;
+}
+
+function keywordScore(chunk, query) {
+    // Simple keyword overlap: count shared words (case-insensitive)
+    const chunkText = chunk.text.toLowerCase();
+    const queryWords = query.toLowerCase().split(/\W+/);
+    let score = 0;
+    for (const word of queryWords) {
+        if (word.length > 2 && chunkText.includes(word)) score++;
+    }
+    return score;
 }
 
 // loadCache and saveCache are no longer needed as we load directly from the generated file
@@ -139,6 +150,38 @@ async function initialize() {
     // It will be called and awaited within the handler when needed.
 }
 
+// --- Caching and Logging ---
+const CACHE_FILE = path.join(__dirname, 'embeddings_cache.json');
+const LOG_FILE = path.join(__dirname, 'chatbot_query_log.json');
+
+function loadCache() {
+    try {
+        if (fs.existsSync(CACHE_FILE)) {
+            return JSON.parse(fs.readFileSync(CACHE_FILE, 'utf-8'));
+        }
+    } catch (e) { /* ignore */ }
+    return {};
+}
+function saveCache(cache) {
+    try { fs.writeFileSync(CACHE_FILE, JSON.stringify(cache, null, 2)); } catch (e) { /* ignore */ }
+}
+function logQuery(query, contextChunks, response) {
+    const logEntry = {
+        timestamp: new Date().toISOString(),
+        query,
+        contextChunks,
+        response
+    };
+    let logs = [];
+    try {
+        if (fs.existsSync(LOG_FILE)) {
+            logs = JSON.parse(fs.readFileSync(LOG_FILE, 'utf-8'));
+        }
+    } catch (e) { /* ignore */ }
+    logs.push(logEntry);
+    try { fs.writeFileSync(LOG_FILE, JSON.stringify(logs, null, 2)); } catch (e) { /* ignore */ }
+}
+
 exports.handler = async (event, context) => {
     if (event.httpMethod !== 'POST') {
         return { statusCode: 405, body: 'Method Not Allowed' };
@@ -150,6 +193,12 @@ exports.handler = async (event, context) => {
         const { query } = JSON.parse(event.body);
         if (!query?.trim()) {
             throw new Error("Missing or invalid 'query' in request body.");
+        }
+
+        // --- Caching ---
+        const cache = loadCache();
+        if (cache[query]) {
+            return { statusCode: 200, body: JSON.stringify({ response: cache[query], cached: true }) };
         }
 
         console.log("Processing query:", query);
@@ -209,21 +258,38 @@ exports.handler = async (event, context) => {
              throw new Error("Failed to generate or retrieve a valid query embedding vector.");
         }
 
-        // Find relevant chunks
+        // Find relevant chunks (embedding similarity)
         const similarities = knowledgeBaseEmbeddings
             .map((embedding, index) => ({ index, score: cosineSimilarity(queryEmbedding, embedding) }))
             .sort((a, b) => b.score - a.score)
             .slice(0, TOP_K);
 
-        // Build context
-        let context = similarities
-            .map(({ index }) => knowledgeBaseChunks[index])
+        // Hybrid rerank: combine with keyword overlap
+        const hybridRanked = similarities
+            .map(({ index, score }) => {
+                const chunk = knowledgeBaseChunks[index];
+                const keyword = keywordScore(chunk, query);
+                // Weighted sum: prioritize embedding, boost with keyword
+                return { index, hybrid: score + 0.1 * keyword, score, keyword };
+            })
+            .sort((a, b) => b.hybrid - a.hybrid)
+            .slice(0, TOP_K);
+
+        // Build context with metadata
+        let context = hybridRanked
+            .map(({ index, score, keyword }) => {
+                const chunk = knowledgeBaseChunks[index];
+                return `---\nTitle: ${chunk.metadata?.title || ''}\nTags: ${(chunk.metadata?.tags || []).join(', ')}\nDates: ${(chunk.metadata?.dates || []).join(', ')}\nScore: ${score.toFixed(3)}, Keyword: ${keyword}\nContent: ${chunk.text}`;
+            })
             .join("\n\n");
 
         if (estimateTokens(context) > MAX_CONTEXT_TOKENS) {
             const words = context.split(/\s+/);
             context = words.slice(0, MAX_CONTEXT_TOKENS).join(' ');
         }
+
+        // Improved system prompt
+        const systemPrompt = `You are a helpful chatbot assistant answering questions about Pratik Padiya. Use ONLY the provided context chunks below, which include metadata. If the answer is not found in the context, say: 'I don't know based on the provided information.' Do not make up facts or speculate.`;
 
         console.log("Calling OpenRouter API...");
         const response = await fetch(OPENROUTER_API_ENDPOINT, {
@@ -239,11 +305,11 @@ exports.handler = async (event, context) => {
                 messages: [
                     {
                         role: "system",
-                        content: "You are a helpful chatbot assistant answering questions about Pratik Padiya based ONLY on the provided context. Be concise and professional. If the answer is not found in the context, say 'I don't have information about that based on the provided documents.' Do not make up information."
+                        content: systemPrompt
                     },
                     {
                         role: "user",
-                        content: `Context:\n${context}\n\nQuestion: ${query}\n\nAnswer:`
+                        content: `Context Chunks:\n${context}\n\nQuestion: ${query}\n\nAnswer:`
                     }
                 ],
                 temperature: 0.3
@@ -256,9 +322,13 @@ exports.handler = async (event, context) => {
         }
 
         const data = await response.json();
+        // --- Save to cache and log ---
+        cache[query] = data.choices[0]?.message?.content || "Sorry, I couldn't generate a response.";
+        saveCache(cache);
+        logQuery(query, context, cache[query]);
         return {
             statusCode: 200,
-            body: JSON.stringify({ response: data.choices[0]?.message?.content || "Sorry, I couldn't generate a response." })
+            body: JSON.stringify({ response: cache[query] })
         };
 
     } catch (error) {

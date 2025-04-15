@@ -11,17 +11,40 @@ const KNOWLEDGE_BASE_PATH = path.join(__dirname, '../data/knowledge_base.txt');
 const EMBEDDING_MODEL = 'Xenova/all-MiniLM-L6-v2';
 const BATCH_SIZE = 5; // Keep batching for memory efficiency locally too
 const OUTPUT_CACHE_FILE = path.join(__dirname, '../data/embeddings.json');
+const OUTPUT_KB_FILE = path.join(__dirname, '../data/knowledge_base.json');
 
-// --- Helper Functions (Copied from chatbot.js) ---
-function chunkText(text) {
-    const chunks = text.split(/\n\s*\n/).map(chunk => chunk.trim()).filter(chunk => chunk.length > 0);
-    return chunks.reduce((acc, chunk) => {
-        if (chunk.length > 500) {
-            const sentences = chunk.match(/[^.!?]+[.!?]+/g) || [chunk];
-            return [...acc, ...sentences];
+// --- Improved Semantic Chunking and Metadata Extraction ---
+function parseKnowledgeBase(text) {
+    const sections = text.split(/-{5,}/g); // Split by 5 or more dashes
+    let chunks = [];
+    for (let section of sections) {
+        section = section.trim();
+        if (!section) continue;
+        // Extract section title (first non-empty line)
+        const lines = section.split('\n').map(l => l.trim());
+        const title = lines.find(l => l.length > 0) || 'Untitled';
+        // Use section title as tag, and try to extract dates if present
+        let tags = [title.toLowerCase().replace(/[^a-z0-9]+/g, '_')];
+        let dateMatch = section.match(/\d{4}([/-]\d{2}([/-]\d{2})?)?/g);
+        let dates = dateMatch ? dateMatch : [];
+        // Remove title from content
+        const content = lines.slice(1).join('\n').trim();
+        // Further split if section is very large
+        const subchunks = content.length > 1200 ? content.match(/(.|\n){1,1000}(?=\n|$)/g) : [content];
+        for (let sub of subchunks) {
+            if (sub && sub.trim().length > 0) {
+                chunks.push({
+                    text: sub.trim(),
+                    metadata: {
+                        title,
+                        tags,
+                        dates
+                    }
+                });
+            }
         }
-        return [...acc, chunk];
-    }, []);
+    }
+    return chunks;
 }
 
 async function processChunkBatch(pipeline, chunks, startIdx) {
@@ -64,8 +87,8 @@ async function generateAndSaveEmbeddings() {
 
         console.log("Loading knowledge base...");
         const knowledgeBaseText = fs.readFileSync(KNOWLEDGE_BASE_PATH, 'utf-8');
-        const knowledgeBaseChunks = chunkText(knowledgeBaseText);
-        console.log(`Knowledge base split into ${knowledgeBaseChunks.length} chunks.`);
+        const knowledgeBaseChunks = parseKnowledgeBase(knowledgeBaseText);
+        console.log(`Knowledge base split into ${knowledgeBaseChunks.length} semantic chunks.`);
 
         console.log("Initializing pipeline...");
         // Use quantized=false locally if you have enough resources for better accuracy,
@@ -80,7 +103,8 @@ async function generateAndSaveEmbeddings() {
 
         // Process in batches
         for (let i = 0; i < knowledgeBaseChunks.length; i += BATCH_SIZE) {
-            const batchEmbeddings = await processChunkBatch(extractor, knowledgeBaseChunks, i);
+            const batchTexts = knowledgeBaseChunks.slice(i, i + BATCH_SIZE).map(c => c.text);
+            const batchEmbeddings = await processChunkBatch(extractor, batchTexts, 0);
             knowledgeBaseEmbeddings.push(...batchEmbeddings);
              // Optional: Add a small delay if hitting rate limits or for stability
              // await new Promise(resolve => setTimeout(resolve, 50));
@@ -105,6 +129,8 @@ async function generateAndSaveEmbeddings() {
             chunks: knowledgeBaseChunks,
             embeddings: knowledgeBaseEmbeddings
         }, null, 2)); // Pretty print JSON
+
+        fs.writeFileSync(OUTPUT_KB_FILE, JSON.stringify(knowledgeBaseChunks, null, 2));
 
         console.log("Embeddings generated and saved successfully!");
 
