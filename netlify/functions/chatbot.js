@@ -148,7 +148,8 @@ async function getQueryEmbedding(query) {
     }
     const data = await response.json();
     if (!Array.isArray(data) || !Array.isArray(data[0])) {
-        throw new Error('Invalid embedding response from HuggingFace API');
+        console.error('HuggingFace API returned:', data); // Log the actual response for debugging
+        throw new Error('Invalid embedding response from HuggingFace API: ' + JSON.stringify(data));
     }
     return data[0]; // 2D array, use first row
 }
