@@ -131,31 +131,31 @@ function logQuery(query, contextChunks, response) {
     try { fs.writeFileSync(LOG_FILE, JSON.stringify(logs, null, 2)); } catch (e) { /* ignore */ }
 }
 
-const HF_API_TOKEN = process.env.HF_API_TOKEN;
-const HF_EMBEDDING_ENDPOINT = 'https://api-inference.huggingface.co/pipeline/feature-extraction/sentence-transformers/all-MiniLM-L6-v2';
+const COHERE_API_KEY = process.env.COHERE_API_KEY;
+const COHERE_EMBEDDING_ENDPOINT = 'https://api.cohere.ai/v1/embed';
 
 async function getQueryEmbedding(query) {
-    const response = await fetch(HF_EMBEDDING_ENDPOINT, {
+    const response = await fetch(COHERE_EMBEDDING_ENDPOINT, {
         method: 'POST',
         headers: {
-            'Authorization': `Bearer ${HF_API_TOKEN}`,
+            'Authorization': `Bearer ${COHERE_API_KEY}`,
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ inputs: query })
+        body: JSON.stringify({
+            texts: [query],
+            model: 'embed-english-v3.0', // or 'embed-multilingual-v3.0' if you want multilingual support
+            input_type: 'search_document'
+        })
     });
     if (!response.ok) {
-        throw new Error(`HuggingFace API error: ${response.status}`);
+        throw new Error(`Cohere API error: ${response.status}`);
     }
     const data = await response.json();
-    // Accept both 1D and 2D arrays
-    if (Array.isArray(data) && typeof data[0] === 'number') {
-        return data; // 1D array
+    if (data.embeddings && Array.isArray(data.embeddings[0])) {
+        return data.embeddings[0];
     }
-    if (Array.isArray(data) && Array.isArray(data[0])) {
-        return data[0]; // 2D array, use first row
-    }
-    console.error('HuggingFace API returned:', data);
-    throw new Error('Invalid embedding response from HuggingFace API: ' + JSON.stringify(data));
+    console.error('Cohere API returned:', data);
+    throw new Error('Invalid embedding response from Cohere API: ' + JSON.stringify(data));
 }
 
 exports.handler = async (event, context) => {
@@ -184,7 +184,7 @@ exports.handler = async (event, context) => {
              throw new Error("Knowledge base embeddings not loaded. Initialization might have failed.");
         }
 
-        // Get query embedding from HuggingFace API
+        // Get query embedding from Cohere API
         const queryEmbedding = await getQueryEmbedding(query);
 
         if (!queryEmbedding || !Array.isArray(queryEmbedding)) {
