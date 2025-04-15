@@ -3,55 +3,8 @@ const path = require('path');
 const axios = require('axios');
 const os = require('os'); // Import os module for tmpdir
 
-// --- START: Transformer Setup ---
-// Set Cache Directory for Transformers
-const cacheDir = path.join('/tmp', 'transformers_cache');
-if (!fs.existsSync(cacheDir)) {
-    try {
-        fs.mkdirSync(cacheDir, { recursive: true });
-        console.log(`Created cache directory: ${cacheDir}`);
-    } catch (e) {
-        console.error(`Failed to create cache directory ${cacheDir}:`, e);
-    }
-}
-
-// Configure environment variables before importing transformers
-process.env.TRANSFORMERS_CACHE = cacheDir;
-process.env.HF_HUB_CACHE = cacheDir;
-process.env.TRANSFORMERS_OFFLINE = '1'; // Force offline mode
-console.log(`Transformers cache directory set to: ${cacheDir}, Offline mode: ${process.env.TRANSFORMERS_OFFLINE}`);
-
-// Global pipeline instance
-let embeddingPipeline = null;
-
-// Lazy-loads the embedding pipeline
-async function getEmbeddingPipeline() {
-    if (!embeddingPipeline) {
-        try {
-            console.log("Initializing embedding pipeline...");            // Use require for better compatibility with Netlify Functions
-            const { pipeline } = require('@xenova/transformers');
-            // Configure the environment for transformers
-            process.env.TRANSFORMERS_JS_NO_LOCAL_FILES = 'true';
-            process.env.MODEL_DIR = '/tmp/transformers_cache';
-            embeddingPipeline = await pipeline('feature-extraction', EMBEDDING_MODEL, {
-                quantized: true,
-                revision: 'main',
-                cache_dir: '/tmp/transformers_cache'
-            });
-            console.log("Embedding pipeline initialized successfully.");
-        } catch (error) {
-            console.error("Failed to initialize embedding pipeline:", error);
-            embeddingPipeline = null; // Reset on failure
-            throw error; // Re-throw error to signal failure
-        }
-    }
-    return embeddingPipeline;
-}
-// --- END: Transformer Setup ---
-
 // --- Configuration ---
 // const KNOWLEDGE_BASE_PATH = path.join(__dirname, '../../data/knowledge_base.txt'); // No longer needed
-const EMBEDDING_MODEL = 'Xenova/all-MiniLM-L6-v2'; // Ensure model name matches generation script
 const OPENROUTER_MODEL = 'deepseek/deepseek-chat-v3-0324:free';
 const OPENROUTER_API_ENDPOINT = 'https://openrouter.ai/api/v1/chat/completions';
 const MAX_CONTEXT_TOKENS = 1500;
@@ -144,10 +97,6 @@ async function initialize() {
     } else {
          console.log("Embeddings already loaded.");
     }
-
-    // Initialize pipeline separately (lazy loaded on first request)
-    // We don't await getEmbeddingPipeline() here to avoid slowing down cold starts
-    // It will be called and awaited within the handler when needed.
 }
 
 // --- Caching and Logging ---
@@ -182,6 +131,28 @@ function logQuery(query, contextChunks, response) {
     try { fs.writeFileSync(LOG_FILE, JSON.stringify(logs, null, 2)); } catch (e) { /* ignore */ }
 }
 
+const HF_API_TOKEN = process.env.HF_API_TOKEN;
+const HF_EMBEDDING_ENDPOINT = 'https://api-inference.huggingface.co/pipeline/feature-extraction/sentence-transformers/all-MiniLM-L6-v2';
+
+async function getQueryEmbedding(query) {
+    const response = await fetch(HF_EMBEDDING_ENDPOINT, {
+        method: 'POST',
+        headers: {
+            'Authorization': `Bearer ${HF_API_TOKEN}`,
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ inputs: query })
+    });
+    if (!response.ok) {
+        throw new Error(`HuggingFace API error: ${response.status}`);
+    }
+    const data = await response.json();
+    if (!Array.isArray(data) || !Array.isArray(data[0])) {
+        throw new Error('Invalid embedding response from HuggingFace API');
+    }
+    return data[0]; // 2D array, use first row
+}
+
 exports.handler = async (event, context) => {
     if (event.httpMethod !== 'POST') {
         return { statusCode: 405, body: 'Method Not Allowed' };
@@ -208,51 +179,8 @@ exports.handler = async (event, context) => {
              throw new Error("Knowledge base embeddings not loaded. Initialization might have failed.");
         }
 
-        let queryEmbedding;
-
-        // --- START: Transformer Query Embedding ---
-        console.log("Attempting Transformer Query Embedding...");
-        try {
-            const extractor = await getEmbeddingPipeline();
-            if (!extractor) {
-                throw new Error("Embedding pipeline failed to initialize.");
-            }
-            const queryEmbeddingResult = await extractor(query, {
-                pooling: 'mean',
-                normalize: true
-            });
-            queryEmbedding = queryEmbeddingResult.tolist()[0];
-            console.log("Transformer query embedding generated.");
-        } catch (pipelineError) {
-             console.error("Transformer pipeline failed, falling back to hashing:", pipelineError);
-             // Fall through to hashing if pipeline fails
-        }
-        // --- END: Transformer Query Embedding ---
-
-        /* --- START: Fallback Query Embedding (Hashing) - (Commented out for deployment) ---
-        // This block is commented out. The code above attempts transformer embedding first.
-        // If the transformer pipeline fails (pipelineError is caught), queryEmbedding will be undefined,
-        // and the check below (`if (!queryEmbedding || ...`) will throw an error.
-        // You could add logic here to *only* run hashing if pipelineError occurred,
-        // but for deployment, we assume the pipeline should work or fail explicitly.
-
-        // if (!queryEmbedding) {
-        //     console.log("Using fallback hashing for query embedding...");
-        //     const words = query.toLowerCase().split(/\W+/);
-        //     const vector = new Array(384).fill(0); // Match MiniLM embedding dimension
-        //     words.forEach(word => {
-        //         let hash = 0;
-        //         for (let i = 0; i < word.length; i++) {
-        //             hash = ((hash << 5) - hash) + word.charCodeAt(i);
-        //             hash |= 0; // Convert to 32bit integer
-        //         }
-        //         vector[Math.abs(hash) % 384] += 1;
-        //     });
-        //     const magnitude = Math.sqrt(vector.reduce((acc, val) => acc + val * val, 0));
-        //     queryEmbedding = vector.map(val => val / (magnitude || 1));
-        //     console.log("Fallback query embedding generated.");
-        // }
-        --- END: Fallback Query Embedding --- */
+        // Get query embedding from HuggingFace API
+        const queryEmbedding = await getQueryEmbedding(query);
 
         if (!queryEmbedding || !Array.isArray(queryEmbedding)) {
              throw new Error("Failed to generate or retrieve a valid query embedding vector.");
