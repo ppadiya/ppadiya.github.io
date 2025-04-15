@@ -147,11 +147,15 @@ async function getQueryEmbedding(query) {
         throw new Error(`HuggingFace API error: ${response.status}`);
     }
     const data = await response.json();
-    if (!Array.isArray(data) || !Array.isArray(data[0])) {
-        console.error('HuggingFace API returned:', data); // Log the actual response for debugging
-        throw new Error('Invalid embedding response from HuggingFace API: ' + JSON.stringify(data));
+    // Accept both 1D and 2D arrays
+    if (Array.isArray(data) && typeof data[0] === 'number') {
+        return data; // 1D array
     }
-    return data[0]; // 2D array, use first row
+    if (Array.isArray(data) && Array.isArray(data[0])) {
+        return data[0]; // 2D array, use first row
+    }
+    console.error('HuggingFace API returned:', data);
+    throw new Error('Invalid embedding response from HuggingFace API: ' + JSON.stringify(data));
 }
 
 exports.handler = async (event, context) => {
