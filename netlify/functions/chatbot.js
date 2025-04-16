@@ -3,7 +3,6 @@ const path = require('path');
 const { VectorizeClient } = require('./vectorizeClient');
 
 // --- Configuration ---
-const MAX_CONTEXT_TOKENS = 1000;
 const TOP_K = 4;
 const REQUEST_TIMEOUT = 25000;
 
@@ -11,13 +10,15 @@ const REQUEST_TIMEOUT = 25000;
 const vectorizeClient = new VectorizeClient();
 
 // --- Helper Functions ---
-function estimateTokens(text) {
-    return text.split(/\s+/).length;
+function logToFile(message, data) {
+    try {
+        const logEntry = `${new Date().toISOString()} - ${message}\n${JSON.stringify(data, null, 2)}\n\n`;
+        fs.appendFileSync(path.join(__dirname, 'debug.log'), logEntry);
+    } catch (e) { /* ignore */ }
 }
 
 // --- Caching and Logging ---
 const CACHE_FILE = path.join(__dirname, 'embeddings_cache.json');
-const LOG_FILE = path.join(__dirname, 'chatbot_query_log.json');
 
 function loadCache() {
     try {
@@ -32,18 +33,6 @@ function saveCache(cache) {
     try { fs.writeFileSync(CACHE_FILE, JSON.stringify(cache, null, 2)); } catch (e) { /* ignore */ }
 }
 
-function logQuery(query, contextChunks, response) {
-    try {
-        const logEntry = {
-            timestamp: new Date().toISOString(),
-            query,
-            numChunks: Array.isArray(contextChunks) ? contextChunks.length : 0,
-            response
-        };
-        fs.appendFileSync(LOG_FILE, JSON.stringify(logEntry) + '\n');
-    } catch (e) { /* ignore */ }
-}
-
 exports.handler = async (event, context) => {
     if (event.httpMethod !== 'POST') {
         return { statusCode: 405, body: 'Method Not Allowed' };
@@ -51,10 +40,10 @@ exports.handler = async (event, context) => {
 
     try {
         if (!process.env.TOKEN) {
-            console.error("Missing Vectorize token in environment variable");
+            console.error("Missing Vectorize token");
             return { 
                 statusCode: 500, 
-                body: JSON.stringify({ error: "Server configuration error - Vectorize token missing" }) 
+                body: JSON.stringify({ error: "Configuration error - TOKEN missing" }) 
             };
         }
 
@@ -63,10 +52,17 @@ exports.handler = async (event, context) => {
             throw new Error("Missing or invalid query");
         }
 
+        console.log("Processing query:", query);
+        logToFile("Incoming query", { query });
+
         // Quick cache check
         const cache = loadCache();
         if (cache[query]) {
-            return { statusCode: 200, body: JSON.stringify({ response: cache[query], cached: true }) };
+            console.log("Cache hit for query:", query);
+            return { 
+                statusCode: 200, 
+                body: JSON.stringify({ response: cache[query], cached: true }) 
+            };
         }
 
         // Get response from Vectorize with timeout
@@ -82,28 +78,55 @@ exports.handler = async (event, context) => {
             )
         ]);
 
-        // Update cache and log
-        cache[query] = result.answer;
-        saveCache(cache);
-        logQuery(query, result.documents, result.answer);
+        logToFile("Vectorize response", result);
+
+        if (!result.answer && (!result.documents || result.documents.length === 0)) {
+            console.log("No answer or documents returned from Vectorize");
+            return {
+                statusCode: 200,
+                body: JSON.stringify({ 
+                    response: "I don't have enough relevant information to answer your question. Could you try rephrasing it?",
+                    debug: { status: "no_results" }
+                })
+            };
+        }
+
+        // If we have documents but no answer, try to provide a helpful response
+        if (!result.answer && result.documents && result.documents.length > 0) {
+            result.answer = "I found some relevant information but couldn't generate a complete answer. Please try rephrasing your question.";
+        }
+
+        // Update cache only if we have a valid answer
+        if (result.answer && result.answer !== "I don't have enough information to answer that question.") {
+            cache[query] = result.answer;
+            saveCache(cache);
+        }
 
         return {
             statusCode: 200,
             body: JSON.stringify({ 
                 response: result.answer,
-                context: result.documents // Optional: include for debugging
+                debug: {
+                    numDocuments: result.documents?.length || 0,
+                    topScore: result.documents?.[0]?.score || 0
+                }
             })
         };
 
     } catch (error) {
         console.error("Error:", error);
+        logToFile("Error occurred", { error: error.message, stack: error.stack });
+        
         const errorMessage = error.message?.includes('timeout') 
-            ? "I apologize, but the request took too long to process. Please try again."
+            ? "The request took too long to process. Please try again with a simpler question."
             : "An error occurred while processing your request. Please try again.";
         
         return {
             statusCode: error.statusCode || 500,
-            body: JSON.stringify({ error: errorMessage })
+            body: JSON.stringify({ 
+                error: errorMessage,
+                debug: { errorType: error.name }
+            })
         };
     }
 };

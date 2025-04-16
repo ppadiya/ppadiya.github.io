@@ -13,30 +13,58 @@ class VectorizeClient {
 
   async generateResponse({ query, options = {} }) {
     try {
+      console.log("Sending query to Vectorize:", query);
+      
       const response = await this.pipelinesApi.retrieveDocuments({
         organization: this.orgId,
         pipeline: this.pipelineId,
         retrieveDocumentsRequest: {
           question: query,
           numResults: options.topK || 4,
-          generateAnswer: true, // Enable answer generation
-          rerank: true, // Enable reranking for better relevance
-          stream: false // Get complete response at once
+          generateAnswer: true,
+          rerank: true,
+          temperature: 0.7,
+          conversationHistory: [], // Add empty history to ensure fresh context
+          modelName: "gpt-3.5-turbo", // Specify model explicitly
+          stream: false
         }
       });
       
+      // Debug logging
+      console.log("Raw Vectorize response:", JSON.stringify(response, null, 2));
+      
+      // Check all possible locations for the answer
+      const answer = response.answer || 
+                     response.generated_answer || 
+                     response.generatedAnswer || 
+                     response.aiAnswer ||
+                     response.completion;
+      
+      console.log("Extracted answer:", answer);
+      console.log("Found documents:", response.documents?.length || 0);
+
+      if (!answer && (!response.documents || response.documents.length === 0)) {
+        console.log("No answer or documents found in response");
+        return {
+          answer: "I couldn't find relevant information to answer your question. Could you please rephrase it?",
+          documents: []
+        };
+      }
+
       return {
-        answer: response.answer || "I don't have enough information to answer that question.",
+        answer: answer || "I couldn't generate a response based on the available information.",
         documents: (response.documents || []).map(doc => ({
-          text: doc.content || doc.text || '',
+          text: doc.content || doc.text || doc.document || '',
           metadata: doc.metadata || {},
           score: doc.score || doc.relevanceScore || 0
         }))
       };
     } catch (error) {
-      console.error("Vectorize API error:", error?.response);
+      console.error("Vectorize API error:", error);
+      console.error("Error response:", error?.response);
       if (error?.response) {
-        console.error(await error.response.text().catch(() => "Could not read error response"));
+        const errorText = await error.response.text().catch(() => "Could not read error response");
+        console.error("Error response text:", errorText);
       }
       throw error;
     }
