@@ -4,7 +4,7 @@ const { VectorizeClient } = require('./vectorizeClient');
 
 // --- Configuration ---
 const TOP_K = 4;
-const REQUEST_TIMEOUT = 25000;
+const REQUEST_TIMEOUT = 30000; // Increased to 30s to accommodate deep research
 
 // Initialize Vectorize client
 const vectorizeClient = new VectorizeClient();
@@ -15,22 +15,6 @@ function logToFile(message, data) {
         const logEntry = `${new Date().toISOString()} - ${message}\n${JSON.stringify(data, null, 2)}\n\n`;
         fs.appendFileSync(path.join(__dirname, 'debug.log'), logEntry);
     } catch (e) { /* ignore */ }
-}
-
-// --- Caching and Logging ---
-const CACHE_FILE = path.join(__dirname, 'embeddings_cache.json');
-
-function loadCache() {
-    try {
-        if (fs.existsSync(CACHE_FILE)) {
-            return JSON.parse(fs.readFileSync(CACHE_FILE, 'utf-8'));
-        }
-    } catch (e) { /* ignore */ }
-    return {};
-}
-
-function saveCache(cache) {
-    try { fs.writeFileSync(CACHE_FILE, JSON.stringify(cache, null, 2)); } catch (e) { /* ignore */ }
 }
 
 exports.handler = async (event, context) => {
@@ -55,16 +39,6 @@ exports.handler = async (event, context) => {
         console.log("Processing query:", query);
         logToFile("Incoming query", { query });
 
-        // Quick cache check
-        const cache = loadCache();
-        if (cache[query]) {
-            console.log("Cache hit for query:", query);
-            return { 
-                statusCode: 200, 
-                body: JSON.stringify({ response: cache[query], cached: true }) 
-            };
-        }
-
         // Get response from Vectorize with timeout
         const result = await Promise.race([
             vectorizeClient.generateResponse({
@@ -80,10 +54,15 @@ exports.handler = async (event, context) => {
 
         logToFile("Vectorize response", result);
 
-        // Update cache only if we have a valid answer
-        if (result.answer && !result.answer.includes("I couldn't find")) {
-            cache[query] = result.answer;
-            saveCache(cache);
+        // Return appropriate response based on type
+        if (result.isResearchResult) {
+            return {
+                statusCode: 200,
+                body: JSON.stringify({ 
+                    response: result.answer,
+                    isResearchResult: true
+                })
+            };
         }
 
         return {

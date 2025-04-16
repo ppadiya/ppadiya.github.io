@@ -4,7 +4,7 @@ class VectorizeClient {
   constructor() {
     const config = new Configuration({
       accessToken: process.env.TOKEN,
-      basePath: "https://api.vectorize.io/v1",
+      basePath: "https://api.vectorize.io/v1"
     });
     this.pipelinesApi = new PipelinesApi(config);
     this.orgId = "281a4cfe-3588-4464-8f4b-de6fdefe6109";
@@ -14,41 +14,48 @@ class VectorizeClient {
   async generateResponse({ query, options = {} }) {
     try {
       console.log("Sending query to Vectorize:", query);
-      
+
+      // First try deep research for comprehensive answers
+      try {
+        const researchResponse = await this.pipelinesApi.startDeepResearch({
+          organization: this.orgId,
+          pipeline: this.pipelineId,
+          startDeepResearchRequest: {
+            query: query,
+            webSearch: false
+          }
+        });
+
+        // Poll for research results
+        const researchResult = await this.pollDeepResearchResult(researchResponse.researchId);
+        if (researchResult.success) {
+          return {
+            answer: researchResult.markdown,
+            isResearchResult: true
+          };
+        }
+      } catch (researchError) {
+        console.log("Deep research not available, falling back to retrieval:", researchError.message);
+      }
+
+      // Fall back to standard document retrieval
       const response = await this.pipelinesApi.retrieveDocuments({
         organization: this.orgId,
         pipeline: this.pipelineId,
         retrieveDocumentsRequest: {
           question: query,
           numResults: options.topK || 4,
-          rerank: true,
           generateAnswer: true,
-          taskDescription: "You are an AI assistant helping users learn about Pratik Padiya. Generate detailed responses based on the retrieved documents. If the information is not in the documents, say you don't have that information.",
-          answerConfig: {
-            temperature: 0.7,
-            maxLength: 1000,
-            topK: 4,
-            includeMetadata: true,
-            includeSourceText: true
-          }
+          rerank: true
         }
       });
 
       console.log("Vectorize response:", JSON.stringify(response, null, 2));
-      
-      // If we have a generated answer, return it
-      if (response.generatedAnswer) {
-        return {
-          answer: response.generatedAnswer,
-          documents: response.documents || []
-        };
-      }
 
-      // If we have documents but no generated answer, create a summary
       if (response.documents?.length > 0) {
-        const summary = this.createSummaryFromDocuments(response.documents);
+        const formattedResponse = this.createStructuredResponse(query, response.documents);
         return {
-          answer: summary,
+          answer: formattedResponse,
           documents: response.documents
         };
       }
@@ -66,34 +73,96 @@ class VectorizeClient {
     }
   }
 
-  createSummaryFromDocuments(documents) {
-    // Get the most relevant information from documents
-    const relevantInfo = documents
-      .filter(doc => doc.text && doc.text.trim().length > 0)
-      .map(doc => {
-        const text = doc.text || doc.content || "";
-        // Extract key information based on document content
-        if (text.includes("Company Name:") || text.includes("Title:")) {
-          return text.split('\n')
-            .filter(line => 
-              line.startsWith("Company Name:") || 
-              line.startsWith("Title:") || 
-              line.startsWith("Description:") ||
-              line.startsWith("Location:") ||
-              line.startsWith("Started On:")
-            ).join('\n');
-        }
-        return text;
-      })
-      .join('\n\n');
+  async pollDeepResearchResult(researchId, maxAttempts = 10) {
+    for (let attempt = 0; attempt < maxAttempts; attempt++) {
+      const result = await this.pipelinesApi.getDeepResearchResult({
+        organization: this.orgId,
+        pipeline: this.pipelineId,
+        researchId: researchId
+      });
 
-    // If we have work experience info
-    if (relevantInfo.toLowerCase().includes("experience") || relevantInfo.toLowerCase().includes("company")) {
-      return `Based on the available information, here's what I found about Pratik's experience:\n\n${relevantInfo}`;
+      if (result.ready) {
+        return result.data;
+      }
+
+      // Wait 2 seconds before next attempt
+      await new Promise(resolve => setTimeout(resolve, 2000));
+    }
+    throw new Error("Research timed out");
+  }
+
+  createStructuredResponse(query, documents) {
+    const isExperienceQuery = query.toLowerCase().includes('experience') || 
+                             query.toLowerCase().includes('work') ||
+                             query.toLowerCase().includes('job');
+    
+    const isSkillsQuery = query.toLowerCase().includes('skill') || 
+                         query.toLowerCase().includes('expertise') ||
+                         query.toLowerCase().includes('capable');
+
+    if (isExperienceQuery) {
+      const workExperience = documents
+        .filter(doc => doc.text && doc.text.includes('Company Name:'))
+        .map(doc => {
+          const lines = doc.text.split('\n');
+          const experience = {
+            company: lines.find(l => l.startsWith('Company Name:'))?.replace('Company Name:', '').trim(),
+            title: lines.find(l => l.startsWith('Title:'))?.replace('Title:', '').trim(),
+            location: lines.find(l => l.startsWith('Location:'))?.replace('Location:', '').trim(),
+            period: [
+              lines.find(l => l.startsWith('Started On:'))?.replace('Started On:', '').trim(),
+              lines.find(l => l.startsWith('Finished On:'))?.replace('Finished On:', '').trim()
+            ].filter(Boolean).join(' - '),
+            description: lines.find(l => l.startsWith('Description:'))?.replace('Description:', '').trim()
+          };
+          
+          return Object.entries(experience)
+            .filter(([_, value]) => value)
+            .map(([key, value]) => `${key.charAt(0).toUpperCase() + key.slice(1)}: ${value}`)
+            .join('\n');
+        })
+        .join('\n\n');
+
+      return workExperience || "I couldn't find specific work experience information.";
     }
 
-    // For general queries about the person
-    return `Here's what I found about Pratik:\n\n${relevantInfo}`;
+    if (isSkillsQuery) {
+      const skillsDoc = documents.find(doc => doc.text && doc.text.includes('Skills'));
+      if (skillsDoc) {
+        const skills = skillsDoc.text.split('\n')
+          .find(line => line.startsWith('Skills'))
+          ?.replace('Skills', '')
+          .split(',')
+          .map(skill => skill.trim())
+          .filter(Boolean)
+          .join('\n- ');
+        
+        return skills ? `Here are Pratik's key skills:\n- ${skills}` : "I couldn't find specific skills information.";
+      }
+    }
+
+    // For general queries, first try to use the generated answer if available
+    if (documents[0]?.generatedAnswer) {
+      return documents[0].generatedAnswer;
+    }
+
+    // Otherwise, create a summary from the documents
+    const summary = documents
+      .filter(doc => doc.text && (doc.text.includes('Description:') || doc.text.includes('Text:')))
+      .map(doc => {
+        const text = doc.text.split('\n')
+          .filter(line => 
+            !line.startsWith('Creation Date:') && 
+            !line.startsWith('Status:') &&
+            line.trim() !== '----------------------------------------'
+          )
+          .join('\n');
+        return text;
+      })
+      .slice(0, 2)
+      .join('\n\n');
+
+    return summary || "I couldn't find relevant information to answer your question.";
   }
 }
 
