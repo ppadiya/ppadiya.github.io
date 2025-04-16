@@ -14,38 +14,13 @@ class VectorizeClient {
   async generateResponse({ query, options = {} }) {
     try {
       console.log("Sending query to Vectorize:", query);
-
-      // First try deep research for comprehensive answers
-      try {
-        const researchResponse = await this.pipelinesApi.startDeepResearch({
-          organization: this.orgId,
-          pipeline: this.pipelineId,
-          startDeepResearchRequest: {
-            query: query,
-            webSearch: false
-          }
-        });
-
-        // Poll for research results
-        const researchResult = await this.pollDeepResearchResult(researchResponse.researchId);
-        if (researchResult.success) {
-          return {
-            answer: researchResult.markdown,
-            isResearchResult: true
-          };
-        }
-      } catch (researchError) {
-        console.log("Deep research not available, falling back to retrieval:", researchError.message);
-      }
-
-      // Fall back to standard document retrieval
+      
       const response = await this.pipelinesApi.retrieveDocuments({
         organization: this.orgId,
         pipeline: this.pipelineId,
         retrieveDocumentsRequest: {
           question: query,
-          numResults: options.topK || 4,
-          generateAnswer: true,
+          numResults: options.topK || 8, // Increased to get more comprehensive results
           rerank: true
         }
       });
@@ -73,58 +48,79 @@ class VectorizeClient {
     }
   }
 
-  async pollDeepResearchResult(researchId, maxAttempts = 10) {
-    for (let attempt = 0; attempt < maxAttempts; attempt++) {
-      const result = await this.pipelinesApi.getDeepResearchResult({
-        organization: this.orgId,
-        pipeline: this.pipelineId,
-        researchId: researchId
-      });
-
-      if (result.ready) {
-        return result.data;
-      }
-
-      // Wait 2 seconds before next attempt
-      await new Promise(resolve => setTimeout(resolve, 2000));
-    }
-    throw new Error("Research timed out");
-  }
-
   createStructuredResponse(query, documents) {
     const isExperienceQuery = query.toLowerCase().includes('experience') || 
                              query.toLowerCase().includes('work') ||
                              query.toLowerCase().includes('job');
     
+    if (isExperienceQuery) {
+      // Extract all work experiences from different chunks
+      const experiences = [];
+      documents.forEach(doc => {
+        const text = doc.text || "";
+        const entries = text.split('\n\n');
+        
+        entries.forEach(entry => {
+          if (entry.includes('Company Name:') || entry.includes('Title:')) {
+            const lines = entry.split('\n');
+            const exp = {
+              company: lines.find(l => l.startsWith('Company Name:'))?.replace('Company Name:', '').trim(),
+              title: lines.find(l => l.startsWith('Title:'))?.replace('Title:', '').trim(),
+              location: lines.find(l => l.startsWith('Location:'))?.replace('Location:', '').trim(),
+              startDate: lines.find(l => l.startsWith('Started On:'))?.replace('Started On:', '').trim(),
+              endDate: lines.find(l => l.startsWith('Finished On:'))?.replace('Finished On:', '').trim(),
+              description: lines.find(l => l.startsWith('Description:'))?.replace('Description:', '').trim()
+            };
+            
+            // Only add if we have at least company or title
+            if (exp.company || exp.title) {
+              experiences.push(exp);
+            }
+          }
+        });
+      });
+
+      // Sort experiences by date (most recent first)
+      experiences.sort((a, b) => {
+        const dateA = a.endDate || a.startDate || '';
+        const dateB = b.endDate || b.startDate || '';
+        return new Date(dateB) - new Date(dateA);
+      });
+
+      // Remove duplicates based on company name and start date
+      const uniqueExperiences = experiences.filter((exp, index, self) =>
+        index === self.findIndex(e => 
+          e.company === exp.company && 
+          e.startDate === exp.startDate
+        )
+      );
+
+      // Format the response
+      const formattedExperiences = uniqueExperiences.map(exp => {
+        const parts = [];
+        if (exp.company) parts.push(`Company: ${exp.company}`);
+        if (exp.title) parts.push(`Title: ${exp.title}`);
+        if (exp.location) parts.push(`Location: ${exp.location}`);
+        
+        // Format period
+        const period = [exp.startDate, exp.endDate]
+          .filter(Boolean)
+          .join(' - ');
+        if (period) parts.push(`Period: ${period}`);
+        
+        if (exp.description) parts.push(`Description: ${exp.description}`);
+        
+        return parts.join('\n');
+      });
+
+      const intro = "Here's a comprehensive overview of Pratik's work experience, ordered from most recent to oldest:\n\n";
+      return intro + formattedExperiences.join('\n\n');
+    }
+
+    // Handle other query types similarly to before
     const isSkillsQuery = query.toLowerCase().includes('skill') || 
                          query.toLowerCase().includes('expertise') ||
                          query.toLowerCase().includes('capable');
-
-    if (isExperienceQuery) {
-      const workExperience = documents
-        .filter(doc => doc.text && doc.text.includes('Company Name:'))
-        .map(doc => {
-          const lines = doc.text.split('\n');
-          const experience = {
-            company: lines.find(l => l.startsWith('Company Name:'))?.replace('Company Name:', '').trim(),
-            title: lines.find(l => l.startsWith('Title:'))?.replace('Title:', '').trim(),
-            location: lines.find(l => l.startsWith('Location:'))?.replace('Location:', '').trim(),
-            period: [
-              lines.find(l => l.startsWith('Started On:'))?.replace('Started On:', '').trim(),
-              lines.find(l => l.startsWith('Finished On:'))?.replace('Finished On:', '').trim()
-            ].filter(Boolean).join(' - '),
-            description: lines.find(l => l.startsWith('Description:'))?.replace('Description:', '').trim()
-          };
-          
-          return Object.entries(experience)
-            .filter(([_, value]) => value)
-            .map(([key, value]) => `${key.charAt(0).toUpperCase() + key.slice(1)}: ${value}`)
-            .join('\n');
-        })
-        .join('\n\n');
-
-      return workExperience || "I couldn't find specific work experience information.";
-    }
 
     if (isSkillsQuery) {
       const skillsDoc = documents.find(doc => doc.text && doc.text.includes('Skills'));
@@ -141,12 +137,7 @@ class VectorizeClient {
       }
     }
 
-    // For general queries, first try to use the generated answer if available
-    if (documents[0]?.generatedAnswer) {
-      return documents[0].generatedAnswer;
-    }
-
-    // Otherwise, create a summary from the documents
+    // For general queries, create a summary from recommendations and descriptions
     const summary = documents
       .filter(doc => doc.text && (doc.text.includes('Description:') || doc.text.includes('Text:')))
       .map(doc => {
