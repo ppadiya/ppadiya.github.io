@@ -56,12 +56,14 @@ function logQuery(query, contextChunks, response) {
 // Function to get relevant chunks from Vectorize
 async function getRelevantChunks(query) {
   try {
-    // Search Vectorize database directly with the query
+    console.log("Searching Vectorize with query:", query);
     const results = await vectorizeClient.search({
       query: query,
-      topK: TOP_K,
-      includeMetadata: true
+      topK: TOP_K
     });
+    
+    // Debug logging
+    console.log("Processed Vectorize results:", JSON.stringify(results, null, 2));
     
     // Process and return results
     if (!results.matches || results.matches.length === 0) {
@@ -70,12 +72,8 @@ async function getRelevantChunks(query) {
     }
     
     return results.matches.map(match => ({
-      text: match.metadata?.text || '',
-      metadata: {
-        title: match.metadata?.title || '',
-        tags: match.metadata?.tags || [],
-        dates: match.metadata?.dates || []
-      },
+      text: match.text || '', // We now get text directly from the response
+      metadata: match.metadata || {},
       score: match.score || 0
     }));
   } catch (error) {
@@ -115,21 +113,35 @@ exports.handler = async (event, context) => {
         // Get relevant chunks directly from Vectorize
         const relevantChunks = await getRelevantChunks(query);
         
+        // Debug logging for chunks
+        console.log("Retrieved chunks:", JSON.stringify(relevantChunks, null, 2));
+        
         if (!relevantChunks || relevantChunks.length === 0) {
-            throw new Error("No relevant content found for query");
+            console.log("No relevant chunks found, returning default response");
+            return {
+                statusCode: 200,
+                body: JSON.stringify({ 
+                    response: "I don't know based on the provided information.",
+                    debug: "No relevant chunks found in Vectorize"
+                })
+            };
         }
 
         // Build context with metadata
         let context = relevantChunks
             .map(chunk => 
-                `---\nTitle: ${chunk.metadata?.title || ''}\nTags: ${(chunk.metadata?.tags || []).join(', ')}\nDates: ${(chunk.metadata?.dates || []).join(', ')}\nScore: ${chunk.score.toFixed(3)}\nContent: ${chunk.text}`
+                `---\nContent: ${chunk.text}\nScore: ${chunk.score.toFixed(3)}\nMetadata: ${JSON.stringify(chunk.metadata)}`
             )
             .join("\n\n");
+
+        // Debug logging for context
+        console.log("Built context:", context);
 
         // Trim context if too large
         if (estimateTokens(context) > MAX_CONTEXT_TOKENS) {
             const words = context.split(/\s+/);
             context = words.slice(0, MAX_CONTEXT_TOKENS).join(' ');
+            console.log("Context trimmed to", MAX_CONTEXT_TOKENS, "tokens");
         }
 
         // Improved system prompt

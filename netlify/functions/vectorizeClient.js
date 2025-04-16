@@ -22,11 +22,14 @@ class VectorizeClient {
         }
       });
       
+      // Add debug logging
+      console.log("Vectorize raw response:", JSON.stringify(response, null, 2));
+      
       return {
-        matches: response.documents.map(doc => ({
-          text: doc.text || '',
+        matches: (response.documents || []).map(doc => ({
+          text: doc.content || doc.text || '', // Try both possible locations
           metadata: doc.metadata || {},
-          score: doc.relevanceScore || 0
+          score: doc.score || doc.relevanceScore || 0
         }))
       };
     } catch (error) {
