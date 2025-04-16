@@ -11,29 +11,30 @@ class VectorizeClient {
     this.pipelineId = "aipff73a-ec21-45ae-8f37-f867e52184ee";
   }
 
-  async search({ query, topK = 5 }) {
+  async generateResponse({ query, options = {} }) {
     try {
       const response = await this.pipelinesApi.retrieveDocuments({
         organization: this.orgId,
         pipeline: this.pipelineId,
         retrieveDocumentsRequest: {
           question: query,
-          numResults: topK,
+          numResults: options.topK || 4,
+          generateAnswer: true, // Enable answer generation
+          rerank: true, // Enable reranking for better relevance
+          stream: false // Get complete response at once
         }
       });
       
-      // Add debug logging
-      console.log("Vectorize raw response:", JSON.stringify(response, null, 2));
-      
       return {
-        matches: (response.documents || []).map(doc => ({
-          text: doc.content || doc.text || '', // Try both possible locations
+        answer: response.answer || "I don't have enough information to answer that question.",
+        documents: (response.documents || []).map(doc => ({
+          text: doc.content || doc.text || '',
           metadata: doc.metadata || {},
           score: doc.score || doc.relevanceScore || 0
         }))
       };
     } catch (error) {
-      console.error("Vectorize search error:", error?.response);
+      console.error("Vectorize API error:", error?.response);
       if (error?.response) {
         console.error(await error.response.text().catch(() => "Could not read error response"));
       }

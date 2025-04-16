@@ -4,11 +4,11 @@
 
 [functions]
   node_bundler = "esbuild"
-  included_files = ["data/embeddings.json"] # Include the pre-computed embeddings file
+  included_files = ["data/embeddings.json"]
 
 [functions.chatbot]
-  memory = 1024
-  timeout = 10
+  memory = 1536
+  timeout = 30
 
 [functions.enhance-prompt]
   memory = 128
