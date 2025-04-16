@@ -99,19 +99,21 @@ class VectorizeClient {
   }
 
   identifySectionType(chunk) {
-    const indicators = {
-      education: ['School Name:', 'Degree Name:', 'Education'],
-      work: ['Company Name:', 'Title:', 'Description:', 'Positions'],
-      certification: ['Certifications', 'Authority:', 'License Number:'],
-      skills: ['Skills', 'Endorsement'],
-      language: ['Languages', 'Proficiency:'],
-      recommendation: ['Recommendations Received', 'Text:']
-    };
-
-    for (const [type, keywords] of Object.entries(indicators)) {
-      if (keywords.some(keyword => chunk.includes(keyword))) {
-        return type;
-      }
+    // More specific and stricter section identification
+    if (chunk.includes('----------------------------------------\nCertifications\n\n')) {
+      return 'certification';
+    }
+    if (chunk.includes('----------------------------------------\nEducation\n\n')) {
+      return 'education';
+    }
+    if (chunk.includes('Positions\n\n') || chunk.startsWith('Company Name:')) {
+      return 'work';
+    }
+    if (chunk.includes('----------------------------------------\nLanguages\n\n')) {
+      return 'language';
+    }
+    if (chunk.includes('----------------------------------------\nSkills\n\n')) {
+      return 'skills';
     }
     return null;
   }
@@ -122,6 +124,26 @@ class VectorizeClient {
     let currentItem = {};
 
     switch (type) {
+      case 'certification':
+        lines.forEach(line => {
+          if (line.startsWith('Name:')) {
+            if (Object.keys(currentItem).length > 0) {
+              data.push({...currentItem});
+              currentItem = {};
+            }
+            currentItem.name = line.replace('Name:', '').trim();
+          } else if (line.startsWith('Authority:')) {
+            currentItem.authority = line.replace('Authority:', '').trim();
+          } else if (line.startsWith('Started On:')) {
+            currentItem.startDate = line.replace('Started On:', '').trim();
+          } else if (line.startsWith('Finished On:')) {
+            currentItem.endDate = line.replace('Finished On:', '').trim();
+          } else if (line.startsWith('License Number:')) {
+            currentItem.licenseNumber = line.replace('License Number:', '').trim();
+          }
+        });
+        break;
+
       case 'education':
         lines.forEach(line => {
           if (line.startsWith('School Name:')) {
@@ -162,7 +184,8 @@ class VectorizeClient {
         });
         break;
 
-      // Add other section types as needed
+      default:
+        return [];
     }
 
     if (Object.keys(currentItem).length > 0) {
@@ -176,28 +199,37 @@ class VectorizeClient {
     const queryWords = new Set(query.toLowerCase().split(/\W+/));
     let bestMatch = { score: 0, type: null, data: null };
 
+    // Define specific keywords for each section type
+    const sectionKeywords = {
+      certification: ['certification', 'certificate', 'certifications', 'certified', 'license', 'qualification'],
+      education: ['education', 'degree', 'university', 'college', 'school', 'academic'],
+      work: ['work', 'job', 'career', 'experience', 'position', 'employment'],
+      skills: ['skill', 'expertise', 'capability', 'proficiency', 'competency'],
+      language: ['language', 'speak', 'proficiency', 'fluent']
+    };
+
+    // Check each section against its specific keywords
     for (const [type, data] of sections.entries()) {
-      // Calculate relevance score based on keyword matches
-      const typeWords = type.split('_');
-      const matches = typeWords.filter(word => queryWords.has(word.toLowerCase())).length;
-      const score = matches / typeWords.length;
+      const keywords = sectionKeywords[type] || [];
+      const matches = keywords.filter(keyword => queryWords.has(keyword)).length;
+      const score = matches / keywords.length;
 
       if (score > bestMatch.score) {
         bestMatch = { score, type, data };
       }
     }
 
-    return bestMatch.score > 0 ? bestMatch : null;
+    return bestMatch.score > 0.1 ? bestMatch : null; // Increased threshold for better accuracy
   }
 
   formatSection(type, data) {
     switch (type) {
+      case 'certification':
+        return this.formatCertifications(data);
       case 'education':
         return this.formatEducation(data);
       case 'work':
         return this.formatWorkExperience(data);
-      case 'certification':
-        return this.formatCertifications(data);
       case 'skills':
         return this.formatSkills(data);
       case 'language':
@@ -242,6 +274,47 @@ class VectorizeClient {
              if (exp.description) parts.push(`Description: ${exp.description}`);
              return parts.join('\n');
            }).join('\n\n');
+  }
+
+  formatCertifications(data) {
+    // Sort by date (most recent first)
+    data.sort((a, b) => {
+      const dateA = a.endDate || a.startDate || '';
+      const dateB = b.endDate || b.startDate || '';
+      return new Date(dateB) - new Date(dateA);
+    });
+
+    // Group certifications by authority
+    const groupedCerts = data.reduce((groups, cert) => {
+      const authority = cert.authority || 'Other';
+      if (!groups[authority]) {
+        groups[authority] = [];
+      }
+      groups[authority].push(cert);
+      return groups;
+    }, {});
+
+    let response = "Here are Pratik's professional certifications:\n\n";
+
+    Object.entries(groupedCerts).forEach(([authority, certs]) => {
+      response += `${authority}:\n`;
+      certs.forEach(cert => {
+        let certLine = `• ${cert.name}`;
+        if (cert.startDate || cert.endDate) {
+          certLine += ' (';
+          if (cert.startDate) certLine += `Started: ${cert.startDate}`;
+          if (cert.endDate) certLine += `${cert.startDate ? ', ' : ''}Completed: ${cert.endDate}`;
+          certLine += ')';
+        }
+        if (cert.licenseNumber) {
+          certLine += ` - License: ${cert.licenseNumber}`;
+        }
+        response += `${certLine}\n`;
+      });
+      response += '\n';
+    });
+
+    return response.trim();
   }
 
   createGeneralSummary(documents) {
