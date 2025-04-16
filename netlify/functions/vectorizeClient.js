@@ -15,51 +15,37 @@ class VectorizeClient {
     try {
       console.log("Sending query to Vectorize:", query);
       
-      // First, get relevant documents
       const response = await this.pipelinesApi.retrieveDocuments({
         organization: this.orgId,
         pipeline: this.pipelineId,
         retrieveDocumentsRequest: {
           question: query,
           numResults: options.topK || 4,
-          rerank: true
-        }
-      });
-
-      // Extract and format the context from documents
-      const context = (response.documents || [])
-        .map(doc => doc.text)
-        .join('\n\n');
-
-      // Now use the LLM to generate an answer based on the context
-      const llmResponse = await this.pipelinesApi.retrieveDocuments({
-        organization: this.orgId,
-        pipeline: this.pipelineId,
-        retrieveDocumentsRequest: {
-          question: query,
-          context: context,
+          rerank: true,
           generateAnswer: true,
-          llmConfig: {
+          taskDescription: "You are an AI assistant helping users learn about Pratik Padiya. Generate detailed responses based on the retrieved documents. If the information is not in the documents, say you don't have that information.",
+          answerConfig: {
             temperature: 0.7,
-            model: "gpt-3.5-turbo",
-            systemPrompt: "You are a helpful assistant answering questions about Pratik Padiya based on the provided context. Be specific and use details from the context. If information is not in the context, say you don't have that information."
+            maxLength: 1000,
+            topK: 4,
+            includeMetadata: true,
+            includeSourceText: true
           }
         }
       });
 
-      console.log("LLM Response:", JSON.stringify(llmResponse, null, 2));
-
-      // If we get an answer, return it along with the supporting documents
-      if (llmResponse.answer) {
+      console.log("Vectorize response:", JSON.stringify(response, null, 2));
+      
+      // If we have a generated answer, return it
+      if (response.generatedAnswer) {
         return {
-          answer: llmResponse.answer,
+          answer: response.generatedAnswer,
           documents: response.documents || []
         };
       }
 
-      // If no direct answer but we have documents, create a summary
-      if (response.documents && response.documents.length > 0) {
-        // Create a summary based on the most relevant documents
+      // If we have documents but no generated answer, create a summary
+      if (response.documents?.length > 0) {
         const summary = this.createSummaryFromDocuments(response.documents);
         return {
           answer: summary,
@@ -68,15 +54,13 @@ class VectorizeClient {
       }
 
       return {
-        answer: "I couldn't find specific information to answer your question. Could you please rephrase it?",
+        answer: "I couldn't find relevant information to answer your question. Could you please rephrase it?",
         documents: []
       };
     } catch (error) {
       console.error("Vectorize API error:", error);
-      console.error("Error response:", error?.response);
       if (error?.response) {
-        const errorText = await error.response.text().catch(() => "Could not read error response");
-        console.error("Error response text:", errorText);
+        console.error("Error response:", await error.response.text().catch(() => "Could not read error response"));
       }
       throw error;
     }
@@ -87,21 +71,25 @@ class VectorizeClient {
     const relevantInfo = documents
       .filter(doc => doc.text && doc.text.trim().length > 0)
       .map(doc => {
+        const text = doc.text || doc.content || "";
         // Extract key information based on document content
-        if (doc.text.includes("Company Name:")) {
-          return doc.text.split('\n').filter(line => 
-            line.startsWith("Company Name:") || 
-            line.startsWith("Title:") || 
-            line.startsWith("Description:")
-          ).join('\n');
+        if (text.includes("Company Name:") || text.includes("Title:")) {
+          return text.split('\n')
+            .filter(line => 
+              line.startsWith("Company Name:") || 
+              line.startsWith("Title:") || 
+              line.startsWith("Description:") ||
+              line.startsWith("Location:") ||
+              line.startsWith("Started On:")
+            ).join('\n');
         }
-        return doc.text;
+        return text;
       })
       .join('\n\n');
 
     // If we have work experience info
     if (relevantInfo.toLowerCase().includes("experience") || relevantInfo.toLowerCase().includes("company")) {
-      return `Based on the available information, here's what I found:\n\n${relevantInfo}`;
+      return `Based on the available information, here's what I found about Pratik's experience:\n\n${relevantInfo}`;
     }
 
     // For general queries about the person

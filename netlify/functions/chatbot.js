@@ -80,24 +80,8 @@ exports.handler = async (event, context) => {
 
         logToFile("Vectorize response", result);
 
-        if (!result.answer && (!result.documents || result.documents.length === 0)) {
-            console.log("No answer or documents returned from Vectorize");
-            return {
-                statusCode: 200,
-                body: JSON.stringify({ 
-                    response: "I don't have enough relevant information to answer your question. Could you try rephrasing it?",
-                    debug: { status: "no_results" }
-                })
-            };
-        }
-
-        // If we have documents but no answer, try to provide a helpful response
-        if (!result.answer && result.documents && result.documents.length > 0) {
-            result.answer = "I found some relevant information but couldn't generate a complete answer. Please try rephrasing your question.";
-        }
-
         // Update cache only if we have a valid answer
-        if (result.answer && result.answer !== "I don't have enough information to answer that question.") {
+        if (result.answer && !result.answer.includes("I couldn't find")) {
             cache[query] = result.answer;
             saveCache(cache);
         }
