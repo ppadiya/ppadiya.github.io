@@ -15,15 +15,13 @@ class VectorizeClient {
     try {
       console.log("Sending query to Vectorize:", query);
       
-      // First try the unified approach with answer generation
       const response = await this.pipelinesApi.retrieveDocuments({
         organization: this.orgId,
         pipeline: this.pipelineId,
         retrieveDocumentsRequest: {
           question: query,
           numResults: options.topK || 8,
-          rerank: true,
-          generateAnswer: true // Enable answer generation
+          rerank: true
         }
       });
 
@@ -36,15 +34,6 @@ class VectorizeClient {
         };
       }
 
-      // If we have a generated answer, use it as the primary response
-      if (response.documents[0]?.generatedAnswer) {
-        return {
-          answer: response.documents[0].generatedAnswer,
-          documents: response.documents
-        };
-      }
-
-      // Otherwise, try to extract and format structured data
       const formattedResponse = this.createStructuredResponse(query, response.documents);
       return {
         answer: formattedResponse,
@@ -60,107 +49,101 @@ class VectorizeClient {
   }
 
   createStructuredResponse(query, documents) {
-    // Extract all sections and their data from documents
-    const sections = this.extractSections(documents);
-    
-    // Try to find the most relevant section based on query similarity
-    const relevantSection = this.findRelevantSection(query, sections);
-    
-    if (relevantSection) {
-      return this.formatSection(relevantSection.type, relevantSection.data);
-    }
+    const queryType = this.identifyQueryType(query);
+    if (!queryType) return this.createGeneralSummary(documents);
 
-    // If no specific section is found, create a general summary
-    return this.createGeneralSummary(documents);
+    const relevantData = this.extractRelevantData(queryType, documents);
+    return this.formatResponse(queryType, relevantData);
   }
 
-  extractSections(documents) {
-    const sections = new Map();
+  identifyQueryType(query) {
+    const queryLower = query.toLowerCase();
+    const typePatterns = {
+      certification: ['certification', 'certificate', 'certified'],
+      education: ['education', 'degree', 'university', 'school', 'study'],
+      work: ['work', 'job', 'career', 'experience', 'position'],
+      skill: ['skill', 'expertise', 'capable', 'competency'],
+      language: ['language', 'speak', 'linguistic']
+    };
 
-    documents.forEach(doc => {
-      const text = doc.text || "";
-      const chunks = text.split('----------------------------------------');
-      
-      chunks.forEach(chunk => {
-        // Identify section type from content
-        const sectionType = this.identifySectionType(chunk);
-        if (!sectionType) return;
-
-        // Parse section data
-        const data = this.parseSectionData(sectionType, chunk);
-        if (!sections.has(sectionType)) {
-          sections.set(sectionType, []);
-        }
-        sections.get(sectionType).push(...data);
-      });
-    });
-
-    return sections;
-  }
-
-  identifySectionType(chunk) {
-    // Look for exact section headers with clear boundaries
-    const trimmedChunk = chunk.trim();
-    
-    if (trimmedChunk.startsWith('Education\n\n') || trimmedChunk.includes('\nEducation\n\n')) {
-      return 'education';
-    }
-    if (trimmedChunk.startsWith('Certifications\n\n') || trimmedChunk.includes('\nCertifications\n\n')) {
-      return 'certification';
-    }
-    if (trimmedChunk.includes('Positions\n\n') || trimmedChunk.startsWith('Company Name:')) {
-      return 'work';
-    }
-    if (trimmedChunk.startsWith('Languages\n\n') || trimmedChunk.includes('\nLanguages\n\n')) {
-      return 'language';
+    for (const [type, patterns] of Object.entries(typePatterns)) {
+      if (patterns.some(pattern => queryLower.includes(pattern))) {
+        return type;
+      }
     }
     return null;
   }
 
-  parseSectionData(type, chunk) {
-    // Extract only the relevant section, stopping at the next section boundary
-    const sections = chunk.split('----------------------------------------');
-    const relevantSection = sections.find(section => 
-      section.trim().startsWith(type.charAt(0).toUpperCase() + type.slice(1)) ||
-      section.includes(`\n${type.charAt(0).toUpperCase() + type.slice(1)}\n\n`)
+  extractRelevantData(type, documents) {
+    const sectionMarker = '----------------------------------------';
+    let relevantData = [];
+
+    for (const doc of documents) {
+      if (!doc.text) continue;
+
+      const sections = doc.text.split(sectionMarker);
+      for (const section of sections) {
+        const cleanSection = section.trim();
+        
+        // Check if this section matches the type we're looking for
+        if (this.isSectionRelevant(type, cleanSection)) {
+          const extractedData = this.parseSectionData(type, cleanSection);
+          if (extractedData.length > 0) {
+            relevantData.push(...extractedData);
+          }
+        }
+      }
+    }
+
+    return this.deduplicateData(relevantData);
+  }
+
+  isSectionRelevant(type, section) {
+    const sectionHeaders = {
+      certification: ['Certifications'],
+      education: ['Education'],
+      work: ['Positions', 'Work Experience'],
+      skill: ['Skills'],
+      language: ['Languages']
+    };
+
+    const headers = sectionHeaders[type] || [];
+    return headers.some(header => 
+      section.startsWith(header + '\n') || 
+      section.includes('\n' + header + '\n')
     );
+  }
 
-    if (!relevantSection) return [];
-
-    const lines = relevantSection.split('\n').filter(Boolean);
+  parseSectionData(type, section) {
+    const lines = section.split('\n').filter(Boolean);
     const data = [];
     let currentItem = {};
-    let isInRelevantSection = false;
+    let isParsingItem = false;
 
     for (const line of lines) {
-      // Start collecting data after the section header
-      if (line.trim() === type.charAt(0).toUpperCase() + type.slice(1)) {
-        isInRelevantSection = true;
-        continue;
-      }
-
-      if (!isInRelevantSection) continue;
-
-      // Stop at the next section boundary
-      if (line.includes('----------------------------------------')) break;
-
       switch (type) {
-        case 'education':
-          if (line.startsWith('School Name:')) {
+        case 'certification':
+          if (line.startsWith('Name:')) {
             if (Object.keys(currentItem).length > 0) {
               data.push({...currentItem});
               currentItem = {};
             }
-            currentItem.school = line.replace('School Name:', '').trim();
-          } else if (line.startsWith('Degree Name:')) {
-            currentItem.degree = line.replace('Degree Name:', '').trim();
-          } else if (line.startsWith('Start Date:')) {
-            currentItem.startDate = line.replace('Start Date:', '').trim();
-          } else if (line.startsWith('End Date:')) {
-            currentItem.endDate = line.replace('End Date:', '').trim();
+            currentItem.name = line.replace('Name:', '').trim();
+            isParsingItem = true;
+          } else if (isParsingItem) {
+            if (line.startsWith('Authority:')) {
+              currentItem.authority = line.replace('Authority:', '').trim();
+            } else if (line.startsWith('Started On:')) {
+              currentItem.startDate = line.replace('Started On:', '').trim();
+            } else if (line.startsWith('Finished On:')) {
+              currentItem.endDate = line.replace('Finished On:', '').trim();
+            } else if (line.startsWith('License Number:')) {
+              currentItem.licenseNumber = line.replace('License Number:', '').trim();
+            }
           }
           break;
-        // ... other cases remain unchanged ...
+          
+        // Add other cases as needed
       }
     }
 
@@ -171,33 +154,19 @@ class VectorizeClient {
     return data;
   }
 
-  findRelevantSection(query, sections) {
-    const queryWords = new Set(query.toLowerCase().split(/\W+/));
-    let bestMatch = { score: 0, type: null, data: null };
-
-    // More specific keywords for each section
-    const sectionKeywords = {
-      education: ['education', 'degree', 'university', 'college', 'school', 'studied', 'qualification', 'academic', 'graduate', 'graduated'],
-      certification: ['certification', 'certificate', 'certified', 'license', 'training'],
-      work: ['work', 'job', 'career', 'experience', 'position', 'employment', 'company'],
-      language: ['language', 'speak', 'linguistic']
-    };
-
-    for (const [type, data] of sections.entries()) {
-      const keywords = sectionKeywords[type] || [];
-      const matches = keywords.filter(keyword => queryWords.has(keyword)).length;
-      const score = matches / Math.min(keywords.length, queryWords.size);
-
-      if (score > bestMatch.score) {
-        bestMatch = { score, type, data };
-      }
-    }
-
-    // Higher threshold to ensure better matches
-    return bestMatch.score > 0.15 ? bestMatch : null;
+  deduplicateData(data) {
+    return data.filter((item, index, self) =>
+      index === self.findIndex(t => 
+        JSON.stringify(t) === JSON.stringify(item)
+      )
+    );
   }
 
-  formatSection(type, data) {
+  formatResponse(type, data) {
+    if (!data || data.length === 0) {
+      return `No ${type} information found.`;
+    }
+
     switch (type) {
       case 'certification':
         return this.formatCertifications(data);
@@ -205,61 +174,9 @@ class VectorizeClient {
         return this.formatEducation(data);
       case 'work':
         return this.formatWorkExperience(data);
-      case 'skills':
-        return this.formatSkills(data);
-      case 'language':
-        return this.formatLanguages(data);
       default:
         return this.formatGeneral(data);
     }
-  }
-
-  formatEducation(data) {
-    if (!data || data.length === 0) {
-      return "No educational information found.";
-    }
-
-    // Sort by end date (most recent first)
-    data.sort((a, b) => {
-      const dateA = a.endDate || a.startDate || '';
-      const dateB = b.endDate || b.startDate || '';
-      return new Date(dateB) - new Date(dateA);
-    });
-
-    let response = "Here's Pratik's educational background:\n\n";
-    
-    // Format each education entry
-    data.forEach(edu => {
-      response += `${edu.degree} from ${edu.school}\n`;
-      if (edu.startDate || edu.endDate) {
-        response += `Period: ${[edu.startDate, edu.endDate].filter(Boolean).join(' - ')}\n`;
-      }
-      response += '\n';
-    });
-
-    return response.trim();
-  }
-
-  formatWorkExperience(data) {
-    // Sort by date (most recent first)
-    data.sort((a, b) => {
-      const dateA = a.endDate || a.startDate || '';
-      const dateB = b.endDate || b.startDate || '';
-      return new Date(dateB) - new Date(dateA);
-    });
-
-    return "Here's the work experience:\n\n" +
-           data.map(exp => {
-             const parts = [];
-             if (exp.company) parts.push(`Company: ${exp.company}`);
-             if (exp.title) parts.push(`Title: ${exp.title}`);
-             if (exp.location) parts.push(`Location: ${exp.location}`);
-             if (exp.startDate || exp.endDate) {
-               parts.push(`Period: ${[exp.startDate, exp.endDate].filter(Boolean).join(' - ')}`);
-             }
-             if (exp.description) parts.push(`Description: ${exp.description}`);
-             return parts.join('\n');
-           }).join('\n\n');
   }
 
   formatCertifications(data) {
@@ -270,8 +187,37 @@ class VectorizeClient {
       return new Date(dateB) - new Date(dateA);
     });
 
-    // Group certifications by authority
-    const groupedCerts = data.reduce((groups, cert) => {
+    let response = "Professional Certifications:\n\n";
+    const groupedByAuthority = this.groupByAuthority(data);
+
+    for (const [authority, certs] of Object.entries(groupedByAuthority)) {
+      response += `${authority}:\n`;
+      for (const cert of certs) {
+        let certLine = `• ${cert.name}`;
+        
+        // Add dates if available
+        if (cert.startDate || cert.endDate) {
+          const dates = [];
+          if (cert.startDate) dates.push(`Started: ${cert.startDate}`);
+          if (cert.endDate) dates.push(`Completed: ${cert.endDate}`);
+          certLine += ` (${dates.join(', ')})`;
+        }
+        
+        // Add license if available
+        if (cert.licenseNumber) {
+          certLine += ` - License: ${cert.licenseNumber}`;
+        }
+        
+        response += `${certLine}\n`;
+      }
+      response += '\n';
+    }
+
+    return response.trim();
+  }
+
+  groupByAuthority(certifications) {
+    return certifications.reduce((groups, cert) => {
       const authority = cert.authority || 'Other';
       if (!groups[authority]) {
         groups[authority] = [];
@@ -279,44 +225,18 @@ class VectorizeClient {
       groups[authority].push(cert);
       return groups;
     }, {});
-
-    let response = "Here are Pratik's professional certifications:\n\n";
-
-    Object.entries(groupedCerts).forEach(([authority, certs]) => {
-      response += `${authority}:\n`;
-      certs.forEach(cert => {
-        let certLine = `• ${cert.name}`;
-        if (cert.startDate || cert.endDate) {
-          certLine += ' (';
-          if (cert.startDate) certLine += `Started: ${cert.startDate}`;
-          if (cert.endDate) certLine += `${cert.startDate ? ', ' : ''}Completed: ${cert.endDate}`;
-          certLine += ')';
-        }
-        if (cert.licenseNumber) {
-          certLine += ` - License: ${cert.licenseNumber}`;
-        }
-        response += `${certLine}\n`;
-      });
-      response += '\n';
-    });
-
-    return response.trim();
   }
 
   createGeneralSummary(documents) {
-    // Create a summary from the most relevant chunks
     return documents
       .filter(doc => doc.text && doc.similarity > 0.5)
-      .map(doc => {
-        const text = doc.text.split('\n')
-          .filter(line => 
-            !line.startsWith('Creation Date:') && 
-            !line.startsWith('Status:') &&
-            line.trim() !== '----------------------------------------'
-          )
-          .join('\n');
-        return text;
-      })
+      .map(doc => doc.text.split('\n')
+        .filter(line => 
+          !line.startsWith('Creation Date:') && 
+          !line.startsWith('Status:') &&
+          !line.includes('----------------------------------------')
+        ).join('\n')
+      )
       .slice(0, 2)
       .join('\n\n');
   }
