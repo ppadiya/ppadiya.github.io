@@ -3,8 +3,10 @@ node_modules/
 # Local Netlify folder
 .netlify
 LinkedinData/
-knowledge_base_old.txt
-knowledge_base.json
+data/knowledge_base_old.txt
+data/knowledge_base.json
 .gitignore
 test/
-
+data/optimize_kb.py
+data/knowledge_base_new.json
+data/knowledge_base_18Apr2025.txt
