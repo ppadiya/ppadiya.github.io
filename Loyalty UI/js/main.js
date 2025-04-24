@@ -21,6 +21,16 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
+    // Force dark mode
+    document.body.classList.add('dark-mode');
+    localStorage.setItem('theme', 'dark');
+
+    // Hide theme toggle
+    const themeToggle = document.querySelector('.theme-switch-wrapper');
+    if (themeToggle) {
+        themeToggle.style.display = 'none';
+    }
+
     // Banner Slider Functionality
     const banner = document.querySelector('.banner');
     const indicators = document.querySelectorAll('.indicator');

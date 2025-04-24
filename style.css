@@ -1,66 +1,44 @@
 /* --- Global Styles & Variables --- */
 :root {
-    /* Refined Color Palette - Fintech/Professional Theme */
-    --primary-color: #0052cc; /* Strong blue - represents trust in financial sector */
-    --secondary-color: #64748B; /* Slate */
-    --background-color: #F8FAFC; /* Lighter Slate */
-    --surface-color: #ffffff; /* White */
-    --text-color: #1E293B; /* Darker Slate */
-    --heading-color: #0F172A; /* Darkest Slate */
-    --accent-color: #FF5630; /* Vibrant orange-red for accents - energy/innovation */
-    --border-color: #E2E8F0; /* Light Slate Border */
-    --border-color-light-enhanced: #CFD8DC; /* Slightly darker for better contrast */
-    --success-color: #36B37E; /* Green for success indicators */
-    --highlight-bg: rgba(0, 82, 204, 0.05); /* Very light blue for highlight backgrounds */
-
-    /* Dark Mode Palette */
-    --primary-color-dark: #4C9AFF; /* Lighter blue for dark mode */
-    --secondary-color-dark: #94A3B8;
-    --background-color-dark: #0F172A; /* Darkest Slate */
-    --surface-color-dark: #1E293B; /* Darker Slate */
-    --text-color-dark: #CBD5E1; /* Lighter Slate */
-    --heading-color-dark: #F1F5F9; /* Lightest Slate */
-    --accent-color-dark: #FF8F73; /* Lighter orange-red for dark mode */
-    --border-color-dark: #334155; /* Mid Slate Border */
-    --success-color-dark: #57D9A3; /* Lighter green for dark mode */
-    --highlight-bg-dark: rgba(76, 154, 255, 0.1); /* Subtle highlight for dark mode */
+    /* Dark Mode Colors (Now Default) */
+    --primary-color: #4C9AFF;
+    --secondary-color: #94A3B8;
+    --background-color: #0F172A;
+    --surface-color: #1E293B;
+    --text-color: #CBD5E1;
+    --heading-color: #F1F5F9;
+    --accent-color: #FF8F73;
+    --border-color: #334155;
+    --success-color: #57D9A3;
+    --highlight-bg: rgba(76, 154, 255, 0.1);
 
     /* Header */
-    --header-bg-light: rgba(255, 255, 255, 0.95);
-    --header-text-light: var(--text-color);
-    --header-shadow-light: 0 1px 3px rgba(0, 0, 0, 0.1), 0 1px 2px rgba(0, 0, 0, 0.06);
+    --header-bg: rgba(30, 41, 59, 0.95);
+    --header-text: var(--text-color);
+    --header-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
     
-    --toggle-bg-light: #E2E8F0; /* Light Slate */
-    --toggle-circle-light: white;
-    --toggle-icon-light: #F59E0B; /* Amber for Sun */
+    /* Toggle - Hidden since we're forcing dark mode */
+    --toggle-bg: #475569;
+    --toggle-circle: #E2E8F0;
+    --toggle-icon: #A5B4FC;
 
-    /* Fonts & Sizes */
+    /* Other */
+    --border-color-light-enhanced: #334155;
     --font-primary: 'Poppins', sans-serif;
     --header-height: 70px;
     --base-font-size: 16px;
     --container-max-width: 1200px;
 }
 
-/* Dark Mode Variable Overrides */
-body.dark-mode {
-    --primary-color: var(--primary-color-dark);
-    --secondary-color: var(--secondary-color-dark);
-    --background-color: var(--background-color-dark);
-    --surface-color: var(--surface-color-dark);
-    --text-color: var(--text-color-dark);
-    --heading-color: var(--heading-color-dark);
-    --accent-color: var(--accent-color-dark);
-    --border-color: var(--border-color-dark);
-    --success-color: var(--success-color-dark);
-    --highlight-bg: var(--highlight-bg-dark);
+/* Force dark mode class on body */
+body {
+    background-color: var(--background-color);
+    color: var(--text-color);
+}
 
-    --header-bg-dark: rgba(30, 41, 59, 0.95);
-    --header-text-dark: var(--text-color-dark);
-    --header-shadow-dark: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
-
-    --toggle-bg-dark: #475569; /* Mid Slate */
-    --toggle-circle-dark: #E2E8F0; /* Light Slate */
-    --toggle-icon-dark: #A5B4FC; /* Indigo Light for Moon */
+/* Base styles to ensure text color is inherited properly */
+html, body {
+    color: var(--text-color);
 }
 
 /* --- Refined Dark Mode Toggle Styles --- */
@@ -263,8 +241,8 @@ ul { list-style: none; }
     left: 0;
     width: 100%;
     height: var(--header-height);
-    background-color: var(--header-bg-light);
-    box-shadow: var(--header-shadow-light);
+    background-color: var(--header-bg);
+    box-shadow: var(--header-shadow);
     z-index: 1000;
     transition: background-color 0.3s ease, box-shadow 0.3s ease;
     backdrop-filter: blur(8px);
@@ -295,7 +273,7 @@ body.dark-mode .site-header {
     margin-left: 1.75rem;
 }
 .main-nav a {
-    color: var(--header-text-light);
+    color: var(--header-text);
     font-weight: 500;
     position: relative;
     padding: 0.5rem 0;
@@ -329,7 +307,7 @@ body.dark-mode .main-nav a {
     display: none;
     background: transparent;
     border: none;
-    color: var(--header-text-light);
+    color: var(--header-text);
     font-size: 1.5rem;
     cursor: pointer;
     transition: color 0.3s ease;

@@ -1,4 +1,13 @@
 document.addEventListener('DOMContentLoaded', () => {
+    // Hide theme toggles since we're forcing dark mode
+    const mobileToggle = document.querySelector('.mobile-theme-toggle');
+    const desktopToggle = document.querySelector('.desktop-theme-toggle');
+    if (mobileToggle) mobileToggle.style.display = 'none';
+    if (desktopToggle) desktopToggle.style.display = 'none';
+
+    // Force dark mode
+    document.body.classList.add('dark-mode');
+    localStorage.setItem('theme', 'dark');
 
     // --- Mobile Menu Toggle ---
     const menuToggle = document.querySelector('.menu-toggle');
@@ -163,51 +172,6 @@ document.addEventListener('DOMContentLoaded', () => {
     if (yearSpan) {
         yearSpan.textContent = new Date().getFullYear();
     }
-
-    // --- Dark Mode Toggle ---
-    const darkModeToggle = document.getElementById('dark-mode-toggle');
-
-    // Check for saved theme preference or use device preference
-    const prefersDarkScheme = window.matchMedia('(prefers-color-scheme: dark)');
-    const savedTheme = localStorage.getItem('theme');
-
-    // Function to apply theme
-    const applyTheme = (theme) => {
-        if (theme === 'dark') {
-            document.body.classList.add('dark-mode');
-            if (darkModeToggle) darkModeToggle.checked = true;
-        } else {
-            document.body.classList.remove('dark-mode');
-            if (darkModeToggle) darkModeToggle.checked = false;
-        }
-    };
-
-    // Determine initial theme
-    let initialTheme = 'light';
-    if (savedTheme) {
-        initialTheme = savedTheme;
-    } else if (prefersDarkScheme.matches) {
-        initialTheme = 'dark';
-    }
-    applyTheme(initialTheme);
-
-
-    // Listen for toggle changes
-    if (darkModeToggle) {
-        darkModeToggle.addEventListener('change', () => {
-            const newTheme = darkModeToggle.checked ? 'dark' : 'light';
-            applyTheme(newTheme);
-            localStorage.setItem('theme', newTheme);
-        });
-    }
-
-    // Listen for system theme changes (optional, but good practice)
-    prefersDarkScheme.addEventListener('change', (e) => {
-        // Only change if no theme is explicitly saved by the user
-        if (!localStorage.getItem('theme')) {
-            applyTheme(e.matches ? 'dark' : 'light');
-        }
-    });
 
     // --- Chatbot Functionality ---
     const chatFab = document.getElementById('chat-fab');

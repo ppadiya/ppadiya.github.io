@@ -4,30 +4,12 @@ body {
     line-height: 1.6;
     margin: 0;
     padding: 20px;
-    background-color: var(--background-color);
-    color: var(--text-color);
+    background-color: #1a202c;
+    color: #e2e8f0;
 }
 
 :root {
-    /* Light Mode Colors */
-    --background-color: #f5f7fa;
-    --text-color: #2d3748;
-    --card-bg: #ffffff;
-    --border-color: #e2e8f0;
-    --accordion-bg: #ffffff;
-    --table-header-bg: #f8fafc;
-    --table-border: #e2e8f0;
-    --border-color-light-enhanced: #CFD8DC; /* Slightly darker for better contrast */
-    --toggle-bg-light: #E2E8F0;
-    --toggle-circle-light: white;
-    --toggle-icon-light: #F59E0B;
-    --toggle-bg-dark: #475569;
-    --toggle-circle-dark: #E2E8F0;
-    --toggle-icon-dark: #A5B4FC;
-}
-
-/* Dark Mode Variables */
-body.dark-mode {
+    /* Dark Mode Colors (Now Default) */
     --background-color: #1a202c;
     --text-color: #e2e8f0;
     --card-bg: #2d3748;
@@ -35,127 +17,25 @@ body.dark-mode {
     --accordion-bg: #2d3748;
     --table-header-bg: #2d3748;
     --table-border: #4a5568;
+    --toggle-bg-dark: #475569;
+    --toggle-circle-dark: #E2E8F0;
+    --toggle-icon-dark: #A5B4FC;
 }
 
-/* Back Link Style */
-.back-link {
-    display: block; /* Or inline-block */
-    margin-bottom: 20px; /* Add some space below */
-    color: #007bff; /* Default link color (adjust if needed) */
-    text-decoration: none;
-    font-weight: bold;
-}
-.back-link i {
-    margin-right: 5px;
-}
-.back-link:hover {
-    text-decoration: underline;
-}
-
-/* Back Link Dark Mode */
-body.dark-mode .back-link {
-    color: var(--text-color); /* Use the dark mode text color */
-}
-
-/* Dark Mode Toggle - Positioned in top right corner */
+/* Hide theme toggle */
 .theme-switch-wrapper {
-    position: fixed;
-    top: 20px;
-    right: 20px;
-    z-index: 999;
-    background-color: var(--card-bg);
-    padding: 8px;
-    border-radius: 16px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-}
-
-.theme-switch {
-    display: inline-block;
-    height: 26px;
-    position: relative;
-    width: 50px;
-}
-
-.theme-switch input {
     display: none;
 }
 
-.slider {
-    background-color: var(--toggle-bg-light);
-    bottom: 0;
-    cursor: pointer;
-    left: 0;
-    position: absolute;
-    right: 0;
-    top: 0;
-    transition: all 0.3s ease;
-    border-radius: 13px;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 5px;
-}
-
-body.dark-mode .slider {
-    background-color: var(--toggle-bg-dark);
-}
-
-.slider::before {
-    background-color: var(--toggle-circle-light);
-    bottom: 3px;
-    content: "";
-    height: 20px;
-    left: 3px;
-    position: absolute;
-    transition: transform 0.3s ease, background-color 0.3s ease;
-    width: 20px;
-    border-radius: 50%;
-    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
-    z-index: 2;
-}
-
-body.dark-mode .slider::before {
-    background-color: var(--toggle-circle-dark);
-}
-
-.slider .fa-sun,
-.slider .fa-moon {
-    font-size: 12px;
-    transition: opacity 0.3s ease, color 0.3s ease;
-    z-index: 1;
-}
-
-.slider .fa-sun {
-    color: var(--toggle-icon-light);
-    opacity: 1;
-}
-
-.slider .fa-moon {
-    color: var(--toggle-icon-dark);
-    opacity: 0;
-}
-
-input:checked + .slider::before {
-    transform: translateX(24px);
-}
-
-input:checked + .slider .fa-sun {
-    opacity: 0;
-}
-
-input:checked + .slider .fa-moon {
-    opacity: 1;
-}
-
-/* Framework Container */
+/* Dark mode styles as default */
 .framework-container {
     max-width: 1200px;
     margin: 0 auto;
     padding: 20px;
     background-color: var(--card-bg);
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    border: 1px solid var(--border-color-light-enhanced); /* Enhanced border */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+    border: 1px solid var(--border-color);
 }
 
 /* Headers */
@@ -171,6 +51,21 @@ h1 {
     margin-bottom: 30px;
 }
 
+/* Back Link */
+.back-link {
+    display: block;
+    margin-bottom: 20px;
+    color: var(--text-color);
+    text-decoration: none;
+    font-weight: bold;
+}
+.back-link i {
+    margin-right: 5px;
+}
+.back-link:hover {
+    text-decoration: underline;
+}
+
 /* Accordion Styles */
 .accordion {
     background-color: var(--accordion-bg);
@@ -180,7 +75,7 @@ h1 {
     width: 100%;
     text-align: left;
     border: none;
-    border-bottom: 1px solid var(--border-color-light-enhanced); /* Enhanced border */
+    border-bottom: 1px solid var(--border-color);
     outline: none;
     transition: 0.4s;
     font-size: 16px;
@@ -196,7 +91,7 @@ h1 {
     transform: translateY(-50%);
     font-size: 20px;
     font-weight: bold;
-    transition: 0.4s;
+    color: var(--text-color);
 }
 
 .accordion.active::after {
@@ -210,6 +105,7 @@ h1 {
     max-height: 0;
     overflow: hidden;
     transition: max-height 0.2s ease-out;
+    color: var(--text-color);
 }
 
 /* Table Styles */
@@ -222,21 +118,56 @@ h1 {
     width: 100%;
     border-collapse: collapse;
     margin: 20px 0;
-    background-color: var(--card-bg);
+    border: 1px solid var(--table-border);
+}
+
+.checklist-table th,
+.checklist-table td {
+    padding: 12px;
+    text-align: left;
+    border: 1px solid var(--table-border);
 }
 
 .checklist-table th {
     background-color: var(--table-header-bg);
     color: var(--text-color);
-    border: 1px solid var(--border-color-light-enhanced); /* Enhanced border */
-    padding: 12px;
-    text-align: left;
-    border: 1px solid var(--border-color-light-enhanced); /* Enhanced border */
 }
 
-.checklist-table td {
-    padding: 12px;
-    border: 1px solid var(--table-border);
+/* Lists */
+.panel ul {
+    padding-left: 20px;
+    margin: 15px 0;
+}
+
+.panel li {
+    margin-bottom: 8px;
+    color: var(--text-color);
+}
+
+/* Highlight box */
+.highlight {
+    background-color: var(--accordion-bg);
+    padding: 15px;
+    border-radius: 5px;
+    margin: 10px 0;
+    border: 1px solid var(--border-color);
+}
+
+.highlight p {
+    margin: 5px 0;
+}
+
+/* Benefit box */
+.benefit-box {
+    background-color: var(--accordion-bg);
+    padding: 15px;
+    border-radius: 5px;
+    margin-top: 15px;
+    border: 1px solid var(--border-color);
+}
+
+.benefit-box p {
+    margin: 5px 0;
     color: var(--text-color);
 }
 
