@@ -278,4 +278,37 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     }
 
+    // Fetch the feed when the page loads
+    fetchRSSFeed();
+    // Refresh the feed every 5 minutes
+    setInterval(fetchRSSFeed, 300000);
 });
+
+async function fetchRSSFeed() {
+    try {
+        // Using a CORS proxy to avoid cross-origin issues
+        const corsProxy = 'https://api.allorigins.win/raw?url=';
+        const response = await fetch(corsProxy + encodeURIComponent('https://www.channelnewsasia.com/api/v1/rss-outbound-feed?_format=xml'));
+        const data = await response.text();
+        const parser = new DOMParser();
+        const xml = parser.parseFromString(data, 'application/xml');
+        const items = xml.querySelectorAll('item');
+        
+        const tickerList = document.getElementById('tickerList');
+        tickerList.innerHTML = ''; // Clear existing items
+        
+        items.forEach(item => {
+            const title = item.querySelector('title').textContent;
+            const li = document.createElement('li');
+            li.textContent = title;
+            tickerList.appendChild(li);
+        });
+
+        // Clone items for smooth infinite scroll
+        const itemsClone = tickerList.innerHTML;
+        tickerList.innerHTML += itemsClone;
+
+    } catch (error) {
+        console.error('Error fetching RSS feed:', error);
+    }
+}

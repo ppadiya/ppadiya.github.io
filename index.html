@@ -344,8 +344,10 @@
             </div>
         </section>
 
-        <!-- Footer -->
-        <footer class="site-footer">
+    </main>
+
+    <!-- Footer -->
+    <footer class="site-footer">
         <div class="container">
             <p>&copy; <span id="current-year"></span> Pratik Padiya. All rights reserved.</p>
             <div class="footer-social">
@@ -355,33 +357,13 @@
         </div>
     </footer>
 
-    <!-- Chatbot UI Elements -->
-    <!--
-    <button id="chat-fab" class="chat-fab" aria-label="Open Chat">
-        <i class="fas fa-comments"></i>
-    </button>
-
-    <div id="chat-window" class="chat-window" role="dialog" aria-modal="true" aria-labelledby="chat-window-title" hidden>
-        <div class="chat-header">
-            <h2 id="chat-window-title" class="chat-title">Chat with Pratik's Assistant</h2>
-            <button id="chat-close-btn" class="chat-close-btn" aria-label="Close Chat">
-                <i class="fas fa-times"></i>
-            </button>
+    <!-- RSS News Ticker -->
+    <div class="news-ticker-container">
+        <div class="news-ticker-label">Latest News:</div>
+        <div class="news-ticker" id="newsTicker">
+            <ul id="tickerList"></ul>
         </div>
-        <div id="chat-messages" class="chat-messages" role="log" aria-live="polite">
-            <div class="message bot-message">
-                <span>Hello! Ask me anything about Pratik's skills, experience, or projects.</span>
-            </div>
-        </div>
-        <form id="chat-form" class="chat-input-area">
-            <input type="text" id="chat-input" placeholder="Type your message..." aria-label="Chat message input" required>
-            <button type="submit" id="chat-send-btn" aria-label="Send Message">
-                <i class="fas fa-paper-plane"></i>
-            </button>
-        </form>
     </div>
-    -->
-    <!-- End Chatbot UI Elements -->
 
     <!-- New EmbedAI Chatbot -->
     <script 

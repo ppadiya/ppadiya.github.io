@@ -296,3 +296,8 @@ img {
     padding: 0.4rem 0.8rem;
   }
 }
+
+/* Add this to your CSS to override the default position */
+.embedai-widget-container {
+  bottom: 80px !important; /* Adjust 80px to your desired height. Use !important if needed */
+}
