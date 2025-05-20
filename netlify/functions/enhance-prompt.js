@@ -55,7 +55,8 @@ exports.handler = async function(event, context) {
         'Content-Type': 'application/json',
         'HTTP-Referer': SITE_URL,
         'X-Title': SITE_NAME
-      }
+      },
+      timeout: 8000 // 8 second timeout
     });
 
     // Return the enhanced prompt

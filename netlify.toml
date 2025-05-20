@@ -12,6 +12,7 @@
 
 [functions.enhance-prompt]
   memory = 128
+  timeout = 30
 
 [build.environment]
   NODE_VERSION = "18"
