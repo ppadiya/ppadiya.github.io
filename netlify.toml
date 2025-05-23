@@ -7,7 +7,7 @@
 [functions]
   # Common settings for all Netlify Functions
   node_bundler = "esbuild"
-  included_files = ["data/embeddings.json"] # Keep your existing included files
+  included_files = ["data/embeddings.json"]
 
   # Specific configuration for your existing functions
   [functions.chatbot] 
@@ -19,17 +19,16 @@
     timeout = 30
 
 # Scheduled function for fetching news and events daily
-[[functions.fetch-news]]
-  function = "fetch-news" # Explicitly link to the function file name
-  schedule = "0 23 * * *" # At 23:00 UTC every day (7 AM SGT next day)
+[[functions]]
+  function = "fetch-news"
+  schedule = "0 23 * * *"
 
 # Scheduled function for cleaning up old data monthly
-[[functions.cleanup-archive]]
-  function = "cleanup-archive" # Explicitly link to the function file name
-  schedule = "0 23 28-31 * *" # At 23:00 UTC on day-of-month 28-31
+[[functions]]
+  function = "cleanup-archive"
+  schedule = "0 23 28-31 * *"
   
 [build.environment]
-  # UPDATE THIS LINE:
   NODE_VERSION = "20" 
 
 [[redirects]]
