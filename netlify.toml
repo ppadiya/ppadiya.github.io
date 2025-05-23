@@ -1,6 +1,6 @@
 # netlify.toml
 
-[build]
+[build] 
   functions = "netlify/functions"
   command = "npm run build"
 
@@ -10,11 +10,11 @@
   included_files = ["data/embeddings.json"] # Keep your existing included files
 
   # Specific configuration for your existing functions
-  [functions.chatbot]
+  [functions.chatbot] 
     memory = 1536
     timeout = 30
 
-  [functions.enhance-prompt]
+  [functions.enhance-prompt] 
     memory = 128
     timeout = 30
 
@@ -27,7 +27,7 @@
 [[functions.cleanup-archive]]
   function = "cleanup-archive" # Explicitly link to the function file name
   schedule = "0 23 28-31 * *" # At 23:00 UTC on day-of-month 28-31
-
+  
 [build.environment]
   # UPDATE THIS LINE:
   NODE_VERSION = "20" 
