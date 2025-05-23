@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const jsonLdSchema = document.getElementById('json-ld-schema');
 
     const ITEMS_PER_PAGE = 10;
-    let currentCategory = 'all'; // 'all', 'loyalty', 'retail', 'blogs', 'events'
+    let currentCategory = 'loyalty'; // 'all', 'loyalty', 'retail', 'blogs', 'events'
     let currentPage = 1;
     let searchQuery = '';
     let allData = {
@@ -426,7 +426,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const urlPath = window.location.pathname;
             const parts = urlPath.split('/').filter(p => p); // Remove empty strings
             
-            let categoryFromUrl = 'all';
+            let categoryFromUrl = 'loyalty'; // Default category
             let pageFromUrl = 1;
             let queryFromUrl = '';
 
@@ -490,8 +490,8 @@ document.addEventListener('DOMContentLoaded', () => {
             searchQuery = urlParams.get('search') || '';
             searchInput.value = searchQuery;
         } else {
-            // Default to 'all' and active button
-            document.querySelector('.toggle-btn[data-category="all"]').classList.add('active');
+            // Default to 'loyalty' and active button
+            document.querySelector('.toggle-btn[data-category="loyalty"]').classList.add('active');
         }
 
         fetchAndRenderData();
