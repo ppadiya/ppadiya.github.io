@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>News & Events - Pratik Padiya Portfolio</title>
+    <meta name="description" content="Stay updated with the latest Loyalty and Retail industry news, blogs, and upcoming events in Asia. Curated content for Pratik Padiya's portfolio.">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://pratikpadiyaportfolio.netlify.app/news-events/">
+    <meta property="og:title" content="News & Events - Pratik Padiya Portfolio">
+    <meta property="og:description" content="Stay updated with the latest Loyalty and Retail industry news, blogs, and upcoming events in Asia. Curated content for Pratik Padiya's portfolio.">
+    <meta property="og:image" content="https://pratikpadiyaportfolio.netlify.app/path/to/your/social-share-image.jpg">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://pratikpadiyaportfolio.netlify.app/news-events/">
+    <meta property="twitter:title" content="News & Events - Pratik Padiya Portfolio">
+    <meta property="twitter:description" content="Stay updated with the latest Loyalty and Retail industry news, blogs, and upcoming events in Asia. Curated content for Pratik Padiya's portfolio.">
+    <meta property="twitter:image" content="https://pratikpadiyaportfolio.netlify.app/path/to/your/social-share-image.jpg">
+
+    <!-- Canonical URL (will be updated by JS) -->
+    <link rel="canonical" href="https://pratikpadiyaportfolio.netlify.app/news-events/">
+
+    <link rel="stylesheet" href="style.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <header class="page-header">
+        <h1>News & Events</h1>
+        <nav class="toggle-buttons">
+            <button class="toggle-btn active" data-category="all">All News</button>
+            <button class="toggle-btn" data-category="loyalty">Loyalty News</button>
+            <button class="toggle-btn" data-category="retail">Retail News</button>
+            <button class="toggle-btn" data-category="blogs">Blogs</button>
+            <button class="toggle-btn" data-category="events">Events</button>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="search-section">
+            <input type="text" id="search-input" placeholder="Search articles..." aria-label="Search news and events">
+            <button id="search-button">Search</button>
+        </section>
+
+        <section id="content-display" class="content-display">
+            <div id="news-articles" class="news-articles">
+                <!-- News articles will be loaded here -->
+                <div class="loading-skeleton">
+                    <div class="skeleton-title"></div>
+                    <div class="skeleton-text"></div>
+                    <div class="skeleton-text short"></div>
+                </div>
+                <div class="loading-skeleton">
+                    <div class="skeleton-title"></div>
+                    <div class="skeleton-text"></div>
+                    <div class="skeleton-text short"></div>
+                </div>
+                <div class="loading-skeleton">
+                    <div class="skeleton-title"></div>
+                    <div class="skeleton-text"></div>
+                    <div class="skeleton-text short"></div>
+                </div>
+            </div>
+
+            <div id="events-calendar" class="events-calendar" style="display: none;">
+                <h2>Upcoming Events</h2>
+                <ul id="event-list">
+                    <!-- Events will be loaded here -->
+                    <li class="loading-skeleton event-skeleton"></li>
+                    <li class="loading-skeleton event-skeleton"></li>
+                </ul>
+            </div>
+            
+            <p id="error-message" class="error-message" style="display: none;">Failed to load content. Please try again later.</p>
+            <p id="no-results-message" class="no-results-message" style="display: none;">No results found for your search.</p>
+        </section>
+
+        <section class="pagination">
+            <button id="prev-page" disabled>Previous</button>
+            <div id="page-numbers"></div>
+            <button id="next-page" disabled>Next</button>
+        </section>
+    </main>
+
+    <footer class="page-footer">
+        <p>© <span id="current-year"></span> Pratik Padiya. All rights reserved.</p>
+    </footer>
+
+    <script type="application/ld+json" id="json-ld-schema">
+        <!-- JSON-LD Structured Data will be dynamically inserted here by script.js -->
+    </script>
+    <script src="script.js"></script>
+</body>
+</html>
