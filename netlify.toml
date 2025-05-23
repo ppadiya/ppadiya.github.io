@@ -18,15 +18,13 @@
     memory = 128
     timeout = 30
 
-# Scheduled function for fetching news and events daily
-[[functions]]
-  function = "fetch-news"
-  schedule = "0 23 * * *"
+  # Scheduled function for fetching news and events daily
+  [functions.fetch-news]
+    schedule = "0 23 * * *"
 
-# Scheduled function for cleaning up old data monthly
-[[functions]]
-  function = "cleanup-archive"
-  schedule = "0 23 28-31 * *"
+  # Scheduled function for cleaning up old data monthly
+  [functions.cleanup-archive]
+    schedule = "0 23 28-31 * *"
   
 [build.environment]
   NODE_VERSION = "20" 
