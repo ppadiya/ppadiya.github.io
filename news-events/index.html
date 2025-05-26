@@ -88,10 +88,30 @@
 
     <footer class="page-footer">
         <p>© <span id="current-year"></span> Pratik Padiya. All rights reserved.</p>
-    </footer>
-
-    <script type="application/ld+json" id="json-ld-schema">
+    </footer>    <script type="application/ld+json" id="json-ld-schema">
         <!-- JSON-LD Structured Data will be dynamically inserted here by script.js -->
+    </script>
+      <!-- Supabase JavaScript Client -->
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script>
+        // Initialize Supabase client
+        const supabaseUrl = 'https://ptfoleltkjnrtyctelve.supabase.co'
+        const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InB0Zm9sZWx0a2pucnR5Y3RlbHZlIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDc5NzkzMTEsImV4cCI6MjA2MzU1NTMxMX0.pLUHujWPi0DzFEt43TtRvfPvWt6MywRape1iwyl_t3A'
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey)
+        
+        // Debug: Test Supabase connection
+        console.log('Supabase client initialized:', supabase)
+        
+        // Test connection on page load
+        supabase.from('articles').select('count', { count: 'exact', head: true })
+            .then(result => {
+                console.log('Supabase connection test:', result)
+                if (result.error) {
+                    console.error('Supabase connection error:', result.error)
+                } else {
+                    console.log('Supabase connected successfully. Articles count:', result.count)
+                }
+            })
     </script>
     <script src="script.js"></script>
 </body>

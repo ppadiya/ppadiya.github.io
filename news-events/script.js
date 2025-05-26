@@ -170,31 +170,70 @@ document.addEventListener('DOMContentLoaded', () => {
             span.addEventListener('click', () => goToPage(totalPages));
             pageNumbersContainer.appendChild(span);
         }
-    };
-
-    // Function to fetch and render data
+    };    // Function to fetch and render data
     const fetchAndRenderData = async () => {
         toggleLoading(true);
         errorMessage.style.display = 'none';
         noResultsMessage.style.display = 'none';
 
         try {
-            // First, try to fetch all data for the current category if not cached
-            // In a real app, this function would hit a Netlify Function endpoint
-            // that queries FaunaDB and returns the relevant data.
-            // For simplicity, we'll assume the /api/news-events endpoint returns all data for the chosen category
-            // and client-side handles search/pagination from there.
-            // The Netlify function fetch-news.js (as a cron job) will populate FaunaDB.
-            // The Netlify function fetch-news.js (as an API) will query FaunaDB.
-
-            const response = await fetch(`/.netlify/functions/fetch-news?category=${currentCategory}`);
-            if (!response.ok) {
-                throw new Error(`HTTP error! status: ${response.status}`);
+            console.log('Fetching data for category:', currentCategory);
+            let data = [];
+            
+            if (currentCategory === 'events') {
+                console.log('Querying events table...');
+                // Query events table directly from Supabase
+                let query = supabase
+                    .from('events')
+                    .select('*')
+                    .gte('date', new Date().toISOString()) // Only future events
+                    .order('date', { ascending: true }); // Upcoming events first
+                
+                // Apply category filter if not 'all'
+                if (currentCategory !== 'all') {
+                    query = query.eq('category', currentCategory);
+                }
+                
+                console.log('Executing events query...');
+                const { data: eventsData, error } = await query;
+                
+                console.log('Events query result:', { eventsData, error });
+                
+                if (error) {
+                    throw new Error(`Supabase error: ${error.message}`);
+                }
+                
+                data = eventsData || [];
+                console.log('Events data loaded:', data.length, 'items');
+            } else {
+                console.log('Querying articles table...');
+                // Query articles table directly from Supabase
+                let query = supabase
+                    .from('articles')
+                    .select('*')
+                    .order('date', { ascending: false }); // Newest articles first
+                
+                // Apply category filter if not 'all'
+                if (currentCategory !== 'all') {
+                    query = query.eq('category', currentCategory);
+                }
+                
+                console.log('Executing articles query...');
+                const { data: articlesData, error } = await query;
+                
+                console.log('Articles query result:', { articlesData, error });
+                
+                if (error) {
+                    throw new Error(`Supabase error: ${error.message}`);
+                }
+                
+                data = articlesData || [];
+                console.log('Articles data loaded:', data.length, 'items');
             }
-            const data = await response.json();
             
             // Store fetched data in cache, this is the 'deduplicated list' for client-side filtering
             allData[currentCategory] = data.sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort by newest first
+            console.log('Data stored in cache for category:', currentCategory, allData[currentCategory].length, 'items');
 
             // Apply search filter
             let filteredData = allData[currentCategory].filter(item => {
@@ -206,9 +245,13 @@ document.addEventListener('DOMContentLoaded', () => {
                        (item.location && item.location.toLowerCase().includes(searchLower)); // For events
             });
 
+            console.log('Filtered data:', filteredData.length, 'items');
+
             // Apply pagination
             const startIndex = (currentPage - 1) * ITEMS_PER_PAGE;
             const paginatedData = filteredData.slice(startIndex, startIndex + ITEMS_PER_PAGE);
+
+            console.log('Paginated data:', paginatedData.length, 'items for page', currentPage);
 
             if (currentCategory === 'events') {
                 renderEvents(paginatedData);
@@ -220,7 +263,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
         } catch (error) {
             console.error('Error fetching data:', error);
-            displayError();
+            displayError(`Failed to load content: ${error.message}`);
         } finally {
             toggleLoading(false);
         }
