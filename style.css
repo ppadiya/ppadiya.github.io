@@ -1199,9 +1199,8 @@ body.dark-mode .site-footer {
         overflow: hidden;
         transition: max-height 0.3s ease;
     }
-    
-    .main-nav.active {
-        max-height: 500px;
+      .main-nav.active {
+        max-height: 600px;
     }
     
     .main-nav ul {

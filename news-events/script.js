@@ -10,14 +10,20 @@ document.addEventListener('DOMContentLoaded', () => {
     const pageNumbersContainer = document.getElementById('page-numbers');
     const errorMessage = document.getElementById('error-message');
     const noResultsMessage = document.getElementById('no-results-message');
-    const jsonLdSchema = document.getElementById('json-ld-schema');
-
-    const ITEMS_PER_PAGE = 10;
-    let currentCategory = 'loyalty'; // 'all', 'loyalty', 'retail', 'blogs', 'events'
+    const jsonLdSchema = document.getElementById('json-ld-schema');    // Ensure back link works properly
+    const backLink = document.querySelector('.back-link');
+    if (backLink) {
+        backLink.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent default link behavior
+            // Use window.location to navigate, which bypasses History API issues
+            window.location.href = '../index.html';
+        });
+    }const ITEMS_PER_PAGE = 10;
+    let currentCategory = 'loyalty'; // 'loyalty', 'retail', 'events'
     let currentPage = 1;
     let searchQuery = '';
     let allData = {
-        all: [], loyalty: [], retail: [], blogs: [], events: []
+        loyalty: [], retail: [], events: []
     }; // Cache for client-side filtering/pagination
 
     // Function to format date for display
@@ -180,19 +186,13 @@ document.addEventListener('DOMContentLoaded', () => {
             console.log('Fetching data for category:', currentCategory);
             let data = [];
             
-            if (currentCategory === 'events') {
-                console.log('Querying events table...');
+            if (currentCategory === 'events') {                console.log('Querying events table...');
                 // Query events table directly from Supabase
                 let query = supabase
                     .from('events')
                     .select('*')
                     .gte('date', new Date().toISOString()) // Only future events
                     .order('date', { ascending: true }); // Upcoming events first
-                
-                // Apply category filter if not 'all'
-                if (currentCategory !== 'all') {
-                    query = query.eq('category', currentCategory);
-                }
                 
                 console.log('Executing events query...');
                 const { data: eventsData, error } = await query;
@@ -204,21 +204,16 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
                 
                 data = eventsData || [];
-                console.log('Events data loaded:', data.length, 'items');
-            } else {
+                console.log('Events data loaded:', data.length, 'items');            } else {
                 console.log('Querying articles table...');
-                // Query articles table directly from Supabase
+                // Query articles table directly from Supabase for Loyalty News and Retail News
                 let query = supabase
                     .from('articles')
                     .select('*')
+                    .eq('category', currentCategory) // Filter by category (loyalty or retail)
                     .order('date', { ascending: false }); // Newest articles first
                 
-                // Apply category filter if not 'all'
-                if (currentCategory !== 'all') {
-                    query = query.eq('category', currentCategory);
-                }
-                
-                console.log('Executing articles query...');
+                console.log('Executing articles query for category:', currentCategory);
                 const { data: articlesData, error } = await query;
                 
                 console.log('Articles query result:', { articlesData, error });
@@ -267,34 +262,23 @@ document.addEventListener('DOMContentLoaded', () => {
         } finally {
             toggleLoading(false);
         }
-    };
-
-    // Function to update URL and SEO meta tags
+    };    // Function to update URL and SEO meta tags
     const updateUrlAndSeo = () => {
-        let path = `/news-events/`;
-        let title = `News & Events - Pratik Padiya Portfolio`;
-        let description = `Stay updated with the latest Loyalty and Retail industry news, blogs, and upcoming events in Asia.`;
-        let canonicalUrl = `https://pratikpadiyaportfolio.netlify.app/news-events/`;
-        let jsonLdContent = {};
-
-        if (currentCategory !== 'all') {
-            path += `${currentCategory}/`;
-            title = `${currentCategory.charAt(0).toUpperCase() + currentCategory.slice(1)} ${currentCategory === 'events' ? 'Calendar' : 'News'} - Pratik Padiya Portfolio`;
-            description = `Latest ${currentCategory} ${currentCategory === 'events' ? 'events' : 'news and blogs'} in the Loyalty and Retail industry.`;
-            canonicalUrl = `https://pratikpadiyaportfolio.netlify.app/news-events/${currentCategory}/`;
-        }
-
-        if (currentPage > 1) {
+        let path = `/news-events/${currentCategory}/`;
+        let title = `${currentCategory.charAt(0).toUpperCase() + currentCategory.slice(1)} ${currentCategory === 'events' ? 'Calendar' : 'News'} - Pratik Padiya Portfolio`;
+        let description = `Latest ${currentCategory} ${currentCategory === 'events' ? 'events' : 'news'} in the Loyalty and Retail industry.`;
+        let canonicalUrl = `https://pratikpadiyaportfolio.netlify.app/news-events/${currentCategory}/`;
+        let jsonLdContent = {};        if (currentPage > 1) {
             path += `page/${currentPage}/`;
             title += ` (Page ${currentPage})`;
-            canonicalUrl = `https://pratikpadiyaportfolio.netlify.app/news-events/${currentCategory !== 'all' ? currentCategory + '/' : ''}`; // Canonical points to first page
+            canonicalUrl = `https://pratikpadiyaportfolio.netlify.app/news-events/${currentCategory}/`; // Canonical points to first page
         }
 
         if (searchQuery) {
             path += `?search=${encodeURIComponent(searchQuery)}`;
             title += ` - Search: ${searchQuery}`;
             // Canonical on search pages should point to the non-search version
-            canonicalUrl = `https://pratikpadiyaportfolio.netlify.app/news-events/${currentCategory !== 'all' ? currentCategory + '/' : ''}`;
+            canonicalUrl = `https://pratikpadiyaportfolio.netlify.app/news-events/${currentCategory}/`;
             if (currentPage > 1) {
                 canonicalUrl += `page/${currentPage}/`; // Keep page number in canonical if search is on a paginated page
             }
@@ -446,64 +430,66 @@ document.addEventListener('DOMContentLoaded', () => {
             currentPage = 1;
             fetchAndRenderData();
         }
-    });
-
-    // Handle browser back/forward buttons
+    });    // Handle browser back/forward buttons
     window.addEventListener('popstate', (event) => {
-        if (event.state) {
-            currentCategory = event.state.category || 'all';
-            currentPage = event.state.page || 1;
-            searchQuery = event.state.query || '';
-            
-            // Update UI to reflect state
-            toggleButtons.forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.dataset.category === currentCategory) {
-                    btn.classList.add('active');
-                }
-            });
-            searchInput.value = searchQuery;
-            fetchAndRenderData(); // Re-fetch data based on history state
-        } else {
-            // Default state if history state is null (e.g., initial load or direct navigation)
-            const urlPath = window.location.pathname;
-            const parts = urlPath.split('/').filter(p => p); // Remove empty strings
-            
-            let categoryFromUrl = 'loyalty'; // Default category
-            let pageFromUrl = 1;
-            let queryFromUrl = '';
+        // Only handle popstate if we're still on the news-events page
+        if (window.location.pathname.includes('news-events')) {
+            if (event.state) {
+                currentCategory = event.state.category || 'loyalty';
+                currentPage = event.state.page || 1;
+                searchQuery = event.state.query || '';
+                
+                // Update UI to reflect state
+                toggleButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.category === currentCategory) {
+                        btn.classList.add('active');
+                    }
+                });
+                searchInput.value = searchQuery;
+                fetchAndRenderData(); // Re-fetch data based on history state
+            } else {
+                // Default state if history state is null (e.g., initial load or direct navigation)
+                const urlPath = window.location.pathname;
+                const parts = urlPath.split('/').filter(p => p); // Remove empty strings
+                
+                let categoryFromUrl = 'loyalty'; // Default category
+                let pageFromUrl = 1;
+                let queryFromUrl = '';
 
-            if (parts.includes('news-events')) {
-                const newsEventsIndex = parts.indexOf('news-events');
-                if (parts[newsEventsIndex + 1]) {
-                    const nextPart = parts[newsEventsIndex + 1];
-                    if (['loyalty', 'retail', 'blogs', 'events'].includes(nextPart)) {
-                        categoryFromUrl = nextPart;
+                if (parts.includes('news-events')) {
+                    const newsEventsIndex = parts.indexOf('news-events');
+                    if (parts[newsEventsIndex + 1]) {
+                        const nextPart = parts[newsEventsIndex + 1];
+                        if (['loyalty', 'retail', 'events'].includes(nextPart)) {
+                            categoryFromUrl = nextPart;
+                        }
                     }
-                }
-                if (parts.includes('page')) {
-                    const pageIndex = parts.indexOf('page');
-                    if (parts[pageIndex + 1]) {
-                        pageFromUrl = parseInt(parts[pageIndex + 1]);
+                    if (parts.includes('page')) {
+                        const pageIndex = parts.indexOf('page');
+                        if (parts[pageIndex + 1]) {
+                            pageFromUrl = parseInt(parts[pageIndex + 1]);
+                        }
                     }
+                    const urlParams = new URLSearchParams(window.location.search);
+                    queryFromUrl = urlParams.get('search') || '';
                 }
-                const urlParams = new URLSearchParams(window.location.search);
-                queryFromUrl = urlParams.get('search') || '';
+
+                currentCategory = categoryFromUrl;
+                currentPage = pageFromUrl;
+                searchQuery = queryFromUrl;
+
+                toggleButtons.forEach(btn => {
+                    btn.classList.remove('active');
+                    if (btn.dataset.category === currentCategory) {
+                        btn.classList.add('active');
+                    }
+                });
+                searchInput.value = searchQuery;
+                fetchAndRenderData();
             }
-
-            currentCategory = categoryFromUrl;
-            currentPage = pageFromUrl;
-            searchQuery = queryFromUrl;
-
-            toggleButtons.forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.dataset.category === currentCategory) {
-                    btn.classList.add('active');
-                }
-            });
-            searchInput.value = searchQuery;
-            fetchAndRenderData();
         }
+        // If we're not on news-events page, let the browser handle navigation normally
     });
 
     // Initialize the page
@@ -516,10 +502,9 @@ document.addEventListener('DOMContentLoaded', () => {
         
         const parts = urlPath.split('/').filter(p => p);
         if (parts.includes('news-events')) {
-            const newsEventsIndex = parts.indexOf('news-events');
-            if (parts[newsEventsIndex + 1]) {
+            const newsEventsIndex = parts.indexOf('news-events');            if (parts[newsEventsIndex + 1]) {
                 const nextPart = parts[newsEventsIndex + 1];
-                if (['loyalty', 'retail', 'blogs', 'events'].includes(nextPart)) {
+                if (['loyalty', 'retail', 'events'].includes(nextPart)) {
                     currentCategory = nextPart;
                     document.querySelector(`.toggle-btn[data-category="${currentCategory}"]`).classList.add('active');
                 }
