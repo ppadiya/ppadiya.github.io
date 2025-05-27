@@ -16,7 +16,7 @@ document.addEventListener('DOMContentLoaded', () => {
         backLink.addEventListener('click', (e) => {
             e.preventDefault(); // Prevent default link behavior
             // Use window.location to navigate, which bypasses History API issues
-            window.location.href = '../index.html';
+            window.location.href = '/';
         });
     }const ITEMS_PER_PAGE = 10;
     let currentCategory = 'loyalty'; // 'loyalty', 'retail', 'events'
