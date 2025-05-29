@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const pageNumbersContainer = document.getElementById('page-numbers');
     const errorMessage = document.getElementById('error-message');
     const noResultsMessage = document.getElementById('no-results-message');
-    const jsonLdSchema = document.getElementById('json-ld-schema');    // Ensure back link works properly
+    const jsonLdSchema = document.getElementById('json-ld-schema');// Ensure back link works properly
     const backLink = document.querySelector('.back-link');
     if (backLink) {
         backLink.addEventListener('click', (e) => {
@@ -24,12 +24,50 @@ document.addEventListener('DOMContentLoaded', () => {
     let searchQuery = '';
     let allData = {
         loyalty: [], retail: [], events: []
-    }; // Cache for client-side filtering/pagination
-
-    // Function to format date for display
+    }; // Cache for client-side filtering/pagination    // Function to format date for display
     const formatDate = (dateString) => {
         const options = { year: 'numeric', month: 'long', day: 'numeric', hour: '2-digit', minute: '2-digit' };
         return new Date(dateString).toLocaleDateString(undefined, options);
+    };
+
+    // Function to extract a sortable date from event data
+    const extractSortableDate = (event) => {
+        // Try to parse from date_range first (more complete info)
+        if (event.date_range) {
+            // Extract the first date from patterns like "Wed, Oct 15, 9 AM – Fri, Oct 17, 5 PM GMT+8"
+            const dateRangeMatch = event.date_range.match(/(\w+,\s*\w+\s+\d+)/);
+            if (dateRangeMatch) {
+                const dateStr = dateRangeMatch[1] + ', ' + new Date().getFullYear(); // Add current year
+                const parsed = new Date(dateStr);
+                if (!isNaN(parsed.getTime())) {
+                    return parsed;
+                }
+            }
+        }
+        
+        // Fallback to date field
+        if (event.date) {
+            // Handle partial dates like "Sep 2" by adding current year
+            const currentYear = new Date().getFullYear();
+            const nextYear = currentYear + 1;
+            
+            // Try current year first
+            let dateWithYear = `${event.date} ${currentYear}`;
+            let parsed = new Date(dateWithYear);
+            
+            // If date is in the past, try next year
+            if (!isNaN(parsed.getTime()) && parsed < new Date()) {
+                dateWithYear = `${event.date} ${nextYear}`;
+                parsed = new Date(dateWithYear);
+            }
+            
+            if (!isNaN(parsed.getTime())) {
+                return parsed;
+            }
+        }
+        
+        // Return a far future date if we can't parse anything (puts unparseable dates at the end)
+        return new Date('2099-12-31');
     };
 
     // Function to show/hide loading skeletons
@@ -97,9 +135,7 @@ document.addEventListener('DOMContentLoaded', () => {
             `;
             newsArticlesContainer.appendChild(newsItemDiv);
         });
-    };
-
-    // Function to render events
+    };    // Function to render events
     const renderEvents = (events) => {
         eventList.innerHTML = ''; // Clear previous content
         newsArticlesContainer.style.display = 'none';
@@ -108,14 +144,13 @@ document.addEventListener('DOMContentLoaded', () => {
         if (events.length === 0) {
             eventList.innerHTML = '<li><p>No upcoming events.</p></li>';
             return;
-        }
-
-        events.forEach(event => {
+        }        events.forEach(event => {
             const eventItemLi = document.createElement('li');
             eventItemLi.classList.add('event-item');
             eventItemLi.innerHTML = `
                 <h4><a href="${event.url}" target="_blank" rel="noopener noreferrer">${event.title}</a></h4>
-                <p class="event-date">Date: ${formatDate(event.date)}</p>
+                <p class="event-date">Date: ${event.date}</p>
+                ${event.date_range ? `<p class="event-date-range">Schedule: ${event.date_range}</p>` : ''}
                 <p class="event-location">Location: ${event.location || 'N/A'}</p>
                 <p>${event.summary}</p>
             `;
@@ -185,14 +220,12 @@ document.addEventListener('DOMContentLoaded', () => {
         try {
             console.log('Fetching data for category:', currentCategory);
             let data = [];
-            
-            if (currentCategory === 'events') {                console.log('Querying events table...');
+              if (currentCategory === 'events') {                console.log('Querying events table...');
                 // Query events table directly from Supabase
                 let query = supabase
                     .from('events')
                     .select('*')
-                    .gte('date', new Date().toISOString()) // Only future events
-                    .order('date', { ascending: true }); // Upcoming events first
+                    .order('date', { ascending: true }); // Order by date string
                 
                 console.log('Executing events query...');
                 const { data: eventsData, error } = await query;
@@ -224,20 +257,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 
                 data = articlesData || [];
                 console.log('Articles data loaded:', data.length, 'items');
-            }
-            
+            }            
             // Store fetched data in cache, this is the 'deduplicated list' for client-side filtering
-            allData[currentCategory] = data.sort((a, b) => new Date(b.date) - new Date(a.date)); // Sort by newest first
-            console.log('Data stored in cache for category:', currentCategory, allData[currentCategory].length, 'items');
-
-            // Apply search filter
+            if (currentCategory === 'events') {
+                // For events, sort by extracted date (earliest first)
+                allData[currentCategory] = data.sort((a, b) => {
+                    const dateA = extractSortableDate(a);
+                    const dateB = extractSortableDate(b);
+                    return dateA - dateB;
+                });
+            } else {
+                // For articles, sort by newest first
+                allData[currentCategory] = data.sort((a, b) => new Date(b.date) - new Date(a.date));
+            }
+            console.log('Data stored in cache for category:', currentCategory, allData[currentCategory].length, 'items');            // Apply search filter
             let filteredData = allData[currentCategory].filter(item => {
                 if (!searchQuery) return true;
                 const searchLower = searchQuery.toLowerCase();
                 return (item.title && item.title.toLowerCase().includes(searchLower)) ||
                        (item.summary && item.summary.toLowerCase().includes(searchLower)) ||
                        (item.source && item.source.toLowerCase().includes(searchLower)) ||
-                       (item.location && item.location.toLowerCase().includes(searchLower)); // For events
+                       (item.location && item.location.toLowerCase().includes(searchLower)) ||
+                       (item.date_range && item.date_range.toLowerCase().includes(searchLower));
             });
 
             console.log('Filtered data:', filteredData.length, 'items');
@@ -387,16 +428,15 @@ document.addEventListener('DOMContentLoaded', () => {
         if (currentPage > 1) {
             goToPage(currentPage - 1);
         }
-    });
-
-    nextPageBtn.addEventListener('click', () => {
+    });    nextPageBtn.addEventListener('click', () => {
         const totalItems = allData[currentCategory].filter(item => {
             if (!searchQuery) return true;
             const searchLower = searchQuery.toLowerCase();
             return (item.title && item.title.toLowerCase().includes(searchLower)) ||
                    (item.summary && item.summary.toLowerCase().includes(searchLower)) ||
                    (item.source && item.source.toLowerCase().includes(searchLower)) ||
-                   (item.location && item.location.toLowerCase().includes(searchLower));
+                   (item.location && item.location.toLowerCase().includes(searchLower)) ||
+                   (item.date_range && item.date_range.toLowerCase().includes(searchLower));
         }).length;
         const totalPages = Math.ceil(totalItems / ITEMS_PER_PAGE);
         if (currentPage < totalPages) {
