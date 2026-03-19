@@ -1,6 +1,7 @@
 import { setCurrentYear } from './js/utils.js';
 import { initNav, initSmoothScroll, initScrollNav } from './js/nav.js';
 import { enforceDarkMode } from './js/theme.js';
+import { initChatbot } from './js/chatbot.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     enforceDarkMode();
@@ -8,6 +9,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initSmoothScroll();
     initScrollNav();
     setCurrentYear();
+    initChatbot();
 
     // --- Animate Elements on Scroll ---
     const scrollElements = document.querySelectorAll('.animate-on-scroll');

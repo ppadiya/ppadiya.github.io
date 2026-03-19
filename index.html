@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pratik Padiya - Product Manager & Solutions Architect</title>
     <link rel="stylesheet" href="css/base.css">
+    <link rel="stylesheet" href="css/chatbot.css">
     <link rel="stylesheet" href="style.css">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -344,6 +345,35 @@
             </div>
         </div>
     </footer>
+
+    <!-- Chatbot Widget -->
+    <button id="chatbot-toggle" aria-label="Open chat" aria-expanded="false">
+        <svg xmlns="http://www.w3.org/2000/svg" height="26" viewBox="0 -960 960 960" width="26" fill="currentColor"><path d="M240-400h320v-80H240v80Zm0-120h480v-80H240v80Zm0-120h480v-80H240v80ZM80-80v-720q0-33 23.5-56.5T160-880h640q33 0 56.5 23.5T880-800v480q0 33-23.5 56.5T800-240H240L80-80Zm126-240h594v-480H160v525l46-45Zm-46 0v-480 480Z"/></svg>
+    </button>
+
+    <div id="chatbot-window" role="dialog" aria-label="Portfolio assistant">
+        <div class="chatbot-header">
+            <div class="chatbot-header-title">
+                <div class="chatbot-avatar">🤖</div>
+                <div>
+                    <h3>Portfolio Assistant</h3>
+                    <p>● Online</p>
+                </div>
+            </div>
+            <button id="chatbot-close" aria-label="Close chat">
+                <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" fill="currentColor"><path d="m256-200-56-56 224-224-224-224 56-56 224 224 224-224 56 56-224 224 224 224-56 56-224-224-224 224Z"/></svg>
+            </button>
+        </div>
+
+        <div id="chatbot-messages" aria-live="polite"></div>
+
+        <form id="chatbot-form" autocomplete="off">
+            <input id="chatbot-input" type="text" placeholder="Ask about skills, experience…" maxlength="300" />
+            <button id="chatbot-send" type="submit" aria-label="Send">
+                <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" fill="currentColor"><path d="M120-160v-640l760 320-760 320Zm80-120 474-200-474-200v140l240 60-240 60v140Zm0 0v-400 400Z"/></svg>
+            </button>
+        </form>
+    </div>
 
     <!-- RSS News Ticker -->
     <div class="news-ticker-container">
