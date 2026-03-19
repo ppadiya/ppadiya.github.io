@@ -12,11 +12,11 @@
 [functions]
   # Common settings for all Netlify Functions
   node_bundler = "esbuild"
-  included_files = ["data/embeddings.json"]
+  included_files = ["data/knowledge_base.txt"]
 
   # Specific configuration for your existing functions
-  [functions.chatbot] 
-    memory = 1536
+  [functions.chatbot]
+    memory = 256
     timeout = 30
 
   [functions.enhance-prompt] 
