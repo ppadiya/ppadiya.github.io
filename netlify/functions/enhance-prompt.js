@@ -2,7 +2,7 @@ const axios = require('axios');
 
 // Configuration
 const OPENROUTER_API_ENDPOINT = 'https://openrouter.ai/api/v1/chat/completions';
-const DEFAULT_MODEL = 'deepseek/deepseek-chat-v3-0324:free';
+const DEFAULT_MODEL = 'deepseek/deepseek-chat:free';
 const SITE_URL = process.env.URL || 'http://localhost:8888';
 const SITE_NAME = 'Pratik Padiya Portfolio';
 
@@ -77,7 +77,11 @@ exports.handler = async function(event, context) {
     if (error.response) {
       // Log OpenRouter API error details
       console.error('OpenRouter API Error:', error.response.data);
-      errorMessage = `API Error: ${error.response.status} - ${error.response.data.error || error.message}`;
+      const errDetail = error.response.data?.error;
+      const errText = typeof errDetail === 'object'
+        ? (errDetail.message || JSON.stringify(errDetail))
+        : (errDetail || error.message);
+      errorMessage = `API Error: ${error.response.status} - ${errText}`;
     }
     
     return {
