@@ -2,7 +2,7 @@ const axios = require('axios');
 
 // Configuration
 const OPENROUTER_API_ENDPOINT = 'https://openrouter.ai/api/v1/chat/completions';
-const OPENROUTER_MODEL = 'deepseek/deepseek-chat-v3-0324:free';
+const DEFAULT_MODEL = 'deepseek/deepseek-chat-v3-0324:free';
 const SITE_URL = process.env.URL || 'http://localhost:8888';
 const SITE_NAME = 'Pratik Padiya Portfolio';
 
@@ -14,7 +14,8 @@ exports.handler = async function(event, context) {
 
   try {
     // Parse the incoming request body
-    const { prompt } = JSON.parse(event.body);
+    const { prompt, model } = JSON.parse(event.body);
+    const selectedModel = model || DEFAULT_MODEL;
     
     if (!prompt) {
       return { 
@@ -34,7 +35,7 @@ exports.handler = async function(event, context) {
 
     // Prepare the request data
     const requestData = {
-      model: OPENROUTER_MODEL,
+      model: selectedModel,
       messages: [
         { 
           role: "system", 

@@ -1,0 +1,37 @@
+/* ==========================================================================
+   Design tokens — shared across all pages.
+   Link this BEFORE any page-specific stylesheet.
+   ========================================================================== */
+
+:root {
+    /* Colour palette */
+    --primary-color: #4C9AFF;
+    --secondary-color: #94A3B8;
+    --background-color: #0F172A;
+    --surface-color: #1E293B;
+    --surface-color-dark: #162032;
+    --text-color: #CBD5E1;
+    --heading-color: #F1F5F9;
+    --accent-color: #FF8F73;
+    --border-color: #334155;
+    --success-color: #57D9A3;
+    --highlight-bg: rgba(76, 154, 255, 0.1);
+
+    /* Header */
+    --header-bg: rgba(30, 41, 59, 0.95);
+    --header-height: 70px;
+    --header-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
+
+    /* Typography */
+    --font-primary: 'Poppins', sans-serif;
+    --base-font-size: 16px;
+
+    /* Layout */
+    --container-max-width: 1200px;
+}
+
+/* Prevent images from overflowing their containers on any page */
+img {
+    max-width: 100%;
+    height: auto;
+}

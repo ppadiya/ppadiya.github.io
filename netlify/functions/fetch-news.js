@@ -189,44 +189,15 @@ const fetchFromRss = async (feedUrl, category) => {
     return [];
 };
 
-// Simulate events for demonstration
-const getSimulatedEvents = () => {
-    const events = [];
-    const today = new Date();
-
-    for (let i = 0; i < 10; i++) { // Generate 10 upcoming events
-        const eventDate = new Date(today);
-        eventDate.setDate(today.getDate() + (i * 7) + 1); // Event every week
-        const isLoyalty = i % 2 === 0;
-        events.push({
-            title: isLoyalty ? `Loyalty Summit Asia ${eventDate.getFullYear()} - Part ${i + 1}` : `Retail Tech Expo Asia ${eventDate.getFullYear()} - Session ${i + 1}`,
-            date: eventDate.toISOString(),
-            location: `Singapore Expo Hall ${i + 1}, Singapore` || `Online`,
-            url: `https://example.com/event-${i + 1}`,
-            summary: `Join industry leaders to discuss the future of ${isLoyalty ? 'customer loyalty' : 'retail technology'} in Asia.`,
-            category: isLoyalty ? 'loyalty' : 'retail',
-            type: 'event',
-            source: 'Simulated Events'
-        });
-    }
-    return events;
-};
 
 
 // Main handler for the Netlify Function
 exports.handler = async (event, context) => {
-    // Check if it's a scheduled event (cron job) or an HTTP request
-    //temporarily disable this check for local testing
+    // Scheduled cron trigger (AWS EventBridge)
     if (event.Records && event.Records[0].eventSource === 'aws:events') {
-    // TEMPORARY: For local testing, force cron logic
-    //if (true) {
-        // This is a scheduled event (cron job)
-        console.log('Running fetch-news cron job...');
         try {
             let allFetchedArticles = [];
-            let allFetchedEvents = [];
 
-            // Fetch Loyalty News
             allFetchedArticles = allFetchedArticles.concat(
                 await fetchFromNewsDataIo('loyalty program OR customer retention', 'loyalty'),
                 await fetchFromNewsApiOrg('loyalty program OR customer retention', 'loyalty')
@@ -235,7 +206,6 @@ exports.handler = async (event, context) => {
                 allFetchedArticles = allFetchedArticles.concat(await fetchFromRss(feed, 'loyalty'));
             }
 
-            // Fetch Retail News
             allFetchedArticles = allFetchedArticles.concat(
                 await fetchFromNewsDataIo('retail technology OR retail innovation', 'retail'),
                 await fetchFromNewsApiOrg('retail technology OR retail innovation', 'retail')
@@ -244,27 +214,12 @@ exports.handler = async (event, context) => {
                 allFetchedArticles = allFetchedArticles.concat(await fetchFromRss(feed, 'retail'));
             }
 
-            // Fetch Blogs (general topics, but categorized)
             for (const feed of RSS_FEEDS.blogs) {
                 allFetchedArticles = allFetchedArticles.concat(await fetchFromRss(feed, 'blogs'));
             }
 
-            // Simulate Events
-            allFetchedEvents = getSimulatedEvents();
-
-            // Process and save articles
             for (const article of allFetchedArticles) {
-                // Articles older than 6 months will be cleaned up by cleanup-archive cron.
-                // For now, just save them.
                 await saveArticle(article);
-            }
-
-            // Process and save events
-            for (const eventItem of allFetchedEvents) {
-                // Only save upcoming events (future or today)
-                if (new Date(eventItem.date) >= new Date()) {
-                    await saveEvent(eventItem);
-                }
             }
 
             return {
@@ -280,8 +235,7 @@ exports.handler = async (event, context) => {
             };
         }
     } else {
-        // This is an HTTP request from the frontend
-        console.log('Serving news-events data via HTTP request...');
+        // HTTP request from the frontend
         const { category } = event.queryStringParameters;
 
         try {
