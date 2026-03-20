@@ -24,6 +24,9 @@
 </head>
 <body>
 
+    <!-- Skip to content for keyboard/screen reader users -->
+    <a class="skip-link" href="#main-content">Skip to main content</a>
+
     <!-- Header & Navigation -->
     <header class="site-header">
         <div class="container header-container">
@@ -38,9 +41,9 @@
                     <li><a href="#skills">Skills</a></li>
                     <li><a href="#achievements">Achievements</a></li>
                     <li><a href="#contact">Contact</a></li>
-                    <li><a href="games/index.html" target="_blank">Games</a></li>
-                    <li><a href="ai-tools/index.html" target="_blank">AI Tools</a></li>
-                    <li><a href="news-events/index.html" target="_blank">News & Events</a></li>
+                    <li><a href="games/index.html">Games</a></li>
+                    <li><a href="ai-tools/index.html">AI Tools</a></li>
+                    <li><a href="news-events/index.html">News & Events</a></li>
                 </ul>
             </nav>
 
@@ -51,7 +54,7 @@
         </div>
     </header>
 
-    <main>
+    <main id="main-content">
         <!-- Hero Section -->
         <section id="hero" class="hero-section">
             <div class="container hero-content animate-on-scroll fade-in-up">
@@ -76,8 +79,8 @@
                 <div class="about-image">
                     <img src="placeholder-profile.jpg" alt="Pratik Padiya" loading="lazy">
                     <div class="about-social">
-                        <a href="https://www.linkedin.com/in/pratikpadiya/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                        <a href="https://github.com/ppadiya?tab=repositories" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                        <a href="https://www.linkedin.com/in/pratikpadiya/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (opens in new tab)"><i class="fab fa-linkedin"></i></a>
+                        <a href="https://github.com/ppadiya?tab=repositories" target="_blank" rel="noopener noreferrer" aria-label="GitHub (opens in new tab)"><i class="fab fa-github"></i></a>
                     </div>
                 </div>
                 <div class="about-text">
@@ -121,7 +124,7 @@
                             <img src="LP_home.png" alt="Credit Card Rewards Program UI Screenshot" loading="lazy" class="portfolio-image portfolio-image--top">
                             <div class="portfolio-overlay">
                                 <div class="portfolio-overlay-content">
-                                    <a href="loyalty-ui/index.html" target="_blank" class="portfolio-link"><i class="fas fa-eye"></i></a>
+                                    <a href="loyalty-ui/index.html" class="portfolio-link" aria-label="View Credit Card Rewards Program demo"><i class="fas fa-eye"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -130,8 +133,8 @@
                             <p>A modern and responsive interface for managing credit card rewards and points, designed to enhance user engagement and simplify redemption processes.</p>
                             <p class="tech-stack"><strong>Tech:</strong> HTML5, CSS3, JavaScript</p>
                             <div class="portfolio-links">
-                                <a href="loyalty-ui/index.html" target="_blank" class="btn btn-small">View Demo</a>
-                                <a href="https://www.securitybank.com/betterbanking-rewards/" target="_blank" class="btn btn-small">View Security Bank Program</a>                           
+                                <a href="loyalty-ui/index.html" class="btn btn-small">View Demo</a>
+                                <a href="https://www.securitybank.com/betterbanking-rewards/" target="_blank" rel="noopener noreferrer" class="btn btn-small">View Security Bank Program</a>                           
                             </div>
                         </div>
                     </div>                    <!-- API Ecosystem Development -->
@@ -153,7 +156,7 @@
                             <img src="Product-Management.jpg" alt="APAC Market Expansion" loading="lazy" class="portfolio-image">
                             <div class="portfolio-overlay">
                                 <div class="portfolio-overlay-content">
-                                    <a href="PM+Framework/index.html" target="_blank" class="portfolio-link"><i class="fas fa-eye"></i></a>
+                                    <a href="PM+Framework/index.html" class="portfolio-link" aria-label="View APAC Market Expansion details"><i class="fas fa-eye"></i></a>
                                 </div>
                             </div>
                         </div>
@@ -162,7 +165,7 @@
                             <p>Led the expansion of Mastercard products across APAC markets, driving $10M+ revenue by launching localized products with multi-currency/multi-language support.</p>
                             <p class="tech-stack"><strong>Tech:</strong> Market Analysis Tools, Localization Frameworks, CRM Systems</p>
                             <div class="portfolio-links">
-                                <a href="PM+Framework/index.html" target="_blank" class="btn btn-small">View Details</a>
+                                <a href="PM+Framework/index.html" class="btn btn-small">View Details</a>
                             </div>
                         </div>
                     </div>                    <!-- Performance Management Platform -->
@@ -247,7 +250,7 @@
                         <i class="fas fa-trophy achievement-icon"></i>
                         <div class="achievement-details">
                             <h3>Award-Winning Project Leadership</h3>
-                            <p>Led award-winning projects, such as the Security Bank BetterBanking Rewards Program that won Retail Banker International Asia Trailblazer Award for Best Advance in Loyalty/Rewards Programme. <a href="https://www.securitybank.com/news/security-banks-credit-cards-rewards-program-triumphs-at-the-rbi-asia-trailblazer-awards-2025/" target="_blank" class="achievement-link">View Award</a></p>
+                            <p>Led award-winning projects, such as the Security Bank BetterBanking Rewards Program that won Retail Banker International Asia Trailblazer Award for Best Advance in Loyalty/Rewards Programme. <a href="https://www.securitybank.com/news/security-banks-credit-cards-rewards-program-triumphs-at-the-rbi-asia-trailblazer-awards-2025/" target="_blank" rel="noopener noreferrer" class="achievement-link">View Award</a></p>
                         </div>
                     </li>                    
                     
@@ -300,38 +303,17 @@
                     </div>
                     <div class="contact-method">
                         <i class="fab fa-linkedin"></i>
-                        <a href="https://www.linkedin.com/in/pratikpadiya/" target="_blank">LinkedIn Profile</a>
+                        <a href="https://www.linkedin.com/in/pratikpadiya/" target="_blank" rel="noopener noreferrer">LinkedIn Profile</a>
                     </div>
                     <div class="contact-method">
                         <i class="fab fa-github"></i>
-                        <a href="https://github.com/ppadiya?tab=repositories" target="_blank">GitHub Profile</a>
+                        <a href="https://github.com/ppadiya?tab=repositories" target="_blank" rel="noopener noreferrer">GitHub Profile</a>
                     </div>
                 </div>
                 
             </div>
         </section>
 
-        <!-- Shortcuts Section -->
-        <section class="shortcuts-section content-section">
-            <div class="container">
-                <div class="shortcuts-grid">
-                    <a href="games/index.html" target="_blank" class="shortcut-item">
-                        <img src="games.png" alt="Games" class="shortcut-image">
-                        <div class="shortcut-info">
-                            <h3>Interactive Games</h3>
-                            <p>Try out some fun interactive games</p>
-                        </div>
-                    </a>
-                    <a href="ai-tools/index.html" target="_blank" class="shortcut-item">
-                        <img src="aitools.png" alt="AI Tools" class="shortcut-image">
-                        <div class="shortcut-info">
-                            <h3>AI Tools</h3>
-                            <p>Explore AI-powered tools and utilities</p>
-                        </div>
-                    </a>
-                </div>
-            </div>
-        </section>
 
     </main>
 
@@ -340,11 +322,16 @@
         <div class="container">
             <p>&copy; <span id="current-year"></span> Pratik Padiya. All rights reserved.</p>
             <div class="footer-social">
-                 <a href="https://www.linkedin.com/in/pratikpadiya/" target="_blank" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
-                 <a href="https://github.com/ppadiya?tab=repositories" target="_blank" aria-label="GitHub"><i class="fab fa-github"></i></a>
+                 <a href="https://www.linkedin.com/in/pratikpadiya/" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn (opens in new tab)"><i class="fab fa-linkedin"></i></a>
+                 <a href="https://github.com/ppadiya?tab=repositories" target="_blank" rel="noopener noreferrer" aria-label="GitHub (opens in new tab)"><i class="fab fa-github"></i></a>
             </div>
         </div>
     </footer>
+
+    <!-- Scroll to top -->
+    <button id="scroll-top-btn" aria-label="Scroll to top">
+        <i class="fas fa-chevron-up"></i>
+    </button>
 
     <!-- Chatbot Widget -->
     <button id="chatbot-toggle" aria-label="Open chat" aria-expanded="false">
@@ -354,7 +341,7 @@
     <div id="chatbot-window" role="dialog" aria-label="Portfolio assistant">
         <div class="chatbot-header">
             <div class="chatbot-header-title">
-                <div class="chatbot-avatar">🤖</div>
+                <div class="chatbot-avatar" aria-hidden="true">🤖</div>
                 <div>
                     <h3>Portfolio Assistant</h3>
                     <p>● Online</p>
@@ -368,6 +355,7 @@
         <div id="chatbot-messages" aria-live="polite"></div>
 
         <form id="chatbot-form" autocomplete="off">
+            <label for="chatbot-input" class="visually-hidden">Ask a question</label>
             <input id="chatbot-input" type="text" placeholder="Ask about skills, experience…" maxlength="300" />
             <button id="chatbot-send" type="submit" aria-label="Send">
                 <svg xmlns="http://www.w3.org/2000/svg" height="20" viewBox="0 -960 960 960" width="20" fill="currentColor"><path d="M120-160v-640l760 320-760 320Zm80-120 474-200-474-200v140l240 60-240 60v140Zm0 0v-400 400Z"/></svg>

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arcade Games Collection</title>
+    <link rel="stylesheet" href="../css/base.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"> <!-- Font Awesome for icons -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -146,17 +147,6 @@
             opacity: 0.8;
         }
 
-        /* Back to Home Link */
-        .back-link {
-            color: var(--primary-color);
-            text-decoration: none;
-            display: block;
-            margin-top: 1rem;
-            font-weight: 600;
-        }
-        .back-link i { margin-right: 5px; }
-        .back-link:hover { opacity: 0.8; }
-
         /* Games Grid */
         .games-grid {
             display: grid;
@@ -269,6 +259,11 @@
     </style>
 </head>
 <body>
+    <a href="../index.html" class="back-home-btn" aria-label="Back to portfolio">
+        <i class="fas fa-arrow-left"></i>
+        <span>Back to Home</span>
+    </a>
+
     <!-- Theme Toggle -->
     <div class="theme-switch-wrapper" style="position: absolute; top: 20px; right: 20px; z-index: 1000;">
         <label class="theme-switch" for="dark-mode-toggle">
@@ -284,7 +279,6 @@
         <header>
             <h1>Arcade Games Collection</h1>
             <p class="subtitle">Choose your game and start playing!</p>
-            <a href="../index.html" class="back-link">&larr; Back to Home</a>
         </header>
 
         <div class="games-grid">

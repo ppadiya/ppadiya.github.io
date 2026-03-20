@@ -46,6 +46,14 @@ export const initSmoothScroll = () => {
     });
 };
 
+export const initScrollHeader = () => {
+    const header = document.querySelector('.site-header');
+    if (!header) return;
+    const toggle = () => header.classList.toggle('scrolled', window.pageYOffset > 20);
+    window.addEventListener('scroll', toggle, { passive: true });
+    toggle();
+};
+
 export const initScrollNav = () => {
     const sections = document.querySelectorAll('main section[id]');
     const navLinks = document.querySelectorAll('.main-nav a');

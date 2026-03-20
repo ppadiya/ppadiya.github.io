@@ -70,6 +70,7 @@ html {
     scroll-behavior: smooth;
     scroll-padding-top: calc(var(--header-height) + 20px);
     font-size: var(--base-font-size);
+    overflow-x: hidden; /* prevent horizontal scroll from any overflowing element */
 }
 
 body {
@@ -318,7 +319,7 @@ body.dark-mode .menu-toggle {
     background-image: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), url('placeholder-hero-bg.jpeg');
     background-size: cover;
     background-position: center;
-    background-attachment: fixed;
+    background-attachment: fixed; /* disabled on mobile below — causes iOS jank */
     color: white;
 }
 
@@ -327,7 +328,7 @@ body.dark-mode .menu-toggle {
     margin: 0 auto;
     padding: 2rem;
     border-radius: 1rem;
-    background-color: rgba(15, 23, 42, 0.5);
+    background-color: rgba(15, 23, 42, 0.35);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
 }
@@ -380,6 +381,56 @@ body.dark-mode .menu-toggle {
     opacity: 1;
 }
 
+/* Hero content entrance — applied to .hero-content (safe: not body, doesn't break fixed) */
+@keyframes heroEntrance {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+.hero-content {
+    animation: heroEntrance 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.15s both;
+}
+@media (prefers-reduced-motion: reduce) {
+    .hero-content { animation: none; }
+}
+
+/* ── Scroll-to-top button ────────────────────────────────────────────────── */
+#scroll-top-btn {
+    position: fixed;
+    bottom: 130px; /* above chatbot toggle */
+    right: 28px;
+    z-index: 9997;
+    width: 44px;
+    height: 44px;
+    border-radius: 50%;
+    background: rgba(30, 41, 59, 0.9);
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+    border: 1px solid rgba(76, 154, 255, 0.35);
+    color: #F1F5F9;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.3);
+    opacity: 0;
+    pointer-events: none;
+    transform: translateY(8px);
+    transition: opacity 0.25s ease, transform 0.25s ease, background 0.2s ease, border-color 0.2s ease;
+}
+#scroll-top-btn.visible {
+    opacity: 1;
+    pointer-events: auto;
+    transform: translateY(0);
+}
+#scroll-top-btn:hover {
+    background: var(--primary-color);
+    border-color: var(--primary-color);
+}
+@media (max-width: 480px) {
+    #scroll-top-btn { right: 16px; bottom: 114px; }
+}
+
 @keyframes bounce {
     0%, 20%, 50%, 80%, 100% {
         transform: translateY(0);
@@ -390,6 +441,34 @@ body.dark-mode .menu-toggle {
     60% {
         transform: translateY(-5px);
     }
+}
+
+/* Hero section — dark vignette over bottom-right to suppress background image watermarks */
+.hero-section::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+        radial-gradient(ellipse at 100% 100%, rgba(15, 23, 42, 0.92) 0%, transparent 55%),
+        radial-gradient(ellipse at 0% 100%, rgba(15, 23, 42, 0.5) 0%, transparent 40%);
+    pointer-events: none;
+    z-index: 0;
+}
+/* hero-content needs z-index to sit above the ::after vignette overlay */
+.hero-content {
+    position: relative;
+    z-index: 1;
+}
+/* scroll-down-indicator must stay position:absolute (set in base styles below);
+   only add z-index here so it renders above the ::after overlay */
+.scroll-down-indicator {
+    z-index: 1;
+}
+
+/* Header — scrolled state: stronger shadow + fully opaque background */
+.site-header.scrolled {
+    background-color: rgba(15, 23, 42, 0.99);
+    box-shadow: 0 2px 20px rgba(0, 0, 0, 0.45);
 }
 
 /* --- About Section --- */
@@ -687,13 +766,14 @@ body.dark-mode .portfolio-item {
 
 .portfolio-item:hover {
     transform: translateY(-10px);
-    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 20px 40px rgba(76, 154, 255, 0.18), 0 10px 25px rgba(0, 0, 0, 0.15);
 }
 
 .portfolio-image-container {
     position: relative;
     overflow: hidden;
     height: 200px;
+    aspect-ratio: 16 / 9; /* reserves space before image loads — eliminates CLS */
 }
 
 .portfolio-image {
@@ -734,8 +814,8 @@ body.dark-mode .portfolio-overlay {
 }
 
 .portfolio-link {
-    width: 40px;
-    height: 40px;
+    width: 48px;
+    height: 48px;
     background-color: white;
     border-radius: 50%;
     display: flex;
@@ -1130,6 +1210,11 @@ body.dark-mode .site-footer {
 }
 
 @media (max-width: 768px) {
+    /* Disable fixed-attachment parallax — causes GPU paint on every scroll frame on iOS */
+    .hero-section {
+        background-attachment: scroll;
+    }
+
     .site-header {
         height: auto;
         min-height: var(--header-height);
@@ -1603,7 +1688,7 @@ body.dark-mode .shortcut-info p {
 }
 
 .news-ticker-label {
-    background-color: #007bff;
+    background-color: var(--primary-color);
     color: white;
     padding: 5px 10px;
     position: absolute;

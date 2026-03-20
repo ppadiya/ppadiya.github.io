@@ -4,17 +4,17 @@
 
 #chatbot-toggle {
     position: fixed;
-    bottom: 28px;
+    bottom: 62px; /* clears the 37px news ticker + 25px breathing room */
     right: 28px;
-    z-index: 1000;
+    z-index: 9999; /* always above everything including ticker, header, overlays */
     width: 56px;
     height: 56px;
     border-radius: 50%;
     background: var(--primary-color);
     color: #fff;
-    border: none;
+    border: 2px solid rgba(255, 255, 255, 0.15); /* subtle ring for visibility on dark bg */
     cursor: pointer;
-    box-shadow: 0 4px 16px rgba(76, 154, 255, 0.45);
+    box-shadow: 0 4px 16px rgba(76, 154, 255, 0.55), 0 0 0 0 rgba(76, 154, 255, 0);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -31,9 +31,9 @@
 /* Window */
 #chatbot-window {
     position: fixed;
-    bottom: 96px;
+    bottom: 130px; /* toggle bottom(62) + toggle height(56) + 12px gap */
     right: 28px;
-    z-index: 999;
+    z-index: 9998;
     width: 360px;
     max-width: calc(100vw - 40px);
     height: 480px;
@@ -237,7 +237,13 @@
     }
 
     #chatbot-toggle {
-        bottom: 20px;
-        right: 20px;
+        bottom: 56px; /* clears ticker on small screens */
+        right: 16px;
+    }
+
+    #chatbot-window {
+        bottom: 0;
+        right: 0;
+        border-radius: 16px 16px 0 0;
     }
 }

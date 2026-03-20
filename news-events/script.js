@@ -12,8 +12,8 @@ document.addEventListener('DOMContentLoaded', () => {
     const noResultsMessage = document.getElementById('no-results-message');
     const jsonLdSchema = document.getElementById('json-ld-schema');
 
-    // Ensure back link works properly
-    const backLink = document.querySelector('.back-link');
+    // Ensure back link works properly regardless of pushState URL changes
+    const backLink = document.querySelector('.back-home-btn');
     if (backLink) {
         backLink.addEventListener('click', e => {
             e.preventDefault();
