@@ -1310,6 +1310,7 @@ body.dark-mode .site-footer {
     }
       .main-nav.active {
         max-height: 800px;
+        overflow-y: auto;
     }
     
     .main-nav ul {
@@ -1346,7 +1347,7 @@ body.dark-mode .site-footer {
         padding-left: 1rem;
     }
     .nav-dropdown.dropdown-open .dropdown-menu {
-        max-height: 200px;
+        max-height: 300px;
     }
     .nav-dropdown.dropdown-open .nav-dropdown-toggle i {
         transform: rotate(180deg);
