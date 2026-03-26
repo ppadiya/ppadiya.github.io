@@ -8,6 +8,13 @@ export const initNav = () => {
     const mainNav = document.querySelector('.main-nav');
     if (!menuToggle || !mainNav) return;
 
+    const closeAllDropdowns = () => {
+        mainNav.querySelectorAll('.nav-dropdown.dropdown-open').forEach(li => {
+            li.classList.remove('dropdown-open');
+            li.querySelector('.nav-dropdown-toggle')?.setAttribute('aria-expanded', 'false');
+        });
+    };
+
     menuToggle.addEventListener('click', () => {
         const isExpanded = mainNav.classList.toggle('active');
         menuToggle.setAttribute('aria-expanded', String(isExpanded));
@@ -16,11 +23,25 @@ export const initNav = () => {
             icon.classList.toggle('fa-bars');
             icon.classList.toggle('fa-times');
         }
+        if (!isExpanded) closeAllDropdowns();
     });
 
+    // Mobile: tap "More tools" to expand/collapse sub-list
+    mainNav.querySelectorAll('.nav-dropdown-toggle').forEach(toggle => {
+        toggle.addEventListener('click', e => {
+            e.preventDefault();
+            if (!mainNav.classList.contains('active')) return;
+            const parentLi = toggle.closest('.nav-dropdown');
+            const isOpen = parentLi.classList.toggle('dropdown-open');
+            toggle.setAttribute('aria-expanded', String(isOpen));
+        });
+    });
+
+    // Clicking any non-toggle nav link closes the hamburger menu
     mainNav.querySelectorAll('a').forEach(link => {
         link.addEventListener('click', () => {
             if (!mainNav.classList.contains('active')) return;
+            if (link.classList.contains('nav-dropdown-toggle')) return;
             mainNav.classList.remove('active');
             menuToggle.setAttribute('aria-expanded', 'false');
             const icon = menuToggle.querySelector('i');
@@ -28,6 +49,7 @@ export const initNav = () => {
                 icon.classList.remove('fa-times');
                 icon.classList.add('fa-bars');
             }
+            closeAllDropdowns();
         });
     });
 };
