@@ -1306,7 +1306,7 @@ body.dark-mode .site-footer {
         transition: max-height 0.3s ease;
     }
       .main-nav.active {
-        max-height: 600px;
+        max-height: 800px;
     }
     
     .main-nav ul {
@@ -1325,7 +1325,30 @@ body.dark-mode .site-footer {
         padding: 0.5rem 0;
         width: 100%;
     }
-    
+
+    /* Dropdown — mobile overrides */
+    .dropdown-menu {
+        position: static;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        border-radius: 0;
+        padding: 0;
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        max-height: 0;
+        overflow: hidden;
+        transition: max-height 0.3s ease;
+        padding-left: 1rem;
+    }
+    .nav-dropdown.dropdown-open .dropdown-menu {
+        max-height: 200px;
+    }
+    .nav-dropdown.dropdown-open .nav-dropdown-toggle i {
+        transform: rotate(180deg);
+    }
+
     .hero-cta {
         flex-direction: column;
         align-items: center;
