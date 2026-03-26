@@ -280,6 +280,7 @@ body.dark-mode .main-nav a {
     position: relative;
 }
 .dropdown-menu {
+    display: block;
     position: absolute;
     top: calc(100% + 0.5rem);
     left: 0;
