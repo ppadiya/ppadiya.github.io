@@ -368,10 +368,7 @@ body.dark-mode .menu-toggle {
     text-align: center;
     position: relative;
     padding: 6rem 0 3rem;
-    background-image: linear-gradient(rgba(15, 23, 42, 0.7), rgba(15, 23, 42, 0.7)), url('placeholder-hero-bg.jpeg');
-    background-size: cover;
-    background-position: center;
-    background-attachment: fixed; /* disabled on mobile below — causes iOS jank */
+    background: linear-gradient(135deg, #0f172a 0%, #1a3a5c 40%, #0f2d4a 70%, #0f172a 100%);
     color: white;
 }
 
@@ -811,6 +808,8 @@ body.dark-mode .portfolio-section {
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.05);
     border: 1px solid var(--border-color-light-enhanced); /* Enhanced border */
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    display: flex;
+    flex-direction: column;
 }
 body.dark-mode .portfolio-item {
     background-color: var(--background-color-dark);
@@ -885,6 +884,9 @@ body.dark-mode .portfolio-overlay {
 
 .portfolio-info {
     padding: 1.5rem;
+    display: flex;
+    flex-direction: column;
+    flex: 1;
 }
 
 .portfolio-info h3 {
@@ -901,6 +903,13 @@ body.dark-mode .portfolio-info h3 {
     font-size: 0.95rem;
 }
 
+.portfolio-info p:not(.tech-stack) {
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
 .tech-stack {
     display: block;
     margin-bottom: 1.25rem;
@@ -912,6 +921,18 @@ body.dark-mode .portfolio-info h3 {
     display: flex;
     flex-wrap: wrap;
     gap: 0.5rem;
+}
+
+.portfolio-links .btn {
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    background-color: transparent;
+}
+
+.portfolio-links .btn:hover {
+    background-color: var(--primary-color);
+    color: #fff;
+    transform: translateY(-2px);
 }
 
 /* --- Skills Section --- */

@@ -10,3 +10,13 @@ test/
 data/optimize_kb.py
 data/knowledge_base_new.json
 data/knowledge_base_18Apr2025.txt
+
+# Unused assets (kept locally as backup)
+LP_home.png
+SOAP-REST_API.png
+Product-Management.jpg
+placeholder-hero-bg.jpeg
+flowdiagram.png
+aitools.png
+games.png
+responsive-fixes.css
