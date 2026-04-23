@@ -16,6 +16,7 @@
     --border-color: #334155;
     --success-color: #57D9A3;
     --highlight-bg: rgba(76, 154, 255, 0.1);
+    --highlight-bg-dark: rgba(126, 182, 255, 0.18);
 
     /* Header */
     --header-bg: rgba(30, 41, 59, 0.95);
