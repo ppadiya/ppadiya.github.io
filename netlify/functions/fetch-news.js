@@ -1,18 +1,19 @@
 // netlify/functions/fetch-news.js
 const { createClient } = require('@supabase/supabase-js');
 const fetch = require('node-fetch');
-const crypto = require('crypto'); // For hashing
-const Parser = require('rss-parser'); // For RSS feeds
+const crypto = require('crypto');
+const Parser = require('rss-parser');
+const ws = require('ws');
 
-// Initialize RSS Parser
 const parser = new Parser();
 
-// Lazy-initialized Supabase client — created inside the handler to avoid
-// Node 20 WebSocket errors on module load (Netlify runtime limitation).
+// Pass `ws` as the WebSocket transport so this works on Node < 22 (Netlify runtime).
 let _supabase = null;
 function getSupabase() {
     if (!_supabase) {
-        _supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+        _supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY, {
+            realtime: { transport: ws }
+        });
     }
     return _supabase;
 }
