@@ -2,7 +2,7 @@ const axios = require('axios');
 
 // Configuration
 const OPENROUTER_API_ENDPOINT = 'https://openrouter.ai/api/v1/chat/completions';
-const DEFAULT_MODEL = 'deepseek/deepseek-chat:free';
+const DEFAULT_MODEL = 'meta-llama/llama-3.1-8b-instruct:free';
 const SITE_URL = process.env.URL || 'http://localhost:8888';
 const SITE_NAME = 'Pratik Padiya Portfolio';
 

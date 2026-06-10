@@ -1,7 +1,7 @@
 import { enforceDarkMode } from '../js/theme.js';
 
 const OPENROUTER_MODELS_URL = 'https://openrouter.ai/api/v1/models';
-const DEFAULT_MODEL = 'deepseek/deepseek-chat:free';
+const DEFAULT_MODEL = 'meta-llama/llama-3.1-8b-instruct:free';
 
 document.addEventListener('DOMContentLoaded', () => {
     enforceDarkMode();
@@ -42,8 +42,10 @@ document.addEventListener('DOMContentLoaded', () => {
                 modelSelect.appendChild(opt);
             });
 
-            // If the default wasn't in the list, select the first one
-            if (!modelSelect.value) modelSelect.selectedIndex = 0;
+            // Always default to first available if preferred model isn't listed
+            if (!modelSelect.querySelector(`option[value="${DEFAULT_MODEL}"]`)) {
+                modelSelect.selectedIndex = 0;
+            }
 
             modelSelect.disabled = false;
             modelStatus.textContent = `${freeModels.length} free models available`;
