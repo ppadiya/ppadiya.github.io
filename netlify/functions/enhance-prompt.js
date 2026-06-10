@@ -82,13 +82,16 @@ exports.handler = async function(event, context) {
     
     let errorMessage = 'Could not optimize prompt. Please try again later.';
     if (error.response) {
-      // Log OpenRouter API error details
       console.error('OpenRouter API Error:', error.response.data);
       const errDetail = error.response.data?.error;
       const errText = typeof errDetail === 'object'
         ? (errDetail.message || JSON.stringify(errDetail))
         : (errDetail || error.message);
-      errorMessage = `API Error: ${error.response.status} - ${errText}`;
+      if (errText && errText.includes('No endpoints found')) {
+        errorMessage = 'This model has no active providers on OpenRouter right now. Please select a different model and try again.';
+      } else {
+        errorMessage = `API Error: ${error.response.status} - ${errText}`;
+      }
     }
     
     return {
