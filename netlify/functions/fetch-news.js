@@ -149,9 +149,9 @@ const fetchFromNewsDataIo = async (query, category) => {
 
 // Fetch from NewsAPI.org
 const fetchFromNewsApiOrg = async (query, category) => {
-    const url = `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&language=en&sortBy=publishedAt&pageSize=20&apiKey=${NEWSAPI_API_KEY}`; // Max 20 articles per call
+    const url = `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&language=en&sortBy=publishedAt&pageSize=20`; // Max 20 articles per call
     try {
-        const response = await fetch(url);
+        const response = await fetch(url, { headers: { 'X-Api-Key': NEWSAPI_API_KEY } });
         const data = await response.json();
         if (data.articles) {
             return data.articles.map(item => ({
@@ -277,7 +277,7 @@ exports.handler = async (event, context) => {
                 statusCode: 200,
                 headers: {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*' // Adjust for production security
+                    'Access-Control-Allow-Origin': 'https://pratikpadiyaportfolio.netlify.app' // Adjust for production security
                 },
                 body: JSON.stringify(results)
             };
@@ -288,7 +288,7 @@ exports.handler = async (event, context) => {
                 statusCode: 500,
                 headers: {
                     'Content-Type': 'application/json',
-                    'Access-Control-Allow-Origin': '*'
+                    'Access-Control-Allow-Origin': 'https://pratikpadiyaportfolio.netlify.app'
                 },
                 body: JSON.stringify({ message: 'Failed to retrieve news and events.', error: error.message })
             };

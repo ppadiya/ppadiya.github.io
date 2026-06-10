@@ -114,12 +114,31 @@ document.addEventListener('DOMContentLoaded', () => {
         items.forEach(item => {
             const div = document.createElement('div');
             div.classList.add('news-item');
-            div.innerHTML = `
-                <h3><a href="${item.url}" target="_blank" rel="noopener noreferrer">${item.title}</a></h3>
-                <time datetime="${item.date}">${formatDate(item.date)}</time>
-                <p>${item.summary}</p>
-                <p><small>Source: ${item.source}</small></p>
-            `;
+
+            const h3 = document.createElement('h3');
+            const a = document.createElement('a');
+            a.href = item.url?.startsWith('http') ? item.url : '#';
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            a.textContent = item.title;
+            h3.appendChild(a);
+
+            const time = document.createElement('time');
+            time.setAttribute('datetime', item.date);
+            time.textContent = formatDate(item.date);
+
+            const summary = document.createElement('p');
+            summary.textContent = item.summary;
+
+            const source = document.createElement('p');
+            const small = document.createElement('small');
+            small.textContent = `Source: ${item.source}`;
+            source.appendChild(small);
+
+            div.appendChild(h3);
+            div.appendChild(time);
+            div.appendChild(summary);
+            div.appendChild(source);
             newsArticlesContainer.appendChild(div);
         });
     };
@@ -137,13 +156,38 @@ document.addEventListener('DOMContentLoaded', () => {
         events.forEach(event => {
             const li = document.createElement('li');
             li.classList.add('event-item');
-            li.innerHTML = `
-                <h4><a href="${event.url}" target="_blank" rel="noopener noreferrer">${event.title}</a></h4>
-                <p class="event-date">Date: ${event.date}</p>
-                ${event.date_range ? `<p class="event-date-range">Schedule: ${event.date_range}</p>` : ''}
-                <p class="event-location">Location: ${event.location || 'N/A'}</p>
-                <p>${event.summary}</p>
-            `;
+
+            const h4 = document.createElement('h4');
+            const a = document.createElement('a');
+            a.href = event.url?.startsWith('http') ? event.url : '#';
+            a.target = '_blank';
+            a.rel = 'noopener noreferrer';
+            a.textContent = event.title;
+            h4.appendChild(a);
+
+            const datePara = document.createElement('p');
+            datePara.className = 'event-date';
+            datePara.textContent = `Date: ${event.date}`;
+
+            li.appendChild(h4);
+            li.appendChild(datePara);
+
+            if (event.date_range) {
+                const dateRangePara = document.createElement('p');
+                dateRangePara.className = 'event-date-range';
+                dateRangePara.textContent = `Schedule: ${event.date_range}`;
+                li.appendChild(dateRangePara);
+            }
+
+            const locationPara = document.createElement('p');
+            locationPara.className = 'event-location';
+            locationPara.textContent = `Location: ${event.location || 'N/A'}`;
+
+            const summaryPara = document.createElement('p');
+            summaryPara.textContent = event.summary;
+
+            li.appendChild(locationPara);
+            li.appendChild(summaryPara);
             eventList.appendChild(li);
         });
     };

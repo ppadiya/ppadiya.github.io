@@ -18,9 +18,16 @@ exports.handler = async function(event, context) {
     const selectedModel = model || DEFAULT_MODEL;
     
     if (!prompt) {
-      return { 
-        statusCode: 400, 
+      return {
+        statusCode: 400,
         body: JSON.stringify({ error: 'Prompt is required' })
+      };
+    }
+
+    if (prompt.length > 2000) {
+      return {
+        statusCode: 400,
+        body: JSON.stringify({ error: 'Prompt too long. Maximum 2000 characters.' })
       };
     }
 

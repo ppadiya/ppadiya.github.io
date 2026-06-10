@@ -67,6 +67,10 @@ exports.handler = async (event) => {
         return { statusCode: 400, body: JSON.stringify({ error: 'A query is required.' }) };
     }
 
+    if (query.length > 2000) {
+        return { statusCode: 400, body: JSON.stringify({ error: 'Query too long. Maximum 2000 characters.' }) };
+    }
+
     let knowledgeBase;
     try {
         knowledgeBase = getKnowledgeBase();
