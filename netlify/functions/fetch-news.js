@@ -4,16 +4,18 @@ const fetch = require('node-fetch');
 const crypto = require('crypto'); // For hashing
 const Parser = require('rss-parser'); // For RSS feeds
 
-// Initialize Supabase client
-// Use the service role key for server-side functions as it bypasses Row Level Security (RLS)
-// which is appropriate for a cron job and backend API endpoint.
-const supabase = createClient(
-    process.env.SUPABASE_URL,
-    process.env.SUPABASE_SERVICE_ROLE_KEY
-);
-
 // Initialize RSS Parser
 const parser = new Parser();
+
+// Lazy-initialized Supabase client — created inside the handler to avoid
+// Node 20 WebSocket errors on module load (Netlify runtime limitation).
+let _supabase = null;
+function getSupabase() {
+    if (!_supabase) {
+        _supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+    }
+    return _supabase;
+}
 
 // API Keys
 const NEWSDATA_API_KEY = process.env.NEWSDATA_API_KEY;
@@ -47,7 +49,7 @@ const saveArticle = async (article) => {
     const hash = generateHash(article);
 
     // Check if article with this hash already exists
-    const { data: existingArticles, error: selectError } = await supabase
+    const { data: existingArticles, error: selectError } = await getSupabase()
         .from('articles')
         .select('id')
         .eq('hash', hash);
@@ -62,7 +64,7 @@ const saveArticle = async (article) => {
         // Optionally update if data changes, but for news, we typically skip
     } else {
         // If not exists, insert it
-        const { error: insertError } = await supabase
+        const { error: insertError } = await getSupabase()
             .from('articles')
             .insert({
                 title: article.title,
@@ -88,7 +90,7 @@ const saveEvent = async (event) => {
     const hash = generateHash(event);
 
     // Check if event with this hash already exists
-    const { data: existingEvents, error: selectError } = await supabase
+    const { data: existingEvents, error: selectError } = await getSupabase()
         .from('events')
         .select('id')
         .eq('hash', hash);
@@ -102,7 +104,7 @@ const saveEvent = async (event) => {
         console.log(`Event with hash ${hash} already exists: ${event.title}`);
     } else {
         // If not exists, insert it
-        const { error: insertError } = await supabase
+        const { error: insertError } = await getSupabase()
             .from('events')
             .insert({
                 title: event.title,
@@ -244,7 +246,7 @@ exports.handler = async (event, context) => {
 
             if (category === 'events') {
                 // Fetch events from Supabase, filter for upcoming
-                ({ data, error } = await supabase
+                ({ data, error } = await getSupabase()
                     .from('events')
                     .select('*')
                     .gte('date', new Date().toISOString()) // Only events from today onwards
@@ -252,14 +254,14 @@ exports.handler = async (event, context) => {
                 );
             } else if (category === 'all') {
                 // Fetch all articles
-                ({ data, error } = await supabase
+                ({ data, error } = await getSupabase()
                     .from('articles')
                     .select('*')
                     .order('date', { ascending: false }) // Newest first
                 );
             } else {
                 // Fetch articles by specific category
-                ({ data, error } = await supabase
+                ({ data, error } = await getSupabase()
                     .from('articles')
                     .select('*')
                     .eq('category', category)

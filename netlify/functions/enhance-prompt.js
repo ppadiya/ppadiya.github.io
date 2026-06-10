@@ -97,8 +97,7 @@ exports.handler = async function(event, context) {
         'Content-Type': 'application/json'
       },
       body: JSON.stringify({
-        error: errorMessage,
-        details: error.message
+        error: errorMessage
       })
     };
   }
