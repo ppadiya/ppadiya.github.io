@@ -129,9 +129,9 @@ const saveEvent = async (event) => {
 
 // Fetch from NewsData.io
 const fetchFromNewsDataIo = async (query, category) => {
-    const url = `https://newsdata.io/api/1/news?apikey=${NEWSDATA_API_KEY}&qInTitle=${encodeURIComponent(query)}&language=en&size=10`; // Max 10 articles per call
+    const url = `https://newsdata.io/api/1/news?qInTitle=${encodeURIComponent(query)}&language=en&size=10`; // Max 10 articles per call
     try {
-        const response = await fetch(url);
+        const response = await fetch(url, { headers: { 'X-ACCESS-KEY': NEWSDATA_API_KEY } });
         const data = await response.json();
         if (data.results) {
             return data.results.map(item => ({
