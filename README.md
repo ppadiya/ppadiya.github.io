@@ -20,7 +20,9 @@ Live site: https://pratikpadiyaportfolio.netlify.app
 
 ## Stack
 
-- Static HTML / CSS / JS — no framework
+- Static HTML / CSS / JS — no framework, no build step
+- **Theming** — follows the OS light/dark preference (`prefers-color-scheme`) with a manual header toggle (localStorage override). Dark palette lives at `:root` in `css/base.css`; light mode is `[data-theme="light"]` overrides applied by an inline head script before first paint. Sub-pages are dark-only by design.
+- **CSS architecture** — `style.css` is an import hub over mobile-first modules: `css/layout.css`, `css/header.css`, `css/hero.css`, `css/components.css`, `css/sections.css`; shared design tokens in `css/base.css`
 - Hosted on **Netlify** with serverless functions
 - **Supabase** — stores news and events data
 - **n8n** — scheduled workflow that fetches and filters industry news daily
