@@ -1,0 +1,163 @@
+/* Filter bar, search, transactions table */
+
+.filter-bar {
+  background-color: var(--surface-color-light);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  margin: var(--space-8) 0;
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  border: 1px solid var(--border-color);
+}
+
+.filter-group {
+  display: flex;
+  align-items: center;
+  gap: var(--space-2);
+}
+
+.filter-group label {
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+
+.filter-bar select,
+.filter-bar input[type="text"] {
+  min-height: 44px;
+  padding: 0 var(--space-3);
+  font-family: var(--font-primary);
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  background-color: var(--surface-color);
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-sm);
+  min-width: 150px;
+  transition: border-color var(--dur-fast) var(--ease-out);
+}
+
+.filter-bar select:focus,
+.filter-bar input[type="text"]:focus {
+  border-color: var(--primary-color);
+  outline: none;
+}
+
+.search-bar {
+  position: relative;
+  margin-left: auto;
+}
+
+.search-icon {
+  position: absolute;
+  left: 12px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--text-secondary);
+  pointer-events: none;
+}
+
+.search-bar input[type="text"] {
+  padding-left: 36px;
+}
+
+.search-bar-block {
+  margin: var(--space-4) 0 0;
+  width: 100%;
+}
+
+.search-bar-block input[type="text"] {
+  width: 100%;
+}
+
+.milestone-info-spaced {
+  margin-top: var(--space-4);
+}
+
+.progress-fill-42 {
+  width: 42%;
+}
+
+/* Transactions table */
+.table-wrapper,
+.transactions-table.responsive {
+  display: block;
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
+.transactions-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin: var(--space-8) 0;
+  border: 1px solid var(--border-color);
+  border-radius: var(--radius-md);
+  border-spacing: 0;
+  overflow: hidden;
+}
+
+.transactions-table th,
+.transactions-table td {
+  padding: var(--space-3) var(--space-4);
+  text-align: left;
+  border-bottom: 1px solid var(--border-color);
+  white-space: nowrap;
+}
+
+.transactions-table th {
+  background-color: var(--surface-color);
+  font-weight: 600;
+  color: var(--heading-color);
+}
+
+.transactions-table tbody tr {
+  transition: background var(--dur-fast) var(--ease-out);
+}
+
+.transactions-table tbody tr:hover {
+  background-color: var(--highlight-bg);
+}
+
+.transaction-category {
+  display: inline-block;
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 500;
+}
+
+.category-shopping { background-color: rgba(33, 150, 243, 0.15);  color: #64B5F6; }
+.category-dining   { background-color: rgba(255, 152, 0, 0.15);   color: #FFB74D; }
+.category-travel   { background-color: rgba(76, 175, 80, 0.15);   color: #81C784; }
+.category-other    { background-color: rgba(156, 39, 176, 0.15);  color: #CE93D8; }
+
+[data-theme="light"] .category-shopping { color: #1565C0; }
+[data-theme="light"] .category-dining   { color: #B45309; }
+[data-theme="light"] .category-travel   { color: #2E7D32; }
+[data-theme="light"] .category-other    { color: #6A1B9A; }
+
+.points-earned {
+  font-weight: 600;
+  color: var(--success-color);
+}
+
+@media (max-width: 768px) {
+  .filter-bar {
+    flex-direction: column;
+    align-items: stretch;
+  }
+
+  .filter-group {
+    justify-content: space-between;
+  }
+
+  .search-bar {
+    margin-left: 0;
+    width: 100%;
+  }
+
+  .search-bar input[type="text"] {
+    width: 100%;
+  }
+}

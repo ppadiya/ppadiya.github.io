@@ -1,0 +1,80 @@
+/* PremiumRewards brand tokens.
+   Dark palette at :root (legacy default), light palette via [data-theme="light"].
+   Structural scales mirror the portfolio design system. */
+
+:root {
+  color-scheme: dark;
+
+  /* Brand palette (dark) */
+  --primary-color: #64B5F6;
+  --secondary-color: #90CAF9;
+  --accent-color: #FF8A80;
+  --background-color: #121212;
+  --surface-color: #1E1E1E;
+  --surface-color-light: #2D2D2D;
+  --text-primary: #E0E0E0;
+  --text-secondary: #A8A8A8;
+  --heading-color: #F5F5F5;
+  --border-color: #333333;
+  --success-color: #81C784;
+  --highlight-bg: rgba(100, 181, 246, 0.12);
+  --on-primary: #0B1220;
+  --hero-overlay: rgba(18, 18, 18, 0.6);
+
+  /* Elevation */
+  --shadow-1: 0 1px 3px rgba(0, 0, 0, 0.4);
+  --shadow-2: 0 4px 12px rgba(0, 0, 0, 0.45);
+  --shadow-3: 0 12px 32px rgba(0, 0, 0, 0.5);
+
+  /* Typography */
+  --font-primary: 'Poppins', system-ui, sans-serif;
+  --base-font-size: 16px;
+
+  /* Spacing scale (4/8px rhythm) */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-6: 1.5rem;
+  --space-8: 2rem;
+  --space-12: 3rem;
+  --space-16: 4rem;
+
+  /* Radius */
+  --radius-sm: 8px;
+  --radius-md: 12px;
+  --radius-lg: 16px;
+  --radius-full: 999px;
+
+  /* Motion */
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+  --dur-fast: 150ms;
+  --dur-base: 250ms;
+
+  /* Layout */
+  --container-max-width: 1200px;
+  --header-height: 64px;
+}
+
+[data-theme="light"] {
+  color-scheme: light;
+
+  --primary-color: #1565C0;
+  --secondary-color: #1E88E5;
+  --accent-color: #E53935;
+  --background-color: #F8FAFC;
+  --surface-color: #FFFFFF;
+  --surface-color-light: #F1F5F9;
+  --text-primary: #1E293B;
+  --text-secondary: #5B6573;
+  --heading-color: #0F172A;
+  --border-color: #E2E8F0;
+  --success-color: #2E7D32;
+  --highlight-bg: rgba(21, 101, 192, 0.08);
+  --on-primary: #FFFFFF;
+  --hero-overlay: rgba(15, 23, 42, 0.55);
+
+  --shadow-1: 0 1px 3px rgba(15, 23, 42, 0.08);
+  --shadow-2: 0 4px 12px rgba(15, 23, 42, 0.1);
+  --shadow-3: 0 12px 32px rgba(15, 23, 42, 0.14);
+}

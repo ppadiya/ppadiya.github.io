@@ -1,0 +1,64 @@
+/* Events calendar list */
+
+.events-calendar h2 {
+    margin: 0 0 var(--space-4);
+    font-size: 1.5rem;
+    padding-bottom: var(--space-3);
+    border-bottom: 1px solid var(--border-color);
+}
+
+#event-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    gap: var(--space-3);
+}
+
+.event-item {
+    background-color: var(--surface-color-dark);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--space-4);
+    transition: transform var(--dur-base) var(--ease-out),
+                box-shadow var(--dur-base) var(--ease-out),
+                border-color var(--dur-base) var(--ease-out);
+}
+
+.event-item:hover {
+    transform: translateY(-3px);
+    box-shadow: var(--shadow-2);
+    border-color: var(--primary-color);
+}
+
+[data-theme="light"] .event-item {
+    background-color: var(--surface-color);
+}
+
+.event-item h4 {
+    margin: 0 0 var(--space-1);
+    font-size: 1.05rem;
+}
+
+.event-item h4 a {
+    color: var(--heading-color);
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease-out);
+}
+
+.event-item h4 a:hover {
+    color: var(--primary-color);
+}
+
+.event-item p {
+    font-size: 0.95rem;
+    color: var(--text-color);
+    margin: 0 0 var(--space-1);
+}
+
+.event-item .event-date,
+.event-item .event-location {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    display: block;
+}

@@ -21,8 +21,8 @@ Live site: https://pratikpadiyaportfolio.netlify.app
 ## Stack
 
 - Static HTML / CSS / JS — no framework, no build step
-- **Theming** — follows the OS light/dark preference (`prefers-color-scheme`) with a manual header toggle (localStorage override). Dark palette lives at `:root` in `css/base.css`; light mode is `[data-theme="light"]` overrides applied by an inline head script before first paint. Sub-pages are dark-only by design.
-- **CSS architecture** — `style.css` is an import hub over mobile-first modules: `css/layout.css`, `css/header.css`, `css/hero.css`, `css/components.css`, `css/sections.css`; shared design tokens in `css/base.css`
+- **Theming** — follows the OS light/dark preference (`prefers-color-scheme`) with a manual sun/moon toggle (localStorage override). Dark palette lives at `:root` in `css/base.css`; light mode is `[data-theme="light"]` overrides applied by an inline head script before first paint. All sub-pages (news-events, ai-tools, games, loyalty-ui, PM+framework) support both themes; loyalty-ui keeps its own PremiumRewards brand palette via `loyalty-ui/css/tokens.css`.
+- **CSS architecture** — each page's stylesheet is an import hub over small mobile-first modules, all driven by the shared design tokens (spacing, radius, shadows, motion) in `css/base.css`. Sub-page chrome (fixed theme toggle, scroll-reveal) lives in `css/subpage.css` + `js/subpage-ui.js`.
 - Hosted on **Netlify** with serverless functions
 - **Supabase** — stores news and events data
 - **n8n** — scheduled workflow that fetches and filters industry news daily

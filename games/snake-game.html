@@ -2,8 +2,20 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no"> <!-- Prevent zoom -->
-    <title>Snake Game</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Snake Game - Arcade Games</title>
+
+    <!-- Apply saved/system theme before CSS paints (avoids theme flash) -->
+    <script>
+        (function () {
+            var t = localStorage.getItem('theme');
+            if (t !== 'light' && t !== 'dark') {
+                t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            document.documentElement.dataset.theme = t;
+        })();
+    </script>
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-9R1TCBR2DJ"></script>
     <script>
@@ -12,339 +24,39 @@
         gtag('js', new Date());
         gtag('config', 'G-9R1TCBR2DJ');
     </script>
-    <!-- Links from games/index.html -->
+
+    <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/subpage.css">
+    <link rel="stylesheet" href="css/game-shell.css">
+    <link rel="stylesheet" href="css/snake-game.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <style>
-        /* --- Variables (Copied from main style.css) --- */
-        :root {
-            /* Light Mode Palette */
-            --primary-color-light: #0052cc;
-            --secondary-color-light: #64748B;
-            --background-color-light: #F8FAFC;
-            --surface-color-light: #ffffff;
-            --text-color-light: #1E293B;
-            --heading-color-light: #0F172A;
-            --accent-color-light: #FF5630;
-            --border-color-light: #E2E8F0;
-            --border-color-light-enhanced: #CFD8DC; /* Slightly darker for better contrast */
-            --success-color-light: #36B37E;
-            --highlight-bg-light: rgba(0, 82, 204, 0.05);
-            --toggle-bg-light: #E2E8F0;
-            --toggle-circle-light: white;
-            --toggle-icon-light: #F59E0B;
-
-            /* Dark Mode Palette */
-            --primary-color-dark: #4C9AFF;
-            --secondary-color-dark: #94A3B8;
-            --background-color-dark: #0F172A;
-            --surface-color-dark: #1E293B;
-            --text-color-dark: #CBD5E1;
-            --heading-color-dark: #F1F5F9;
-            --accent-color-dark: #FF8F73;
-            --border-color-dark: #334155;
-            --success-color-dark: #57D9A3;
-            --highlight-bg-dark: rgba(76, 154, 255, 0.1);
-            --toggle-bg-dark: #475569;
-            --toggle-circle-dark: #E2E8F0;
-            --toggle-icon-dark: #A5B4FC;
-
-            /* Default to Light Mode Variables */
-            --primary-color: var(--primary-color-light);
-            --secondary-color: var(--secondary-color-light);
-            --background-color: var(--background-color-light);
-            --surface-color: var(--surface-color-light);
-            --text-color: var(--text-color-light);
-            --heading-color: var(--heading-color-light);
-            --accent-color: var(--accent-color-light);
-            --border-color: var(--border-color-light);
-            --success-color: var(--success-color-light);
-            --highlight-bg: var(--highlight-bg-light);
-            --toggle-bg: var(--toggle-bg-light);
-            --toggle-circle: var(--toggle-circle-light);
-            --toggle-icon-sun: var(--toggle-icon-light);
-            --toggle-icon-moon: var(--toggle-icon-dark);
-
-            /* Fonts */
-            --font-primary: 'Poppins', sans-serif;
-            --base-font-size: 16px;
-            --container-max-width: 1200px;
-        }
-
-        /* Dark Mode Variable Overrides */
-        body.dark-mode {
-            --primary-color: var(--primary-color-dark);
-            --secondary-color: var(--secondary-color-dark);
-            --background-color: var(--background-color-dark);
-            --surface-color: var(--surface-color-dark);
-            --text-color: var(--text-color-dark);
-            --heading-color: var(--heading-color-dark);
-            --accent-color: var(--accent-color-dark);
-            --border-color: var(--border-color-dark);
-            --success-color: var(--success-color-dark);
-            --highlight-bg: var(--highlight-bg-dark);
-            --toggle-bg: var(--toggle-bg-dark);
-            --toggle-circle: var(--toggle-circle-dark);
-        }
-
-        /* --- Base Styles --- */
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        html {
-            font-size: var(--base-font-size);
-        }
-
-        body {
-            font-family: var(--font-primary);
-            line-height: 1.7;
-            background-color: var(--background-color);
-            color: var(--text-color);
-            min-height: 100vh;
-            transition: background-color 0.3s ease, color 0.3s ease;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-            padding-top: 60px; /* Add padding for fixed elements */
-            touch-action: none; /* Prevent default touch actions like scroll/zoom */
-        }
-
-        .container {
-            max-width: var(--container-max-width);
-            margin: 0 auto;
-            padding: 2rem 1.5rem;
-        }
-
-        h1 {
-            font-size: clamp(2rem, 4vw, 2.5rem); /* Slightly smaller for game page */
-            margin-bottom: 1.5rem;
-            color: var(--heading-color);
-            font-weight: 700;
-            letter-spacing: -0.02em;
-            text-align: center;
-        }
-
-        a {
-            color: var(--primary-color);
-            text-decoration: none;
-            transition: color 0.2s ease, opacity 0.2s ease;
-        }
-        a:hover {
-            color: var(--primary-color);
-            opacity: 0.8;
-        }
-
-        /* Back Link */
-        .back-link {
-            position: fixed; /* Keep it visible */
-            top: 15px;
-            left: 15px;
-            color: var(--primary-color);
-            text-decoration: none;
-            font-weight: 600;
-            padding: 8px 15px;
-            background-color: var(--surface-color);
-            border: 1px solid var(--border-color);
-            border-radius: 20px;
-            z-index: 1001;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .back-link i { margin-right: 5px; }
-        .back-link:hover { opacity: 0.8; background-color: var(--highlight-bg); }
-
-        /* Theme Toggle Styles (Using Variables) */
-        .theme-switch-wrapper {
-            position: fixed; /* Keep it visible */
-            top: 15px;
-            right: 15px;
-            z-index: 1001;
-            background-color: var(--surface-color);
-            padding: 5px;
-            border-radius: 20px;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-        }
-        .theme-switch { display: inline-block; height: 26px; position: relative; width: 50px; cursor: pointer; }
-        .theme-switch input { display: none; }
-        .slider {
-            background-color: var(--toggle-bg);
-            bottom: 0; cursor: pointer; left: 0; position: absolute; right: 0; top: 0;
-            transition: background-color 0.3s ease;
-            border-radius: 13px; display: flex; align-items: center; justify-content: space-between; padding: 0 5px;
-        }
-        .slider::before {
-            background-color: var(--toggle-circle);
-            bottom: 3px; content: ""; height: 20px; left: 3px; position: absolute;
-            transition: transform 0.3s ease, background-color 0.3s ease;
-            width: 20px; border-radius: 50%; box-shadow: 0 1px 3px rgba(0,0,0,0.1); z-index: 2;
-        }
-        .slider .fa-sun, .slider .fa-moon { font-size: 12px; transition: opacity 0.3s ease, color 0.3s ease; z-index: 1; }
-        .slider .fa-sun { color: var(--toggle-icon-sun); opacity: 1; }
-        .slider .fa-moon { color: var(--toggle-icon-moon); opacity: 0; }
-        input:checked + .slider::before { transform: translateX(24px); }
-        input:checked + .slider .fa-sun { opacity: 0; }
-        input:checked + .slider .fa-moon { opacity: 1; }
-
-        /* Game Specific Styles */
-        .game-container {
-            text-align: center;
-            max-width: 800px;
-            margin: 2rem auto; /* Adjusted margin */
-            padding: 2rem; /* Increased padding */
-            background-color: var(--surface-color);
-            border: 1px solid var(--border-color-light-enhanced, var(--border-color));
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.05);
-        }
-        body.dark-mode .game-container {
-            border-color: var(--border-color);
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
-        }
-
-        canvas {
-            border: 2px solid var(--primary-color);
-            border-radius: 10px;
-            background-color: var(--highlight-bg); /* Use highlight bg */
-            max-width: 100%;
-            height: auto;
-            display: block; /* Prevent extra space below */
-            margin: 0 auto; /* Center canvas */
-        }
-        body.dark-mode canvas {
-             border-color: var(--primary-color);
-        }
-
-        #score {
-            font-size: 1.2rem; /* Adjusted size */
-            margin: 20px 0;
-            padding: 15px;
-            background-color: var(--highlight-bg);
-            border: 1px solid var(--border-color);
-            border-radius: 8px;
-            color: var(--text-color);
-        }
-
-        /* Start Button - Styled like .play-button */
-        #start-btn {
-            display: inline-block;
-            padding: 0.75rem 1.75rem;
-            border-radius: 8px;
-            font-weight: 600;
-            text-align: center;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            border: 2px solid transparent;
-            font-size: 0.95rem;
-            text-decoration: none;
-            box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-            background-color: var(--primary-color);
-            color: #fff;
-            border-color: var(--primary-color);
-            margin: 10px;
-        }
-        #start-btn:hover {
-            background-color: color-mix(in srgb, var(--primary-color) 90%, black);
-            border-color: color-mix(in srgb, var(--primary-color) 90%, black);
-            color: #fff;
-            transform: translateY(-2px);
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-        }
-
-        /* Mobile Controls */
-        .mobile-controls {
-            display: none; /* Hidden by default */
-            justify-content: center;
-            gap: 10px;
-            margin-top: 20px;
-        }
-
-        .control-btn {
-            width: 60px;
-            height: 60px;
-            background-color: var(--surface-color);
-            border: 1px solid var(--border-color);
-            border-radius: 50%;
-            color: var(--text-color);
-            font-size: 24px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
-        .control-btn:active {
-            background-color: var(--highlight-bg);
-            transform: scale(0.95);
-        }
-        body.dark-mode .control-btn {
-             background-color: var(--surface-color-dark);
-             border-color: var(--border-color-dark);
-             color: var(--text-color-dark);
-        }
-         body.dark-mode .control-btn:active {
-             background-color: var(--highlight-bg-dark);
-         }
-
-
-        /* Responsive */
-        @media (max-width: 768px) {
-            body { padding-top: 80px; }
-            .container { padding: 1rem; }
-            .game-container { margin: 1rem auto; padding: 1.5rem; }
-            .mobile-controls {
-                display: grid;
-                grid-template-areas:
-                    ". up ."
-                    "left . right"
-                    ". down .";
-                gap: 10px;
-            }
-            .up { grid-area: up; }
-            .down { grid-area: down; }
-            .left { grid-area: left; }
-            .right { grid-area: right; }
-
-            canvas { max-width: 90vw; height: auto; }
-            h1 { font-size: 2rem; }
-            #score { font-size: 1rem; }
-        }
-    </style>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
-    <!-- Theme Toggle -->
-    <div class="theme-switch-wrapper">
-        <label class="theme-switch" for="dark-mode-toggle">
-            <input type="checkbox" id="dark-mode-toggle" />
-            <div class="slider">
-                <i class="fas fa-sun"></i>
-                <i class="fas fa-moon"></i>
-            </div>
-        </label>
-    </div>
+    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> <span>Back to Games</span></a>
 
-    <!-- Back Link -->
-    <a href="index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Games</a>
+    <button class="theme-toggle" aria-label="Switch theme">
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+    </button>
 
-    <div class="game-container">
+    <main class="game-container">
         <h1>Snake Game</h1>
         <div id="score">Score: 0</div>
         <canvas id="gameCanvas" width="400" height="400"></canvas>
-        <button id="start-btn" onclick="startGame()">Start Game</button>
+        <button id="start-btn" class="game-btn" onclick="startGame()">Start Game</button>
         <div class="mobile-controls">
-            <button class="control-btn up" ontouchstart="handleMobileControl('ArrowUp')" onclick="handleMobileControl('ArrowUp')">↑</button>
-            <button class="control-btn left" ontouchstart="handleMobileControl('ArrowLeft')" onclick="handleMobileControl('ArrowLeft')">←</button>
-            <button class="control-btn right" ontouchstart="handleMobileControl('ArrowRight')" onclick="handleMobileControl('ArrowRight')">→</button>
-            <button class="control-btn down" ontouchstart="handleMobileControl('ArrowDown')" onclick="handleMobileControl('ArrowDown')">↓</button>
+            <button class="control-btn up" ontouchstart="handleMobileControl('ArrowUp')" onclick="handleMobileControl('ArrowUp')" aria-label="Move up">↑</button>
+            <button class="control-btn left" ontouchstart="handleMobileControl('ArrowLeft')" onclick="handleMobileControl('ArrowLeft')" aria-label="Move left">←</button>
+            <button class="control-btn right" ontouchstart="handleMobileControl('ArrowRight')" onclick="handleMobileControl('ArrowRight')" aria-label="Move right">→</button>
+            <button class="control-btn down" ontouchstart="handleMobileControl('ArrowDown')" onclick="handleMobileControl('ArrowDown')" aria-label="Move down">↓</button>
         </div>
-    </div>
+    </main>
 
     <script>
-        // Game Logic (existing script)
+        // Game logic
         const canvas = document.getElementById('gameCanvas');
         const ctx = canvas.getContext('2d');
         const gridSize = 20;
@@ -423,7 +135,7 @@
             }
 
             // Check self collision
-            for (let i = 1; i < snake.length; i++) { // Start from 1 to avoid checking head against itself
+            for (let i = 1; i < snake.length; i++) {
                 if (head.x === snake[i].x && head.y === snake[i].y) {
                     gameOver();
                     return;
@@ -445,13 +157,11 @@
         }
 
         function draw() {
-            // Use theme background color for canvas clear
+            // Use theme colors for canvas drawing
             const bodyStyles = window.getComputedStyle(document.body);
-            const bgColor = bodyStyles.getPropertyValue('--background-color');
             const surfaceColor = bodyStyles.getPropertyValue('--surface-color');
             const primaryColor = bodyStyles.getPropertyValue('--primary-color');
             const accentColor = bodyStyles.getPropertyValue('--accent-color');
-            const textColor = bodyStyles.getPropertyValue('--text-color');
 
             ctx.fillStyle = surfaceColor; // Clear with surface color
             ctx.fillRect(0, 0, canvas.width, canvas.height);
@@ -459,7 +169,7 @@
             // Draw snake
             snake.forEach((segment, index) => {
                 ctx.fillStyle = index === 0 ? accentColor : primaryColor; // Head different color
-                ctx.fillRect(segment.x, segment.y, gridSize - 1, gridSize - 1); // Smaller gap
+                ctx.fillRect(segment.x, segment.y, gridSize - 1, gridSize - 1);
             });
 
             // Draw food
@@ -487,7 +197,7 @@
         canvas.addEventListener('touchstart', (e) => {
             touchStartX = e.touches[0].clientX;
             touchStartY = e.touches[0].clientY;
-        }, { passive: false }); // Need passive: false to preventDefault
+        }, { passive: false });
 
         canvas.addEventListener('touchmove', (e) => {
             if (!gameStarted) return;
@@ -502,72 +212,16 @@
             // Determine swipe direction only if significant movement
             if (Math.abs(diffX) > 10 || Math.abs(diffY) > 10) {
                 if (Math.abs(diffX) > Math.abs(diffY)) {
-                    // Horizontal swipe
                     handleMobileControl(diffX > 0 ? 'ArrowRight' : 'ArrowLeft');
                 } else {
-                    // Vertical swipe
                     handleMobileControl(diffY > 0 ? 'ArrowDown' : 'ArrowUp');
                 }
                 // Reset start points after a swipe is detected to prevent multiple triggers
                 touchStartX = touchEndX;
                 touchStartY = touchEndY;
             }
-        }, { passive: false }); // Need passive: false to preventDefault
-
-
-        // --- Theme Switching JS (from games/index.html) ---
-        const darkModeToggle = document.getElementById('dark-mode-toggle');
-        const body = document.body;
-        const themeKey = 'theme'; // Use consistent key
-
-        // Function to enable dark mode
-        function enableDarkMode() {
-            body.classList.remove('light-mode');
-            body.classList.add('dark-mode'); // Add dark-mode class
-            if (darkModeToggle) darkModeToggle.checked = true; // Checked for dark mode
-            localStorage.setItem(themeKey, 'dark');
-            if(gameStarted) draw(); // Redraw canvas if game is running
-        }
-
-        // Function to enable light mode
-        function enableLightMode() {
-            body.classList.remove('dark-mode');
-            body.classList.add('light-mode'); // Add light-mode class
-            if (darkModeToggle) darkModeToggle.checked = false; // Unchecked for light mode
-            localStorage.setItem(themeKey, 'light');
-             if(gameStarted) draw(); // Redraw canvas if game is running
-        }
-
-        // Function to load theme preference from localStorage
-        function loadThemePreference() {
-            const savedTheme = localStorage.getItem(themeKey);
-            // Check for saved theme, default to light if none found
-            if (savedTheme === 'dark') {
-                enableDarkMode();
-            } else {
-                enableLightMode(); // Default to light
-            }
-             // Initial draw based on loaded theme (if canvas exists)
-            if (canvas && ctx) {
-                 draw();
-            }
-        }
-
-        // Event listener for the toggle switch
-        if (darkModeToggle) {
-            darkModeToggle.addEventListener('change', () => {
-                if (darkModeToggle.checked) { // Checked means dark mode
-                    enableDarkMode();
-                } else { // Unchecked means light mode
-                    enableLightMode();
-                }
-            });
-        }
-
-        // Load the theme preference when the page loads
-        // Run immediately since DOMContentLoaded is not needed for this simple script
-         loadThemePreference();
-
+        }, { passive: false });
     </script>
+    <script type="module" src="../js/subpage-ui.js"></script>
 </body>
 </html>

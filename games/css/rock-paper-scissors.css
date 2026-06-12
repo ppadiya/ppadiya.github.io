@@ -1,0 +1,84 @@
+/* Rock Paper Scissors */
+
+#score,
+#result {
+    font-size: 1.05rem;
+    margin: var(--space-4) 0;
+    padding: var(--space-4);
+    background-color: var(--highlight-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-color);
+}
+
+#score span {
+    font-weight: 700;
+    color: var(--heading-color);
+}
+
+#result {
+    font-weight: 600;
+    min-height: 56px;
+    animation: fadeIn 0.5s var(--ease-out);
+}
+
+.choice-icons {
+    font-size: 2rem;
+    margin: var(--space-4) 0;
+}
+
+.choices {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-3);
+}
+
+.choice-btn {
+    flex: 1 1 130px;
+    max-width: 180px;
+    min-height: 52px;
+    padding: 0 var(--space-4);
+    border-radius: var(--radius-md);
+    font-family: var(--font-primary);
+    font-weight: 600;
+    font-size: 1rem;
+    cursor: pointer;
+    border: 1px solid var(--border-color);
+    background-color: var(--surface-color-dark);
+    color: var(--text-color);
+    box-shadow: var(--shadow-1);
+    transition: transform var(--dur-fast) var(--ease-out),
+                background var(--dur-fast) var(--ease-out),
+                border-color var(--dur-fast) var(--ease-out),
+                color var(--dur-fast) var(--ease-out),
+                box-shadow var(--dur-fast) var(--ease-out);
+}
+
+[data-theme="light"] .choice-btn {
+    background-color: var(--surface-color);
+}
+
+.choice-btn:hover {
+    transform: translateY(-3px);
+    background-color: var(--highlight-bg);
+    border-color: var(--primary-color);
+    color: var(--primary-color);
+    box-shadow: var(--shadow-2);
+}
+
+.choice-btn:active {
+    transform: scale(0.96);
+}
+
+#result .win  { color: var(--success-color); }
+#result .lose { color: var(--accent-color); }
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    #result { animation: none; }
+}

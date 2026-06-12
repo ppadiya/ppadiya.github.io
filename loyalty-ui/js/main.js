@@ -21,14 +21,23 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // Force dark mode
-    document.body.classList.add('dark-mode');
-    localStorage.setItem('theme', 'dark');
-
-    // Hide theme toggle
-    const themeToggle = document.querySelector('.theme-switch-wrapper');
+    // Theme toggle (standard portfolio pattern: data-theme on <html>,
+    // initial value set by the inline head script before CSS paints)
+    const themeToggle = document.querySelector('.theme-toggle');
+    const applyTheme = (theme) => {
+        document.documentElement.dataset.theme = theme;
+        if (themeToggle) {
+            themeToggle.setAttribute('aria-label',
+                theme === 'dark' ? 'Switch to light theme' : 'Switch to dark theme');
+        }
+    };
+    applyTheme(document.documentElement.dataset.theme || 'dark');
     if (themeToggle) {
-        themeToggle.style.display = 'none';
+        themeToggle.addEventListener('click', () => {
+            const next = document.documentElement.dataset.theme === 'dark' ? 'light' : 'dark';
+            localStorage.setItem('theme', next);
+            applyTheme(next);
+        });
     }
 
     // Banner Slider Functionality
@@ -205,49 +214,5 @@ document.addEventListener('DOMContentLoaded', function() {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
     });
-
-    // --- Dark Mode Toggle ---
-    const darkModeToggle = document.getElementById('dark-mode-toggle');
-    const body = document.body;
-    const themeKey = 'theme'; // Use consistent key
-
-    // Function to enable dark mode
-    function enableDarkMode() {
-        body.classList.add('dark-mode');
-        if (darkModeToggle) darkModeToggle.checked = true; // Checked for dark mode
-        localStorage.setItem(themeKey, 'dark');
-    }
-
-    // Function to enable light mode
-    function enableLightMode() {
-        body.classList.remove('dark-mode');
-        if (darkModeToggle) darkModeToggle.checked = false; // Unchecked for light mode
-        localStorage.setItem(themeKey, 'light');
-    }
-
-    // Function to load theme preference from localStorage
-    function loadThemePreference() {
-        const savedTheme = localStorage.getItem(themeKey);
-        // Check for saved theme, default to light if none found
-        if (savedTheme === 'dark') {
-            enableDarkMode();
-        } else {
-            enableLightMode(); // Default to light
-        }
-    }
-
-    // Event listener for the toggle switch
-    if (darkModeToggle) {
-        darkModeToggle.addEventListener('change', () => {
-            if (darkModeToggle.checked) { // Checked means dark mode
-                enableDarkMode();
-            } else { // Unchecked means light mode
-                enableLightMode();
-            }
-        });
-    }
-
-    // Load the theme preference when the page loads
-    loadThemePreference();
 
 }); // End DOMContentLoaded

@@ -1,0 +1,330 @@
+/* Reward cards, catalog grid + filters, redemption cards */
+
+.featured-rewards {
+  padding: var(--space-16) 0;
+}
+
+.section-header {
+  text-align: center;
+  margin-bottom: var(--space-12);
+}
+
+.section-header h2 {
+  font-size: clamp(1.75rem, 4vw, 2.5rem);
+  margin-bottom: var(--space-3);
+}
+
+.section-header p {
+  color: var(--text-secondary);
+  max-width: 700px;
+  margin: 0 auto;
+}
+
+.rewards-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+  gap: var(--space-6);
+}
+
+.reward-card {
+  background-color: var(--surface-color-light);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-1);
+  border: 1px solid var(--border-color);
+  transition: transform var(--dur-base) var(--ease-out),
+              box-shadow var(--dur-base) var(--ease-out),
+              border-color var(--dur-base) var(--ease-out);
+}
+
+.reward-card:hover {
+  transform: translateY(-6px);
+  box-shadow: var(--shadow-2);
+  border-color: var(--primary-color);
+}
+
+.reward-img {
+  height: 200px;
+  overflow: hidden;
+}
+
+.reward-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+
+.reward-card:hover .reward-img img {
+  transform: scale(1.05);
+}
+
+.reward-content {
+  padding: var(--space-6);
+}
+
+.reward-content h3 {
+  font-size: 1.25rem;
+  margin-bottom: var(--space-2);
+}
+
+.reward-content p {
+  color: var(--text-secondary);
+  margin-bottom: var(--space-3);
+}
+
+.points-required {
+  font-weight: 700;
+  color: var(--accent-color);
+  margin-bottom: var(--space-4);
+  display: block;
+}
+
+[data-theme="light"] .points-required {
+  color: var(--primary-color);
+}
+
+.section-cta {
+  text-align: center;
+  margin-top: var(--space-8);
+}
+
+/* Catalog filters */
+.catalog-filters {
+  background-color: var(--surface-color-light);
+  padding: var(--space-6);
+  border-radius: var(--radius-lg);
+  margin: var(--space-8) 0;
+  box-shadow: var(--shadow-1);
+  border: 1px solid var(--border-color);
+}
+
+.filter-section {
+  margin-bottom: var(--space-6);
+}
+
+.filter-section:last-child {
+  margin-bottom: 0;
+}
+
+.filter-section h3 {
+  font-size: 1.05rem;
+  margin-bottom: var(--space-3);
+}
+
+.filter-options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.filter-option {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 var(--space-4);
+  background-color: var(--surface-color);
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  border: 1px solid var(--border-color);
+  color: var(--text-primary);
+  transition: background var(--dur-fast) var(--ease-out),
+              color var(--dur-fast) var(--ease-out),
+              border-color var(--dur-fast) var(--ease-out);
+}
+
+.filter-option:hover {
+  border-color: var(--primary-color);
+  color: var(--primary-color);
+}
+
+.filter-option.active {
+  background-color: var(--primary-color);
+  border-color: var(--primary-color);
+  color: var(--on-primary);
+}
+
+.range-slider {
+  width: 100%;
+  margin: var(--space-3) 0;
+  accent-color: var(--primary-color);
+}
+
+.range-values {
+  display: flex;
+  justify-content: space-between;
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+}
+
+/* Catalog grid */
+.catalog-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(280px, 100%), 1fr));
+  gap: var(--space-6);
+  margin: var(--space-8) 0;
+}
+
+.catalog-item {
+  background-color: var(--surface-color-light);
+  border-radius: var(--radius-md);
+  overflow: hidden;
+  box-shadow: var(--shadow-1);
+  border: 1px solid var(--border-color);
+  display: flex;
+  flex-direction: column;
+  transition: transform var(--dur-base) var(--ease-out),
+              box-shadow var(--dur-base) var(--ease-out),
+              border-color var(--dur-base) var(--ease-out);
+}
+
+.catalog-item:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-2);
+  border-color: var(--primary-color);
+}
+
+.catalog-img {
+  height: 200px;
+  overflow: hidden;
+}
+
+.catalog-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.catalog-content {
+  padding: var(--space-6);
+  flex-grow: 1;
+  display: flex;
+  flex-direction: column;
+}
+
+.catalog-content h3 {
+  font-size: 1.2rem;
+  margin-bottom: var(--space-2);
+}
+
+.catalog-content p {
+  color: var(--text-secondary);
+  margin-bottom: var(--space-4);
+  flex-grow: 1;
+}
+
+.catalog-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: var(--space-4);
+  font-size: 0.9rem;
+}
+
+.catalog-category {
+  background-color: var(--highlight-bg);
+  padding: var(--space-1) var(--space-2);
+  border-radius: var(--radius-full);
+  color: var(--text-primary);
+}
+
+.catalog-points {
+  font-weight: 700;
+  color: var(--accent-color);
+}
+
+[data-theme="light"] .catalog-points {
+  color: var(--primary-color);
+}
+
+/* Redemption history cards */
+.redemption-cards {
+  margin: var(--space-8) 0;
+}
+
+.redemption-card {
+  background-color: var(--surface-color-light);
+  border-radius: var(--radius-md);
+  margin-bottom: var(--space-4);
+  display: flex;
+  gap: var(--space-4);
+  padding: var(--space-6);
+  box-shadow: var(--shadow-1);
+  border: 1px solid var(--border-color);
+  transition: transform var(--dur-base) var(--ease-out),
+              box-shadow var(--dur-base) var(--ease-out);
+}
+
+.redemption-card:hover {
+  transform: translateY(-3px);
+  box-shadow: var(--shadow-2);
+}
+
+.redemption-img {
+  width: 100px;
+  height: 100px;
+  flex-shrink: 0;
+  border-radius: var(--radius-md);
+  overflow: hidden;
+}
+
+.redemption-img img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.redemption-details {
+  flex-grow: 1;
+}
+
+.redemption-details h3 {
+  font-size: 1.2rem;
+  margin-bottom: var(--space-1);
+}
+
+.redemption-meta {
+  font-size: 0.9rem;
+  color: var(--text-secondary);
+  margin-bottom: var(--space-2);
+}
+
+.redemption-meta span {
+  margin-right: var(--space-4);
+}
+
+.points-used {
+  font-weight: 600;
+  color: var(--accent-color);
+}
+
+[data-theme="light"] .points-used {
+  color: var(--primary-color);
+}
+
+.redemption-details p {
+  margin-bottom: var(--space-3);
+  font-size: 0.95rem;
+}
+
+.redemption-status {
+  display: inline-block;
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-full);
+  font-size: 0.8rem;
+  font-weight: 600;
+}
+
+.status-completed  { background-color: rgba(76, 175, 80, 0.15);  color: var(--success-color); }
+.status-processing { background-color: rgba(255, 152, 0, 0.15);  color: #FFB74D; }
+.status-shipped    { background-color: rgba(33, 150, 243, 0.15); color: var(--primary-color); }
+
+[data-theme="light"] .status-processing { color: #B45309; }
+
+@media (max-width: 600px) {
+  .redemption-card {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+}

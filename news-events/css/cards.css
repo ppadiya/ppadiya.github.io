@@ -1,0 +1,112 @@
+/* News article cards and loading skeletons */
+
+.news-articles {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: var(--space-4);
+}
+
+@media (min-width: 640px) {
+    .news-articles {
+        grid-template-columns: repeat(auto-fill, minmax(min(300px, 100%), 1fr));
+        gap: var(--space-6);
+    }
+}
+
+.news-item {
+    display: flex;
+    flex-direction: column;
+    background-color: var(--surface-color-dark);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--space-6);
+    box-shadow: var(--shadow-1);
+    transition: transform var(--dur-base) var(--ease-out),
+                box-shadow var(--dur-base) var(--ease-out),
+                border-color var(--dur-base) var(--ease-out);
+}
+
+.news-item:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-2);
+    border-color: var(--primary-color);
+}
+
+[data-theme="light"] .news-item {
+    background-color: var(--surface-color);
+}
+
+.news-item h3 {
+    margin: 0 0 var(--space-2);
+    font-size: 1.15rem;
+    font-weight: 700;
+}
+
+.news-item h3 a {
+    color: var(--heading-color);
+    text-decoration: none;
+    transition: color var(--dur-fast) var(--ease-out);
+}
+
+.news-item h3 a:hover {
+    color: var(--primary-color);
+}
+
+.news-item time {
+    font-size: 0.85rem;
+    color: var(--text-muted);
+    display: block;
+    margin-bottom: var(--space-3);
+}
+
+.news-item p {
+    font-size: 0.95rem;
+    color: var(--text-color);
+    margin: 0;
+}
+
+/* Loading skeletons */
+.loading-skeleton {
+    background-color: var(--surface-color-dark);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    padding: var(--space-6);
+    animation: pulse 1.5s infinite ease-in-out;
+}
+
+.skeleton-title,
+.skeleton-text {
+    background-color: var(--border-color);
+    border-radius: var(--radius-sm);
+}
+
+.skeleton-title {
+    height: 20px;
+    width: 70%;
+    margin-bottom: var(--space-3);
+}
+
+.skeleton-text {
+    height: 14px;
+    width: 90%;
+    margin-bottom: var(--space-2);
+}
+
+.skeleton-text.short {
+    width: 40%;
+}
+
+.event-skeleton {
+    height: 80px;
+    margin-bottom: var(--space-3);
+    padding: 0;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: 0.55; }
+    50%      { opacity: 1; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .loading-skeleton { animation: none; }
+}

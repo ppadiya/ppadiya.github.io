@@ -1,0 +1,76 @@
+/* ==========================================================================
+   Shared sub-page chrome — link AFTER base.css, BEFORE the page stylesheet.
+
+   Provides:
+   - Fixed sun/moon theme toggle (top-right counterpart to .back-home-btn)
+   - Scroll-reveal classes (same contract as home page: visible by default,
+     JS adds .js-reveal only when motion is allowed)
+   ========================================================================== */
+
+/* ── Fixed theme toggle ─────────────────────────────────────────────────── */
+.theme-toggle {
+    position: fixed;
+    top: max(1rem, env(safe-area-inset-top));
+    right: max(1rem, env(safe-area-inset-right));
+    z-index: 1100;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    padding: 0;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-full);
+    background: var(--surface-color);
+    color: var(--text-color);
+    cursor: pointer;
+    box-shadow: var(--shadow-1);
+    transition: background var(--dur-fast) var(--ease-out),
+                color var(--dur-fast) var(--ease-out),
+                border-color var(--dur-fast) var(--ease-out),
+                transform var(--dur-fast) var(--ease-out);
+}
+
+.theme-toggle:hover {
+    color: var(--primary-color);
+    border-color: var(--primary-color);
+    transform: translateY(-2px);
+}
+
+.theme-toggle:active {
+    transform: scale(0.94);
+}
+
+.theme-toggle svg { width: 20px; height: 20px; }
+
+/* Show the icon for the theme you'd switch TO */
+.theme-toggle .icon-sun { display: none; }
+.theme-toggle .icon-moon { display: block; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+/* Keep the back-home button clear of notches too */
+.back-home-btn {
+    top: max(1rem, env(safe-area-inset-top));
+    left: max(1rem, env(safe-area-inset-left));
+}
+
+/* ── Scroll reveal (identical contract to home page css/layout.css) ─────── */
+.animate-on-scroll.js-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.5s var(--ease-out), transform 0.5s var(--ease-out);
+}
+
+.animate-on-scroll.js-reveal.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .animate-on-scroll.js-reveal {
+        opacity: 1;
+        transform: none;
+        transition: none;
+    }
+}

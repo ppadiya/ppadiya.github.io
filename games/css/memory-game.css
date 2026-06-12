@@ -1,0 +1,94 @@
+/* Memory Game */
+
+#moves {
+    font-size: 1.05rem;
+    margin: var(--space-4) 0;
+    padding: var(--space-4);
+    background-color: var(--highlight-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-color);
+}
+
+.game-board {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: var(--space-3);
+    margin: var(--space-6) auto;
+    max-width: 600px;
+    perspective: 1000px;
+}
+
+.card {
+    height: 120px;
+    background-color: var(--primary-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.5em;
+    position: relative;
+    transform-style: preserve-3d;
+    transition: transform 0.6s var(--ease-out), background-color var(--dur-base) var(--ease-out);
+    box-shadow: var(--shadow-1);
+    color: #fff;
+}
+
+.card.flipped {
+    transform: rotateY(180deg);
+    background-color: var(--surface-color);
+    color: var(--text-color);
+}
+
+.card::before { /* Card back */
+    content: '';
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background-color: var(--primary-color);
+    border-radius: var(--radius-md);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+}
+
+.card.flipped::before {
+    display: none;
+}
+
+.card .symbol {
+    transform: rotateY(180deg);
+    backface-visibility: hidden;
+    -webkit-backface-visibility: hidden;
+    display: block;
+}
+
+.card.matched {
+    background-color: var(--success-color);
+    border-color: var(--success-color);
+    transform: rotateY(180deg) scale(0.95);
+    pointer-events: none;
+    animation: matchPulse 1s var(--ease-out);
+    color: #fff;
+}
+
+@keyframes matchPulse {
+    0%   { transform: rotateY(180deg) scale(0.95); }
+    50%  { transform: rotateY(180deg) scale(1.05); }
+    100% { transform: rotateY(180deg) scale(0.95); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .card { transition: background-color var(--dur-base) var(--ease-out); }
+    .card.matched { animation: none; }
+}
+
+@media (max-width: 768px) {
+    .game-board { grid-template-columns: repeat(4, 1fr); gap: var(--space-2); }
+    .card { height: 90px; font-size: 2em; }
+}
+
+@media (max-width: 480px) {
+    .card { height: 72px; font-size: 1.5em; }
+}

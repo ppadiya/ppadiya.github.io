@@ -1,0 +1,106 @@
+/* Page header: title, explainer, category toggle */
+
+.page-header {
+    background:
+        radial-gradient(1100px 420px at 80% -10%, var(--highlight-bg), transparent 70%),
+        var(--surface-color-dark);
+    border-bottom: 1px solid var(--border-color);
+    text-align: center;
+    /* Top padding clears the fixed back-home / theme-toggle buttons */
+    padding: calc(var(--space-16) + var(--space-4)) var(--space-4) var(--space-8);
+}
+
+.page-header-inner {
+    max-width: 760px;
+    margin: 0 auto;
+}
+
+.page-header h1 {
+    margin: 0 0 var(--space-4);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+}
+
+.page-explainer {
+    margin: 0 auto var(--space-6);
+    color: var(--text-color);
+    font-size: 1rem;
+    line-height: 1.7;
+    text-align: left;
+}
+
+.page-explainer strong {
+    color: var(--heading-color);
+}
+
+.page-explainer ul {
+    margin: var(--space-3) 0;
+    padding-left: var(--space-6);
+}
+
+.page-explainer li {
+    margin-bottom: var(--space-2);
+}
+
+.explainer-note {
+    font-size: 0.875rem;
+    color: var(--text-muted);
+    margin-top: var(--space-3);
+}
+
+/* Segmented category control */
+.toggle-buttons {
+    display: inline-flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-2);
+    padding: var(--space-1);
+    background: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-full);
+    box-shadow: var(--shadow-1);
+}
+
+.toggle-btn {
+    appearance: none;
+    border: none;
+    background: transparent;
+    color: var(--text-color);
+    font-family: var(--font-primary);
+    font-size: 0.95rem;
+    font-weight: 500;
+    padding: 0 var(--space-4);
+    min-height: 44px;
+    border-radius: var(--radius-full);
+    cursor: pointer;
+    transition: background var(--dur-fast) var(--ease-out),
+                color var(--dur-fast) var(--ease-out),
+                transform var(--dur-fast) var(--ease-out);
+}
+
+.toggle-btn:hover {
+    color: var(--primary-color);
+    background: var(--highlight-bg);
+}
+
+.toggle-btn:active {
+    transform: scale(0.96);
+}
+
+.toggle-btn.active {
+    background: var(--primary-color);
+    color: #FFFFFF;
+    font-weight: 600;
+}
+
+@media (max-width: 480px) {
+    .toggle-buttons {
+        width: 100%;
+        border-radius: var(--radius-lg);
+    }
+
+    .toggle-btn {
+        flex: 1 1 100%;
+    }
+}

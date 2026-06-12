@@ -1,11 +1,7 @@
-import { enforceDarkMode } from '../js/theme.js';
-
 const OPENROUTER_MODELS_URL = 'https://openrouter.ai/api/v1/models';
 const DEFAULT_MODEL = 'meta-llama/llama-3.1-8b-instruct:free';
 
 document.addEventListener('DOMContentLoaded', () => {
-    enforceDarkMode();
-
     const enhanceBtn = document.getElementById('enhance-btn');
     const originalPromptTextarea = document.getElementById('original-prompt');
     const optimizedPromptOutput = document.getElementById('optimized-prompt-output');

@@ -1,0 +1,118 @@
+/* Games hub page */
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: var(--font-primary);
+    font-size: var(--base-font-size);
+    line-height: 1.65;
+    background-color: var(--background-color);
+    color: var(--text-color);
+    min-height: 100dvh;
+}
+
+.container {
+    max-width: var(--container-max-width);
+    margin: 0 auto;
+    padding: calc(var(--space-16) + var(--space-4)) var(--space-4)
+             calc(var(--space-12) + env(safe-area-inset-bottom));
+}
+
+.hub-header {
+    text-align: center;
+    margin-bottom: var(--space-12);
+}
+
+.hub-header h1 {
+    font-family: var(--font-heading);
+    color: var(--heading-color);
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    margin: 0 0 var(--space-3);
+}
+
+.subtitle {
+    font-size: 1.1rem;
+    color: var(--text-muted);
+    margin: 0;
+}
+
+.games-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(min(260px, 100%), 1fr));
+    gap: var(--space-6);
+}
+
+.game-card {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: var(--surface-color);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+    padding: var(--space-8) var(--space-6);
+    text-align: center;
+    box-shadow: var(--shadow-1);
+    transition: transform var(--dur-base) var(--ease-out),
+                box-shadow var(--dur-base) var(--ease-out),
+                border-color var(--dur-base) var(--ease-out);
+}
+
+.game-card:hover {
+    transform: translateY(-6px);
+    box-shadow: var(--shadow-2);
+    border-color: var(--primary-color);
+}
+
+.game-icon {
+    font-size: 3rem;
+    line-height: 1;
+    margin-bottom: var(--space-4);
+}
+
+.game-title {
+    font-family: var(--font-heading);
+    color: var(--heading-color);
+    font-size: 1.4rem;
+    font-weight: 700;
+    margin: 0 0 var(--space-3);
+}
+
+.game-description {
+    color: var(--text-color);
+    font-size: 0.95rem;
+    margin: 0 0 var(--space-6);
+    flex-grow: 1;
+}
+
+.play-button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 44px;
+    padding: 0 var(--space-6);
+    border-radius: var(--radius-full);
+    background-color: var(--primary-color);
+    color: #FFFFFF;
+    font-weight: 600;
+    font-size: 0.95rem;
+    text-decoration: none;
+    box-shadow: var(--shadow-1);
+    transition: filter var(--dur-fast) var(--ease-out),
+                transform var(--dur-fast) var(--ease-out),
+                box-shadow var(--dur-fast) var(--ease-out);
+}
+
+.play-button:hover {
+    filter: brightness(1.1);
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-2);
+}
+
+.play-button:active {
+    transform: scale(0.97);
+}

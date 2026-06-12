@@ -1,0 +1,105 @@
+/* Whack-a-Mole */
+
+#score,
+#time {
+    font-size: 1.1rem;
+    margin: var(--space-2);
+    padding: var(--space-3) var(--space-4);
+    background-color: var(--highlight-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-color);
+    display: inline-block;
+    min-width: 140px;
+}
+
+#start-button {
+    margin: var(--space-3) 0;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--space-4);
+    max-width: 400px;
+    margin: var(--space-6) auto 0;
+    padding: var(--space-4);
+    background-color: var(--highlight-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-lg);
+}
+
+.hole {
+    width: 100%;
+    padding-bottom: 100%; /* Square aspect ratio */
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    border-radius: 50%;
+    background-color: color-mix(in srgb, var(--background-color) 80%, black);
+    box-shadow: inset 0 5px 10px rgba(0, 0, 0, 0.3);
+    border: 2px solid color-mix(in srgb, var(--background-color) 60%, black);
+}
+
+.mole {
+    width: 80%;
+    height: 80%;
+    position: absolute;
+    left: 10%;
+    bottom: -100%; /* Start hidden */
+    transition: bottom 0.15s ease-out;
+    cursor: pointer;
+    background-color: #8B4513;
+    border-radius: 50% 50% 30% 30%;
+    border: 2px solid #654321;
+}
+
+.mole::before { /* Eyes */
+    content: '';
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    background-color: white;
+    border-radius: 50%;
+    top: 30%;
+    left: 25%;
+    box-shadow: 25px 0 0 white;
+}
+
+.mole::after { /* Nose */
+    content: '';
+    position: absolute;
+    width: 8px;
+    height: 6px;
+    background-color: #FFC0CB;
+    border-radius: 50%;
+    top: 50%;
+    left: 50%;
+    transform: translateX(-50%);
+}
+
+.mole.show {
+    bottom: 10%;
+    animation: popUp 0.4s ease-out;
+}
+
+.mole.bonked {
+    transform: scale(0.9);
+    filter: brightness(0.8);
+    transition: transform 0.1s ease, filter 0.1s ease;
+}
+
+@keyframes popUp {
+    0%   { bottom: -100%; }
+    70%  { bottom: 15%; }
+    100% { bottom: 10%; }
+}
+
+@media (max-width: 768px) {
+    .grid { max-width: 90%; gap: var(--space-3); }
+    #score, #time { font-size: 1rem; }
+}
+
+@media (max-width: 480px) {
+    .grid { gap: var(--space-2); }
+}

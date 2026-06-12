@@ -3,8 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Launch Framework</title>
-    
+    <title>Product Launch Framework - Pratik Padiya Portfolio</title>
+
+    <!-- Apply saved/system theme before CSS paints (avoids theme flash) -->
+    <script>
+        (function () {
+            var t = localStorage.getItem('theme');
+            if (t !== 'light' && t !== 'dark') {
+                t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            document.documentElement.dataset.theme = t;
+        })();
+    </script>
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-9R1TCBR2DJ"></script>
     <script>
@@ -15,12 +26,24 @@
     </script>
     
     <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/subpage.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
 
-<a href="../index.html" class="back-link"><i class="fas fa-arrow-left"></i> Back to Home</a>
+<a href="../index.html" class="back-home-btn" aria-label="Back to portfolio">
+    <i class="fas fa-arrow-left"></i>
+    <span>Back to Home</span>
+</a>
+
+<button class="theme-toggle" aria-label="Switch theme">
+    <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+    <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+</button>
 
 <div class="framework-container">
     <h1>Product Launch Framework</h1>
@@ -447,6 +470,7 @@
     </div>
 </div>
 
-<script type="module" src="script.js"></script>
+<script src="script.js"></script>
+<script type="module" src="../js/subpage-ui.js"></script>
 </body>
 </html>

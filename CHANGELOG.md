@@ -2,6 +2,27 @@
 
 Notable changes to the portfolio site. Dates are in YYYY-MM-DD.
 
+## 2026-06-12 — Sub-page redesign (news-events, ai-tools, games, loyalty-ui, PM+framework)
+
+### Added
+- Light/dark theming on every sub-page, using the same architecture as the home page: inline head script before first paint, fixed sun/moon toggle, localStorage override, OS preference fallback. Replaces the legacy per-page checkbox toggles and force-dark code.
+- `css/subpage.css`: shared sub-page chrome (fixed theme toggle, scroll-reveal classes, safe-area insets) and `js/subpage-ui.js` (wires `initTheme()` + `initReveal()` from the existing home-page modules).
+- Modular, token-driven CSS per page: each page stylesheet is now an import hub over small mobile-first modules (`news-events/css/`, `ai-tools/css/`, `games/css/`, `loyalty-ui/css/`, `PM+framework/css/`).
+- `loyalty-ui/css/tokens.css`: PremiumRewards brand palette (dark + light) layered over the shared structural scales, so the demo keeps its own identity.
+- Archivo + Space Grotesk typography on all portfolio sub-pages.
+
+### Changed
+- news-events: token-driven hero, segmented category control, pill search bar, card grid with hover-lift, restyled skeletons/pagination. `script.js` and all JS hooks untouched.
+- ai-tools: dropped the sidebar and the "UNDER CONSTRUCTION" title; centered two-pane editor (side-by-side on desktop, stacked on mobile). Removed the obsolete `enforceDarkMode()` call; all other logic untouched.
+- games: hub and all four game pages restyled; embedded styles extracted to `games/css/` with a shared `game-shell.css`. Game logic untouched.
+- loyalty-ui: rebuilt CSS as brand-token modules; modern sticky nav with the theme toggle in the navbar; hover-lift cards; mobile-friendly tables. All behavior hooks preserved.
+- PM+framework: card-style accordion with `aria-expanded` and animated +/− indicator; case-study cards with hover-lift and scroll-reveal.
+- Responsive hardening across all pages: no horizontal scroll from 320px (grid `minmax(min(Npx, 100%), 1fr)` pattern, select/canvas overflow fixes), ≥44px touch targets, `100dvh`, safe-area insets, ≥16px body text.
+
+### Removed
+- Per-page legacy theming: duplicated `:root` light/dark variable blocks and `body.dark-mode` toggles in games pages and the hub; force-dark + hidden-toggle code in `loyalty-ui/js/main.js` and `PM+framework/script.js`.
+- All inline styles in sub-page HTML.
+
 ## 2026-06-12 — Home page redesign
 
 ### Added

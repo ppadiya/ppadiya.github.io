@@ -5,7 +5,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>News & Events - Pratik Padiya Portfolio</title>
     <meta name="description" content="Stay updated with the latest Loyalty and Retail industry news, blogs, and upcoming events in Asia. Curated content for Pratik Padiya's portfolio.">
-    
+
+    <!-- Apply saved/system theme before CSS paints (avoids theme flash) -->
+    <script>
+        (function () {
+            var t = localStorage.getItem('theme');
+            if (t !== 'light' && t !== 'dark') {
+                t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            document.documentElement.dataset.theme = t;
+        })();
+    </script>
+
     <!-- Google tag (gtag.js) -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-9R1TCBR2DJ"></script>
     <script>
@@ -14,14 +25,14 @@
         gtag('js', new Date());
         gtag('config', 'G-9R1TCBR2DJ');
     </script>
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://pratikpadiyaportfolio.netlify.app/news-events/">
     <meta property="og:title" content="News & Events - Pratik Padiya Portfolio">
     <meta property="og:description" content="Stay updated with the latest Loyalty and Retail industry news, blogs, and upcoming events in Asia. Curated content for Pratik Padiya's portfolio.">
     <meta property="og:image" content="https://pratikpadiyaportfolio.netlify.app/path/to/your/social-share-image.jpg">
-    
+
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://pratikpadiyaportfolio.netlify.app/news-events/">
@@ -32,11 +43,12 @@
     <!-- Canonical URL (will be updated by JS) -->
     <link rel="canonical" href="https://pratikpadiyaportfolio.netlify.app/news-events/">
     <link rel="stylesheet" href="../css/base.css">
+    <link rel="stylesheet" href="../css/subpage.css">
     <link rel="stylesheet" href="style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
 </head>
 <body>
     <a href="/" class="back-home-btn" aria-label="Back to portfolio">
@@ -44,23 +56,29 @@
         <span>Back to Home</span>
     </a>
 
+    <button class="theme-toggle" aria-label="Switch theme">
+        <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+        <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+    </button>
+
     <header class="page-header">
-        <h1>News & Events</h1>
-        <div class="page-explainer">
-          <p>A live feed built for personal use in the loyalty and retail industry. Instead of manually scanning news sites every morning, an n8n workflow pulls
-          from multiple sources, filters by relevance, and surfaces what actually matters across three views:</p>
-          <ul>
-            <li><strong>Loyalty News:</strong> industry moves, program launches, and platform updates</li>
-            <li><strong>Retail News:</strong> APAC retail trends, earnings, and strategic shifts</li>
-            <li><strong>Events:</strong> upcoming retail and loyalty conferences and meetups across Asia</li>
-          </ul>
-          <p class="explainer-note">Refreshed automatically. No manual curation.</p>
+        <div class="page-header-inner">
+            <h1>News & Events</h1>
+            <div class="page-explainer">
+                <p>A live feed built for personal use in the loyalty and retail industry. Instead of manually scanning news sites every morning, an n8n workflow pulls from multiple sources, filters by relevance, and surfaces what actually matters across three views:</p>
+                <ul>
+                    <li><strong>Loyalty News:</strong> industry moves, program launches, and platform updates</li>
+                    <li><strong>Retail News:</strong> APAC retail trends, earnings, and strategic shifts</li>
+                    <li><strong>Events:</strong> upcoming retail and loyalty conferences and meetups across Asia</li>
+                </ul>
+                <p class="explainer-note">Refreshed automatically. No manual curation.</p>
+            </div>
+            <nav class="toggle-buttons" aria-label="Content category">
+                <button class="toggle-btn active" data-category="loyalty">Loyalty News</button>
+                <button class="toggle-btn" data-category="retail">Retail News</button>
+                <button class="toggle-btn" data-category="events">Events</button>
+            </nav>
         </div>
-        <nav class="toggle-buttons">
-            <button class="toggle-btn active" data-category="loyalty">Loyalty News</button>
-            <button class="toggle-btn" data-category="retail">Retail News</button>
-            <button class="toggle-btn" data-category="events">Events</button>
-        </nav>
     </header>
 
     <main class="container">
@@ -89,7 +107,7 @@
                 </div>
             </div>
 
-            <div id="events-calendar" class="events-calendar" style="display: none;">
+            <div id="events-calendar" class="events-calendar">
                 <h2>Upcoming Events</h2>
                 <ul id="event-list">
                     <!-- Events will be loaded here -->
@@ -97,9 +115,9 @@
                     <li class="loading-skeleton event-skeleton"></li>
                 </ul>
             </div>
-            
-            <p id="error-message" class="error-message" style="display: none;">Failed to load content. Please try again later.</p>
-            <p id="no-results-message" class="no-results-message" style="display: none;">No results found for your search.</p>
+
+            <p id="error-message" class="error-message">Failed to load content. Please try again later.</p>
+            <p id="no-results-message" class="no-results-message">No results found for your search.</p>
         </section>
 
         <section class="pagination">
@@ -111,10 +129,12 @@
 
     <footer class="page-footer">
         <p>© <span id="current-year"></span> Pratik Padiya. All rights reserved.</p>
-    </footer>    <script type="application/ld+json" id="json-ld-schema">
+    </footer>
+
+    <script type="application/ld+json" id="json-ld-schema">
         <!-- JSON-LD Structured Data will be dynamically inserted here by script.js -->
     </script>
-      <!-- Supabase JavaScript Client -->
+    <!-- Supabase JavaScript Client -->
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <script>
         const supabaseUrl = 'https://ptfoleltkjnrtyctelve.supabase.co';
@@ -122,5 +142,6 @@
         var supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
     </script>
     <script src="script.js"></script>
+    <script type="module" src="../js/subpage-ui.js"></script>
 </body>
 </html>

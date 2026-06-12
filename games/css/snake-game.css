@@ -1,0 +1,75 @@
+/* Snake Game */
+
+#score {
+    font-size: 1.1rem;
+    margin: var(--space-4) 0;
+    padding: var(--space-4);
+    background-color: var(--highlight-bg);
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    color: var(--text-color);
+}
+
+canvas {
+    border: 2px solid var(--primary-color);
+    border-radius: var(--radius-md);
+    background-color: var(--highlight-bg);
+    max-width: 100%;
+    height: auto;
+    display: block;
+    margin: 0 auto;
+    touch-action: none; /* swipes steer the snake, not the page */
+}
+
+#start-btn {
+    margin: var(--space-4) 0 0;
+}
+
+/* Mobile d-pad */
+.mobile-controls {
+    display: none;
+    margin-top: var(--space-6);
+}
+
+.control-btn {
+    width: 64px;
+    height: 64px;
+    background-color: var(--surface-color-dark);
+    border: 1px solid var(--border-color);
+    border-radius: 50%;
+    color: var(--text-color);
+    font-size: 24px;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-1);
+    transition: background var(--dur-fast) var(--ease-out),
+                transform var(--dur-fast) var(--ease-out);
+}
+
+[data-theme="light"] .control-btn {
+    background-color: var(--surface-color);
+}
+
+.control-btn:active {
+    background-color: var(--highlight-bg);
+    transform: scale(0.92);
+}
+
+@media (max-width: 768px), (pointer: coarse) {
+    .mobile-controls {
+        display: grid;
+        grid-template-areas:
+            ". up ."
+            "left . right"
+            ". down .";
+        gap: var(--space-3);
+        justify-content: center;
+    }
+
+    .up { grid-area: up; }
+    .down { grid-area: down; }
+    .left { grid-area: left; }
+    .right { grid-area: right; }
+}
