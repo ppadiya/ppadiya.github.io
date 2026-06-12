@@ -1,5 +1,5 @@
 const OPENROUTER_MODELS_URL = 'https://openrouter.ai/api/v1/models';
-const DEFAULT_MODEL = 'meta-llama/llama-3.1-8b-instruct:free';
+const DEFAULT_MODEL = 'openrouter/free';
 
 document.addEventListener('DOMContentLoaded', () => {
     const enhanceBtn = document.getElementById('enhance-btn');

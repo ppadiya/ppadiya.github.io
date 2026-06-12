@@ -2,6 +2,17 @@
 
 Notable changes to the portfolio site. Dates are in YYYY-MM-DD.
 
+## 2026-06-12 — Security hardening and model fix
+
+### Changed
+- `ai-tools/script.js`: default fallback model updated to `openrouter/free` (auto-routes to a free model); removes the stale `meta-llama/llama-3.1-8b-instruct:free` reference that was removed from OpenRouter.
+
+### Security
+- Supabase `public.capital_gains`: replaced permissive `FOR ALL USING(true)` anon policy with `deny_anon_capital_gains` (USING(false)); anon role can no longer read or write financial data.
+- Revoked `SELECT` from `anon` and `authenticated` on all trading tables (`deposits`, `owned_stocks`, `options`, `expired_options`, `settings`, `rfp_rfi`, `rfp_rfi_listings`, `price_cache`, `capital_gains`, `articles_test`) to remove GraphQL schema exposure. News tables (`articles`, `edb_articles`, `events`) remain public by design.
+
+---
+
 ## 2026-06-12 — Sub-page redesign (news-events, ai-tools, games, loyalty-ui, PM+framework)
 
 ### Added
