@@ -1,0 +1,227 @@
+/* ==========================================================================
+   Header, navigation, theme toggle. Mobile-first: hamburger panel below
+   1024px, full inline nav above.
+   ========================================================================== */
+
+.site-header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: var(--header-height);
+    background-color: var(--header-bg);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border-bottom: 1px solid transparent;
+    z-index: 1000;
+    transition: background-color var(--dur-base) ease, border-color var(--dur-base) ease, box-shadow var(--dur-base) ease;
+}
+
+.site-header.scrolled {
+    border-bottom-color: var(--border-color);
+    box-shadow: var(--shadow-1);
+}
+
+.header-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: var(--space-4);
+    height: 100%;
+}
+
+.logo {
+    font-family: var(--font-heading);
+    font-size: 1.25rem;
+    font-weight: 700;
+    color: var(--heading-color);
+    letter-spacing: -0.02em;
+    white-space: nowrap;
+}
+
+.header-actions {
+    display: flex;
+    align-items: center;
+    gap: var(--space-2);
+}
+
+/* ── Theme toggle ─────────────────────────────────────────────────────── */
+.theme-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    border: none;
+    border-radius: var(--radius-full);
+    background: transparent;
+    color: var(--header-text);
+    transition: background-color var(--dur-fast) ease, color var(--dur-fast) ease;
+}
+
+.theme-toggle:hover {
+    background: var(--highlight-bg);
+    color: var(--primary-color);
+}
+
+.theme-toggle svg { width: 20px; height: 20px; }
+
+/* Show the icon for the theme you'd switch TO */
+.theme-toggle .icon-sun { display: none; }
+.theme-toggle .icon-moon { display: block; }
+[data-theme="dark"] .theme-toggle .icon-sun { display: block; }
+[data-theme="dark"] .theme-toggle .icon-moon { display: none; }
+
+/* ── Hamburger button ─────────────────────────────────────────────────── */
+.menu-toggle {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 44px;
+    height: 44px;
+    background: transparent;
+    border: none;
+    border-radius: var(--radius-full);
+    color: var(--header-text);
+    font-size: 1.25rem;
+    transition: background-color var(--dur-fast) ease, color var(--dur-fast) ease;
+}
+
+.menu-toggle:hover {
+    background: var(--highlight-bg);
+    color: var(--primary-color);
+}
+
+/* ── Mobile nav panel (default, <1024px) ──────────────────────────────── */
+.main-nav {
+    position: fixed;
+    top: var(--header-height);
+    right: 0;
+    width: min(320px, 85vw);
+    height: calc(100dvh - var(--header-height));
+    background: var(--surface-color);
+    border-left: 1px solid var(--border-color);
+    box-shadow: var(--shadow-3);
+    padding: var(--space-6) var(--space-4);
+    overflow-y: auto;
+    transform: translateX(100%);
+    visibility: hidden;
+    transition: transform var(--dur-base) var(--ease-out), visibility var(--dur-base);
+}
+
+.main-nav.active {
+    transform: translateX(0);
+    visibility: visible;
+}
+
+.main-nav ul {
+    list-style: none;
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+.main-nav li { margin: 0; }
+
+.main-nav a {
+    display: block;
+    padding: var(--space-3) var(--space-4);
+    border-radius: var(--radius-sm);
+    color: var(--text-color);
+    font-weight: 500;
+    min-height: 44px;
+    transition: background-color var(--dur-fast) ease, color var(--dur-fast) ease;
+}
+
+.main-nav a:hover,
+.main-nav a.active {
+    background: var(--highlight-bg);
+    color: var(--primary-color);
+}
+
+/* Dropdown — mobile: inline expandable sub-list */
+.nav-dropdown-toggle i {
+    font-size: 0.7em;
+    margin-left: var(--space-1);
+    transition: transform var(--dur-fast) ease;
+}
+
+.nav-dropdown.dropdown-open .nav-dropdown-toggle i {
+    transform: rotate(180deg);
+}
+
+.dropdown-menu {
+    list-style: none;
+    display: none;
+    padding-left: var(--space-4);
+}
+
+.nav-dropdown.dropdown-open .dropdown-menu {
+    display: flex;
+    flex-direction: column;
+    gap: var(--space-1);
+}
+
+/* ── Desktop nav (≥1024px) ────────────────────────────────────────────── */
+@media (min-width: 1024px) {
+    .menu-toggle { display: none; }
+
+    .main-nav {
+        position: static;
+        width: auto;
+        height: auto;
+        background: transparent;
+        border: none;
+        box-shadow: none;
+        padding: 0;
+        overflow: visible;
+        transform: none;
+        visibility: visible;
+        transition: none;
+    }
+
+    .main-nav ul {
+        flex-direction: row;
+        align-items: center;
+        gap: var(--space-2);
+    }
+
+    .main-nav a {
+        padding: var(--space-2) var(--space-3);
+        font-size: 0.95rem;
+        white-space: nowrap;
+    }
+
+    /* Dropdown — desktop: hover/focus floating panel.
+       .main-nav selector prefix needed to beat `.main-nav ul` row direction. */
+    .nav-dropdown { position: relative; }
+
+    .main-nav .dropdown-menu {
+        display: flex;
+        flex-direction: column;
+        position: absolute;
+        top: calc(100% + 0.4rem);
+        right: 0;
+        min-width: 180px;
+        background: var(--surface-color);
+        border: 1px solid var(--border-color);
+        border-radius: var(--radius-md);
+        box-shadow: var(--shadow-2);
+        padding: var(--space-2);
+        opacity: 0;
+        visibility: hidden;
+        pointer-events: none;
+        transform: translateY(4px);
+        transition: opacity var(--dur-fast) ease, transform var(--dur-fast) ease, visibility var(--dur-fast);
+        z-index: 200;
+    }
+
+    .nav-dropdown:hover .dropdown-menu,
+    .nav-dropdown:focus-within .dropdown-menu,
+    .nav-dropdown.dropdown-open .dropdown-menu {
+        opacity: 1;
+        visibility: visible;
+        pointer-events: auto;
+        transform: translateY(0);
+    }
+}

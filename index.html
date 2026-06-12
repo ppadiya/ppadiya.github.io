@@ -4,13 +4,23 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Pratik Padiya - Solutions Engineer & AI Automation Builder</title>
+    <!-- Apply theme before CSS paints (system preference, localStorage override) -->
+    <script>
+        (function () {
+            var t = localStorage.getItem('theme');
+            if (t !== 'light' && t !== 'dark') {
+                t = matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+            }
+            document.documentElement.dataset.theme = t;
+        })();
+    </script>
     <link rel="stylesheet" href="css/base.css">
     <link rel="stylesheet" href="css/chatbot.css">
     <link rel="stylesheet" href="style.css">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Archivo:wght@600;700&family=Space+Grotesk:wght@400;500;600&display=swap" rel="stylesheet">
     <!-- Font Awesome for icons -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google tag (gtag.js) -->
@@ -53,10 +63,18 @@
                 </ul>
             </nav>
 
-            <!-- Hamburger Menu Toggle Button -->
-            <button class="menu-toggle" aria-label="Toggle navigation" aria-controls="main-navigation" aria-expanded="false">
-                <i class="fas fa-bars"></i>
-            </button>
+            <div class="header-actions">
+                <!-- Theme toggle (icon shows the theme you'd switch TO) -->
+                <button class="theme-toggle" aria-label="Switch theme">
+                    <svg class="icon-sun" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2v2"/><path d="M12 20v2"/><path d="m4.93 4.93 1.41 1.41"/><path d="m17.66 17.66 1.41 1.41"/><path d="M2 12h2"/><path d="M20 12h2"/><path d="m6.34 17.66-1.41 1.41"/><path d="m19.07 4.93-1.41 1.41"/></svg>
+                    <svg class="icon-moon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z"/></svg>
+                </button>
+
+                <!-- Hamburger Menu Toggle Button -->
+                <button class="menu-toggle" aria-label="Toggle navigation" aria-controls="main-navigation" aria-expanded="false">
+                    <i class="fas fa-bars"></i>
+                </button>
+            </div>
         </div>
     </header>
 
@@ -127,11 +145,8 @@
                     <!-- Credit Card Rewards Program UI -->
                     <div class="portfolio-item animate-on-scroll fade-in-up">
                         <div class="portfolio-image-container">
-                            <div class="portfolio-image portfolio-banner" style="background: linear-gradient(135deg, #4a1a6b 0%, #9b2fae 50%, #d4a017 100%); display:flex; align-items:center; justify-content:center; min-height:200px;">
-                                <div style="text-align:center; color:#fff; padding:1.5rem;">
-                                    <i class="fas fa-credit-card" style="font-size:3rem; margin-bottom:0.75rem; display:block;"></i>
-                                    <span style="font-size:1.1rem; font-weight:600;">Credit Card Rewards Program</span>
-                                </div>
+                            <div class="portfolio-image portfolio-banner banner-loyalty">
+                                <i class="fas fa-credit-card" aria-hidden="true"></i>
                             </div>
                             <div class="portfolio-overlay">
                                 <div class="portfolio-overlay-content">
@@ -153,11 +168,8 @@
                     <!-- APAC Market Expansion -->
                     <div class="portfolio-item animate-on-scroll fade-in-up">
                         <div class="portfolio-image-container">
-                            <div class="portfolio-image portfolio-banner" style="background: linear-gradient(135deg, #7b1a1a 0%, #c0392b 50%, #e67e22 100%); display:flex; align-items:center; justify-content:center; min-height:200px;">
-                                <div style="text-align:center; color:#fff; padding:1.5rem;">
-                                    <i class="fas fa-globe-asia" style="font-size:3rem; margin-bottom:0.75rem; display:block;"></i>
-                                    <span style="font-size:1.1rem; font-weight:600;">APAC Market Expansion</span>
-                                </div>
+                            <div class="portfolio-image portfolio-banner banner-apac">
+                                <i class="fas fa-globe-asia" aria-hidden="true"></i>
                             </div>
                             <div class="portfolio-overlay">
                                 <div class="portfolio-overlay-content">
@@ -178,11 +190,8 @@
                     <!-- API Ecosystem Development -->
                     <div class="portfolio-item animate-on-scroll fade-in-up">
                         <div class="portfolio-image-container">
-                            <div class="portfolio-image portfolio-banner" style="background: linear-gradient(135deg, #0a2744 0%, #0066cc 50%, #00b4d8 100%); display:flex; align-items:center; justify-content:center; min-height:200px;">
-                                <div style="text-align:center; color:#fff; padding:1.5rem;">
-                                    <i class="fas fa-plug" style="font-size:3rem; margin-bottom:0.75rem; display:block;"></i>
-                                    <span style="font-size:1.1rem; font-weight:600;">API Ecosystem Development</span>
-                                </div>
+                            <div class="portfolio-image portfolio-banner banner-api">
+                                <i class="fas fa-plug" aria-hidden="true"></i>
                             </div>
                         </div>
                         <div class="portfolio-info">
@@ -197,11 +206,8 @@
                     <!-- Performance Management Platform -->
                     <div class="portfolio-item animate-on-scroll fade-in-up">
                         <div class="portfolio-image-container">
-                            <div class="portfolio-image portfolio-banner" style="background: linear-gradient(135deg, #1a3a2a 0%, #1a7a4a 50%, #2ecc71 100%); display:flex; align-items:center; justify-content:center; min-height:200px;">
-                                <div style="text-align:center; color:#fff; padding:1.5rem;">
-                                    <i class="fas fa-chart-bar" style="font-size:3rem; margin-bottom:0.75rem; display:block;"></i>
-                                    <span style="font-size:1.1rem; font-weight:600;">Performance Management Platform</span>
-                                </div>
+                            <div class="portfolio-image portfolio-banner banner-perf">
+                                <i class="fas fa-chart-bar" aria-hidden="true"></i>
                             </div>
                         </div>
                         <div class="portfolio-info">
@@ -216,11 +222,8 @@
                     <!-- Personal Tool: Retail & Loyalty Intel Feed -->
                     <div class="portfolio-item animate-on-scroll fade-in-up">
                         <div class="portfolio-image-container">
-                            <div class="portfolio-image portfolio-banner" style="background: linear-gradient(135deg, #1a3a5c 0%, #0d6efd 50%, #198754 100%); display:flex; align-items:center; justify-content:center; min-height:200px;">
-                                <div style="text-align:center; color:#fff; padding:1.5rem;">
-                                    <i class="fas fa-newspaper" style="font-size:3rem; margin-bottom:0.75rem; display:block;"></i>
-                                    <span style="font-size:1.1rem; font-weight:600;">Retail &amp; Loyalty Intel Feed</span>
-                                </div>
+                            <div class="portfolio-image portfolio-banner banner-news">
+                                <i class="fas fa-newspaper" aria-hidden="true"></i>
                             </div>
                             <div class="portfolio-overlay">
                                 <div class="portfolio-overlay-content">
@@ -431,15 +434,6 @@
             </button>
         </form>
     </div>
-
-    <!-- RSS News Ticker -->
-    <div class="news-ticker-container">
-        <div class="news-ticker-label">Latest News:</div>
-        <div class="news-ticker" id="newsTicker">
-            <ul id="tickerList"></ul>
-        </div>
-    </div>
-
 
     <script type="module" src="script.js"></script>
 </body>

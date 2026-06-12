@@ -4,8 +4,8 @@
 
 #chatbot-toggle {
     position: fixed;
-    bottom: 62px; /* clears the 37px news ticker + 25px breathing room */
-    right: 28px;
+    bottom: calc(24px + env(safe-area-inset-bottom, 0px));
+    right: 24px;
     z-index: 9999; /* always above everything including ticker, header, overlays */
     width: 56px;
     height: 56px;
@@ -31,8 +31,8 @@
 /* Window */
 #chatbot-window {
     position: fixed;
-    bottom: 130px; /* toggle bottom(62) + toggle height(56) + 12px gap */
-    right: 28px;
+    bottom: calc(92px + env(safe-area-inset-bottom, 0px)); /* toggle bottom(24) + height(56) + 12px gap */
+    right: 24px;
     z-index: 9998;
     width: 360px;
     max-width: calc(100vw - 40px);

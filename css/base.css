@@ -1,16 +1,26 @@
 /* ==========================================================================
    Design tokens — shared across all pages.
    Link this BEFORE any page-specific stylesheet.
+
+   Theming model:
+   - :root holds the DARK palette (legacy default — sub-pages rely on it).
+   - [data-theme="light"] overrides with the light palette.
+   - Pages that support theming set data-theme on <html> via an inline
+     script (see index.html) from localStorage or prefers-color-scheme.
+     Pages that don't set data-theme simply stay dark, unchanged.
    ========================================================================== */
 
 :root {
-    /* Colour palette */
+    color-scheme: dark;
+
+    /* Colour palette (dark) */
     --primary-color: #4C9AFF;
     --secondary-color: #94A3B8;
     --background-color: #0F172A;
     --surface-color: #1E293B;
     --surface-color-dark: #162032;
     --text-color: #CBD5E1;
+    --text-muted: #94A3B8;
     --heading-color: #F1F5F9;
     --accent-color: #FF8F73;
     --border-color: #334155;
@@ -18,21 +28,73 @@
     --highlight-bg: rgba(76, 154, 255, 0.1);
     --highlight-bg-dark: rgba(126, 182, 255, 0.18);
 
+    /* Elevation */
+    --shadow-1: 0 1px 3px rgba(0, 0, 0, 0.4);
+    --shadow-2: 0 4px 12px rgba(0, 0, 0, 0.45);
+    --shadow-3: 0 12px 32px rgba(0, 0, 0, 0.5);
+
     /* Header */
-    --header-bg: rgba(30, 41, 59, 0.95);
+    --header-bg: rgba(15, 23, 42, 0.88);
     --header-bg-dark: rgba(15, 23, 42, 0.97);
-    --header-height: 70px;
+    --header-height: 64px;
     --header-shadow: 0 1px 3px rgba(0, 0, 0, 0.2), 0 1px 2px rgba(0, 0, 0, 0.1);
     --header-shadow-dark: 0 2px 8px rgba(0, 0, 0, 0.4), 0 1px 3px rgba(0, 0, 0, 0.3);
-    --header-text: #ffffff;
+    --header-text: #F1F5F9;
     --header-text-dark: #F1F5F9;
 
     /* Typography */
-    --font-primary: 'Poppins', sans-serif;
+    --font-primary: 'Space Grotesk', 'Poppins', system-ui, sans-serif;
+    --font-heading: 'Archivo', 'Poppins', system-ui, sans-serif;
     --base-font-size: 16px;
+
+    /* Spacing scale (4/8px rhythm) */
+    --space-1: 0.25rem;
+    --space-2: 0.5rem;
+    --space-3: 0.75rem;
+    --space-4: 1rem;
+    --space-6: 1.5rem;
+    --space-8: 2rem;
+    --space-12: 3rem;
+    --space-16: 4rem;
+
+    /* Radius */
+    --radius-sm: 8px;
+    --radius-md: 12px;
+    --radius-lg: 16px;
+    --radius-full: 999px;
+
+    /* Motion */
+    --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
+    --dur-fast: 150ms;
+    --dur-base: 250ms;
 
     /* Layout */
     --container-max-width: 1200px;
+}
+
+[data-theme="light"] {
+    color-scheme: light;
+
+    --primary-color: #2563EB;
+    --secondary-color: #64748B;
+    --background-color: #F8FAFC;
+    --surface-color: #FFFFFF;
+    --surface-color-dark: #F1F5F9;
+    --text-color: #334155;
+    --text-muted: #64748B;
+    --heading-color: #0F172A;
+    --accent-color: #EA580C;
+    --border-color: #E2E8F0;
+    --success-color: #059669;
+    --highlight-bg: rgba(37, 99, 235, 0.08);
+    --highlight-bg-dark: rgba(37, 99, 235, 0.14);
+
+    --shadow-1: 0 1px 3px rgba(15, 23, 42, 0.08);
+    --shadow-2: 0 4px 12px rgba(15, 23, 42, 0.1);
+    --shadow-3: 0 12px 32px rgba(15, 23, 42, 0.14);
+
+    --header-bg: rgba(248, 250, 252, 0.88);
+    --header-text: #0F172A;
 }
 
 /* Prevent images from overflowing their containers on any page */
@@ -57,7 +119,7 @@ img {
     color: #F1F5F9;
     border: 1px solid rgba(76, 154, 255, 0.35);
     border-radius: 2rem;
-    font-family: 'Poppins', sans-serif;
+    font-family: var(--font-primary);
     font-size: 0.875rem;
     font-weight: 600;
     text-decoration: none;
