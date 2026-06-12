@@ -23,4 +23,4 @@ Notable changes to the portfolio site. Dates are in YYYY-MM-DD.
 
 - 2026-06 — NewsData.io API key moved from URL parameter to `X-ACCESS-KEY` header; improved enhance-prompt error handling; default OpenRouter model switched to `meta-llama/llama-3.1-8b-instruct:free`.
 - 2026-05/06 — Netlify Node runtime bumped to 22, then fetch-news fixed for Node 20 by passing the `ws` transport to the Supabase client.
-- Earlier — security remediation pass (see `SECURITY_REMEDIATION_REPORT.md`): CORS scoped to the deployed origin, API keys in headers, `createElement`/`textContent` instead of innerHTML in news-events.
+- Earlier — security remediation pass: CORS scoped to the deployed origin, API keys in headers, `createElement`/`textContent` instead of innerHTML in news-events.
