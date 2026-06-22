@@ -1,0 +1,24 @@
+# Pratik Padiya - Portfolio
+
+> Pratik Padiya is a Solutions Engineer (pre-sales) with 10+ years of experience across Fintech, Payments, and SaaS. He helps enterprise retail clients in APAC evaluate and adopt loyalty platforms, bringing a product management background from Mastercard to pre-sales, solution design, and customer success.
+
+## Identity
+- Full name: Pratik Padiya
+- Role: Solutions Engineer (pre-sales) | Former Product Manager
+- Domain expertise: Loyalty platforms, Fintech, Payments, APAC markets
+- Previous employer: Mastercard (Product Management, APAC)
+- Contact: pratik.padiya@gmail.com
+- LinkedIn: https://www.linkedin.com/in/pratikpadiya/
+- GitHub: https://github.com/ppadiya
+
+## Key Achievements
+- Led the Security Bank BetterBanking Rewards Program, winner of the RBI Asia Trailblazer Award 2025 for Best Advance in Loyalty/Rewards Programme
+- Drove $10M+ revenue at Mastercard by launching localized payment card benefit products across APAC
+- Architected a unified API gateway reducing third-party integration costs by 30% and enabling 50% faster partner integration
+- Built a performance management platform for Nisa Group automating 80% of manual workflows
+
+## Projects
+- Loyalty UI Demo: https://pratikpadiyaportfolio.netlify.app/loyalty-ui/
+- APAC Product Launch Framework: https://pratikpadiyaportfolio.netlify.app/PM+Framework/
+- Retail and Loyalty Intel Feed: https://pratikpadiyaportfolio.netlify.app/news-events/
+- AI Prompt Optimizer: https://pratikpadiyaportfolio.netlify.app/ai-tools/
