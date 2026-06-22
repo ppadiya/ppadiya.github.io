@@ -18,6 +18,49 @@ body {
              calc(var(--space-12) + env(safe-area-inset-bottom));
 }
 
+.tool-about {
+    max-width: 640px;
+    margin: 0 auto var(--space-8);
+}
+
+.tool-about details {
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-md);
+    background: var(--surface-color);
+    padding: 0;
+}
+
+.tool-about summary {
+    cursor: pointer;
+    padding: var(--space-3) var(--space-4);
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: var(--text-muted);
+    letter-spacing: 0.02em;
+    list-style: none;
+    user-select: none;
+}
+
+.tool-about summary::-webkit-details-marker { display: none; }
+
+.tool-about summary::after {
+    content: ' ▸';
+    color: var(--primary-color);
+}
+
+.tool-about details[open] summary::after {
+    content: ' ▾';
+}
+
+.tool-about-body {
+    padding: 0 var(--space-4) var(--space-4);
+    font-size: 0.9rem;
+    color: var(--text-muted);
+    line-height: 1.65;
+}
+
+.tool-about-body p + p { margin-top: var(--space-3); }
+
 .tool-header {
     text-align: center;
     margin-bottom: var(--space-8);

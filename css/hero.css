@@ -88,6 +88,47 @@
     gap: var(--space-3);
 }
 
+/* Employer strip */
+.employer-strip {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: var(--space-3);
+    margin-top: var(--space-6);
+}
+
+.employer-strip-label {
+    font-size: 0.75rem;
+    font-weight: 500;
+    color: var(--text-muted);
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    white-space: nowrap;
+}
+
+.employer-badges {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: var(--space-2);
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.employer-badge {
+    display: inline-block;
+    padding: 0.25rem 0.85rem;
+    border: 1px solid var(--border-color);
+    border-radius: var(--radius-full);
+    background: var(--surface-color);
+    color: var(--text-muted);
+    font-size: 0.8rem;
+    font-weight: 500;
+    letter-spacing: 0.01em;
+}
+
 /* Staggered entrance (transform/opacity only) */
 @keyframes heroRise {
     from { opacity: 0; transform: translateY(20px); }

@@ -10,3 +10,13 @@
 ## Gotchas
 - Rate limiting on chatbot/enhance-prompt is consciously deferred (see SECURITY_REMEDIATION_REPORT.md §11).
 - Input capped at 2000 chars returning 400 — keep at boundary.
+
+## Security Standards
+
+<!-- managed by /security-bootstrap -->
+- **No secrets in logs or committed files.** Log HTTP status + action name, never full error objects or URLs containing tokens. `.env*` stays gitignored.
+- **Secrets only in env vars, never client-side.** No passwords/keys/tokens in localStorage, sessionStorage, or client bundles.
+- **Public env prefixes are not secrets.** `VITE_*`/`NEXT_PUBLIC_*` compile into the client bundle; never put keys there. Commit the lockfile; run `npm audit` after adding deps.
+- **Timeouts on all outbound HTTP.** Every fetch/axios/requests call sets an explicit timeout.
+- **New endpoints go through the existing auth gate.** Validate credentials server-side; scope CORS to the deployed origin, never `*`; validate and length-cap all input at public boundaries.
+<!-- end managed -->

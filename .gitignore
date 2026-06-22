@@ -1,22 +1,63 @@
+# Dependencies
 node_modules/
-.env
-# Local Netlify folder
-.netlify
-LinkedinData/
-data/knowledge_base_old.txt
-data/knowledge_base.json
-.gitignore
-test/
-data/optimize_kb.py
-data/knowledge_base_new.json
-data/knowledge_base_18Apr2025.txt
 
-# Unused assets (kept locally as backup)
+# Environment and secrets
+.env
+
+# Netlify local dev cache
+.netlify/
+
+# Claude Code local settings
+.claude/
+
+# Deno lockfile (not a Deno project)
+deno.lock
+
+# ── Local-only dev artifacts ─────────────────────────────────────────────────
+# Keep these locally but never deploy
+
+# Security audits and review prompts
+security-audits/
+SECURITY_REVIEW_PROMPT.txt
+
+# Design mockups and planning docs
+mockups/
+docs/
+
+# Utility scripts (embeddings pipeline, etc.)
+scripts/
+
+# LinkedIn data export
+LinkedinData/
+
+# ── Unused / backup assets ────────────────────────────────────────────────────
+# Images not referenced in HTML/CSS — kept locally as originals
+
 LP_home.png
 SOAP-REST_API.png
 Product-Management.jpg
 placeholder-hero-bg.jpeg
-flowdiagram.png
 aitools.png
 games.png
+
+# Flow diagram — original PNG and WebP conversion (not yet linked in HTML)
+flowdiagram.png
+flowdiagram.webp
+
+# ── Legacy CSS ────────────────────────────────────────────────────────────────
+# Removed in home page redesign (Jun 2026); kept locally in case of rollback
+
 responsive-fixes.css
+
+# ── Audit findings ────────────────────────────────────────────────────────────
+pratikpadiyaportfolio-audit/
+
+# ── Data files ────────────────────────────────────────────────────────────────
+data/knowledge_base_old.txt
+data/knowledge_base.json
+data/knowledge_base_new.json
+data/knowledge_base_18Apr2025.txt
+data/optimize_kb.py
+
+# Test directories
+test/
