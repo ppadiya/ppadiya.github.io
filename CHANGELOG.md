@@ -2,6 +2,14 @@
 
 Notable changes to the portfolio site. Dates are in YYYY-MM-DD.
 
+## 2026-06-22 — Fix sitemap.xml Content-Type (Netlify snippet injection)
+
+### Fixed
+- `netlify.toml`: Added explicit `Content-Type: application/xml` header for `sitemap.xml` to prevent Netlify from injecting GA snippet script tags into the XML, which was breaking Google Search Console's sitemap fetch.
+- Also added explicit `text/plain` headers for `robots.txt` and `llms.txt` for the same reason.
+
+---
+
 ## 2026-06-22 — Phase 1 SEO foundations
 
 ### Added
