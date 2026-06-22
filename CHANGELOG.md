@@ -2,6 +2,28 @@
 
 Notable changes to the portfolio site. Dates are in YYYY-MM-DD.
 
+## 2026-06-22 — Phase 1 SEO foundations
+
+### Added
+- `robots.txt`: crawl directives with explicit Allow for AI search bots (GPTBot, ClaudeBot, PerplexityBot, OAI-SearchBot); Disallow for `/games/` and `/loyalty-ui/`; sitemap reference.
+- `sitemap.xml`: covers homepage, `/news-events/`, and `/ai-tools/`.
+- `llms.txt`: authoritative identity file for LLM/AI search engines (name, role, achievements, project links).
+- Google Search Console verification meta tag in `index.html`.
+- `<link rel="canonical">` on all pages.
+- `<meta name="description">` on all pages (homepage and loyalty-ui were missing; news-events and ai-tools improved).
+- Open Graph and Twitter Card tags on `index.html` (previously absent on homepage).
+- Person + WebSite + ProfilePage JSON-LD schema on `index.html`.
+- BreadcrumbList + WebPage JSON-LD on all sub-pages (news-events, ai-tools, games, loyalty-ui).
+- Portfolio demo banner and updated title tag on `loyalty-ui/index.html` to clarify it is a demo, not a live product.
+- Security headers in `netlify.toml`: `X-Frame-Options`, `X-Content-Type-Options`, `Referrer-Policy`, `Permissions-Policy`, `Strict-Transport-Security`.
+- Cache-Control headers in `netlify.toml` for CSS, JS, and static assets.
+
+### Changed
+- Homepage title: "Pratik Padiya - Solutions Engineer | Loyalty, Fintech & Retail, APAC" (was "Solutions Engineer & AI Automation Builder").
+- loyalty-ui title: "Credit Card Loyalty Program UI Demo - Pratik Padiya Portfolio" (was "PremiumRewards - Credit Card Loyalty Program").
+
+---
+
 ## 2026-06-12 — Security hardening and model fix
 
 ### Changed

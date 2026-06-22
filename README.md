@@ -1,6 +1,6 @@
 # Pratik Padiya — Portfolio
 
-Personal portfolio and tooling site for **Pratik Padiya**, Solutions Engineer & AI Automation Builder.
+Personal portfolio and tooling site for **Pratik Padiya**, Solutions Engineer (Loyalty, Fintech & Retail, APAC).
 
 Live site: https://pratikpadiyaportfolio.netlify.app
 
@@ -42,6 +42,14 @@ Environment variables (set in Netlify dashboard or a local `.env` file — not c
 - `SUPABASE_URL` / `SUPABASE_ANON_KEY`
 - `ANTHROPIC_API_KEY`
 - `VECTORIZE_*` keys
+
+## SEO
+
+- `robots.txt` — crawl directives; AI search bots explicitly allowed; `/games/` and `/loyalty-ui/` excluded from indexation
+- `sitemap.xml` — homepage, `/news-events/`, `/ai-tools/`
+- `llms.txt` — authoritative identity file for LLM/AI search engines
+- JSON-LD schema on all pages (Person + WebSite + ProfilePage on homepage; BreadcrumbList + WebPage on sub-pages)
+- Google Search Console property: `pratikpadiyaportfolio.netlify.app`
 
 ## Deployment
 
