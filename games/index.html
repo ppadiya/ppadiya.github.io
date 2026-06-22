@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="noindex, nofollow">
     <title>Arcade Games Collection - Pratik Padiya Portfolio</title>
     <link rel="canonical" href="https://pratikpadiyaportfolio.netlify.app/games/">
     <meta name="description" content="A small collection of browser-based arcade games built with vanilla JavaScript. Part of Pratik Padiya's portfolio demonstrating front-end development skills.">
@@ -103,6 +104,11 @@
         </div>
     </main>
 
+    <footer class="page-footer">
+        <p>&copy; <span id="current-year"></span> Pratik Padiya, Solutions Engineer | <a href="/">Back to Portfolio</a></p>
+    </footer>
+
     <script type="module" src="../js/subpage-ui.js"></script>
+    <script>document.getElementById('current-year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

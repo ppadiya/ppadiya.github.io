@@ -74,3 +74,30 @@
         transition: none;
     }
 }
+
+/* ── Sticky-bottom footer layout ────────────────────────────────────────── */
+body {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+}
+
+body > main { flex: 1; }
+
+.page-footer {
+    padding: 1rem 1.5rem;
+    text-align: center;
+    font-size: 0.82rem;
+    color: var(--text-muted, #6b7280);
+    border-top: 1px solid var(--border-color);
+    background: var(--surface-color);
+}
+
+.page-footer a {
+    color: var(--primary-color);
+    text-decoration: none;
+}
+
+.page-footer a:hover {
+    text-decoration: underline;
+}

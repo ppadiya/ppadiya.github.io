@@ -1,10 +1,4 @@
 /* ==========================================================================
-   Home page styles — import hub.
-   Design tokens live in css/base.css (linked before this file).
+   Home page styles — imports replaced with parallel <link> tags in index.html.
+   Design tokens live in css/base.css (linked before the individual files).
    ========================================================================== */
-
-@import url('css/layout.css');
-@import url('css/header.css');
-@import url('css/hero.css');
-@import url('css/components.css');
-@import url('css/sections.css');

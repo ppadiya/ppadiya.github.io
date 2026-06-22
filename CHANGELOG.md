@@ -2,6 +2,29 @@
 
 Notable changes to the portfolio site. Dates are in YYYY-MM-DD.
 
+## 2026-06-22 — Phase 2 SEO and UX improvements
+
+### Performance
+- `index.html`: Replaced `style.css` @import chain with individual parallel `<link>` tags for `css/layout.css`, `css/header.css`, `css/hero.css`, `css/components.css`, `css/sections.css`. Eliminates serial CSS fetch (LCP improvement).
+- `index.html`: Google Fonts and Font Awesome now load asynchronously via `preload` + `onload` pattern with `<noscript>` fallbacks.
+- `index.html`: Profile image — added `width="400" height="400"` (eliminates CLS), `fetchpriority="high"` (LCP improvement), removed `loading="lazy"` (image is above the fold).
+
+### Content
+- `index.html` hero: Added award callout pill badge — "Contributed to Security Bank's Retail Banker International Asia Trailblazer Award 2025 win".
+- `index.html` hero: Added LinkedIn and View Resume CTA buttons alongside existing hero buttons.
+- `index.html` About: Rewrote opening paragraph — 143 words, self-identifying, mentions Mastercard APAC, PM-to-SE path, $10M+ revenue, 30% cost reduction metric, and the Trailblazer Award with client attribution.
+
+### UX / Sub-pages
+- `css/subpage.css`: Added `.page-footer` styles and sticky-bottom body layout (flex column + `min-height: 100vh`) so footer always sits at the viewport bottom on short pages.
+- Added consistent footer (`© Pratik Padiya, Solutions Engineer | Back to Portfolio`) to: `ai-tools/index.html`, `news-events/index.html`, `games/index.html`, `PM+Framework/index.html`.
+- `loyalty-ui/index.html`: Updated app footer copyright from "© 2025 PremiumRewards. All rights reserved." to "© 2025 PremiumRewards (demo). Portfolio project by Pratik Padiya." Added a separate portfolio footer below the app footer.
+
+### SEO
+- `games/index.html`: Added `<meta name="robots" content="noindex, nofollow">`.
+- `css/hero.css`: `.hero-award` pill badge uses `--primary-color` for border and text (correctly resolves in both themes).
+
+---
+
 ## 2026-06-22 — Fix sitemap.xml Content-Type (Netlify snippet injection)
 
 ### Fixed

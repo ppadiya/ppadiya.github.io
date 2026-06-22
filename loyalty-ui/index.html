@@ -245,12 +245,19 @@
                 </div>
             </div>
             <div class="footer-bottom">
-                <p>&copy; 2025 PremiumRewards. All rights reserved.</p>
+                <p>&copy; 2025 PremiumRewards (demo). Portfolio project by Pratik Padiya.</p>
             </div>
         </div>
     </footer>
 
+    <!-- Portfolio footer -->
+    <div style="padding:0.75rem 1.5rem;text-align:center;font-size:0.8rem;color:#9ca3af;border-top:1px solid rgba(255,255,255,0.08);background:#0f172a;">
+        &copy; <span id="portfolio-year"></span> Pratik Padiya, Solutions Engineer |
+        <a href="../index.html" style="color:#6366f1;text-decoration:none;">Back to Portfolio</a>
+    </div>
+
     <!-- JavaScript -->
     <script src="js/main.js"></script>
+    <script>document.getElementById('portfolio-year').textContent = new Date().getFullYear();</script>
 </body>
 </html>

@@ -22,7 +22,7 @@ Live site: https://pratikpadiyaportfolio.netlify.app
 
 - Static HTML / CSS / JS — no framework, no build step
 - **Theming** — follows the OS light/dark preference (`prefers-color-scheme`) with a manual sun/moon toggle (localStorage override). Dark palette lives at `:root` in `css/base.css`; light mode is `[data-theme="light"]` overrides applied by an inline head script before first paint. All sub-pages (news-events, ai-tools, games, loyalty-ui, PM+framework) support both themes; loyalty-ui keeps its own PremiumRewards brand palette via `loyalty-ui/css/tokens.css`.
-- **CSS architecture** — each page's stylesheet is an import hub over small mobile-first modules, all driven by the shared design tokens (spacing, radius, shadows, motion) in `css/base.css`. Sub-page chrome (fixed theme toggle, scroll-reveal) lives in `css/subpage.css` + `js/subpage-ui.js`.
+- **CSS architecture** — homepage loads CSS as individual parallel `<link>` tags (`css/base.css`, `css/layout.css`, `css/header.css`, `css/hero.css`, `css/components.css`, `css/sections.css`, `css/chatbot.css`). Sub-pages use the same token system via `css/base.css` + `css/subpage.css` + a per-page stylesheet. Sub-page chrome (fixed theme toggle, scroll-reveal, sticky footer) lives in `css/subpage.css` + `js/subpage-ui.js`.
 - Hosted on **Netlify** with serverless functions
 - **Supabase** — stores news and events data
 - **n8n** — scheduled workflow that fetches and filters industry news daily
@@ -46,6 +46,7 @@ Environment variables (set in Netlify dashboard or a local `.env` file — not c
 ## SEO
 
 - `robots.txt` — crawl directives; AI search bots explicitly allowed; `/games/` and `/loyalty-ui/` excluded from indexation
+- `games/index.html` — `noindex, nofollow` meta tag (games page excluded from search results)
 - `sitemap.xml` — homepage, `/news-events/`, `/ai-tools/`
 - `llms.txt` — authoritative identity file for LLM/AI search engines
 - JSON-LD schema on all pages (Person + WebSite + ProfilePage on homepage; BreadcrumbList + WebPage on sub-pages)
