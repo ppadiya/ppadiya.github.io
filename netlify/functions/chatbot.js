@@ -126,7 +126,7 @@ ${knowledgeBase}
             return {
                 statusCode: 500,
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ error: `Could not get a response: ${errText}` })
+                body: JSON.stringify({ error: 'The AI service returned an error. Please try again.' })
             };
         }
     }

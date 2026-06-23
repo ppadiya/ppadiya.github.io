@@ -5,7 +5,7 @@ const crypto = require('crypto');
 const Parser = require('rss-parser');
 const ws = require('ws');
 
-const parser = new Parser();
+const parser = new Parser({ timeout: 8000 });
 
 // Pass `ws` as the WebSocket transport so this works on Node < 22 (Netlify runtime).
 let _supabase = null;
@@ -131,7 +131,7 @@ const saveEvent = async (event) => {
 const fetchFromNewsDataIo = async (query, category) => {
     const url = `https://newsdata.io/api/1/news?qInTitle=${encodeURIComponent(query)}&language=en&size=10`; // Max 10 articles per call
     try {
-        const response = await fetch(url, { headers: { 'X-ACCESS-KEY': NEWSDATA_API_KEY } });
+        const response = await fetch(url, { headers: { 'X-ACCESS-KEY': NEWSDATA_API_KEY }, signal: AbortSignal.timeout(8000) });
         const data = await response.json();
         if (data.results) {
             return data.results.map(item => ({
@@ -154,7 +154,7 @@ const fetchFromNewsDataIo = async (query, category) => {
 const fetchFromNewsApiOrg = async (query, category) => {
     const url = `https://newsapi.org/v2/everything?q=${encodeURIComponent(query)}&language=en&sortBy=publishedAt&pageSize=20`; // Max 20 articles per call
     try {
-        const response = await fetch(url, { headers: { 'X-Api-Key': NEWSAPI_API_KEY } });
+        const response = await fetch(url, { headers: { 'X-Api-Key': NEWSAPI_API_KEY }, signal: AbortSignal.timeout(8000) });
         const data = await response.json();
         if (data.articles) {
             return data.articles.map(item => ({

@@ -4,6 +4,18 @@ Notable changes to the portfolio site. Dates are in YYYY-MM-DD.
 
 ---
 
+## 2026-06-23 — Security audit remediation + UI fix
+
+### Security (remediates `security-audits/audit-2026-06-22-2228.md`)
+- **Dependencies (P1, High):** `npm audit fix` bumped transitive `form-data` to 4.0.6, clearing the GHSA unsafe-random-boundary advisory. `npm audit --omit dev` now reports 0 vulnerabilities. `package-lock.json` updated.
+- **Outbound timeouts (P2, Medium):** `netlify/functions/fetch-news.js` — added `signal: AbortSignal.timeout(8000)` to the NewsData.io and NewsAPI.org `fetch()` calls, and `timeout: 8000` to the `rss-parser` instance. Brings the file in line with the "timeouts on all outbound HTTP" standard.
+- **Error leakage (P3, Low):** `netlify/functions/chatbot.js` — the 500 response no longer echoes upstream provider error text to the client; it returns a generic message while full detail is still logged server-side only.
+
+### Fixes
+- `ai-tools/index.html`: Fixed the "Your enhanced prompt will appear here..." placeholder rendering offset. Root cause: `.output-display` uses `white-space: pre-wrap`, so the source-code indentation before the `<span>` was rendered as literal leading whitespace. Collapsed the markup so the placeholder span is the immediate, only child of the output div. Runtime output is unaffected (JS replaces the div content).
+
+---
+
 ## 2026-06-22 — Phase 3: Content depth, favicon, performance
 
 ### Content
