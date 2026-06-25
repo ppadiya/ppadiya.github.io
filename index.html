@@ -15,13 +15,13 @@
     <meta property="og:url" content="https://pratikpadiyaportfolio.netlify.app/">
     <meta property="og:title" content="Pratik Padiya - Solutions Engineer | Loyalty, Fintech & Retail, APAC">
     <meta property="og:description" content="Solutions Engineer with 10+ years in fintech, payments, and loyalty platforms across APAC. Former Mastercard PM turned pre-sales SE.">
-    <meta property="og:image" content="https://pratikpadiyaportfolio.netlify.app/images/placeholder-profile.jpg">
+    <meta property="og:image" content="https://pratikpadiyaportfolio.netlify.app/placeholder-profile.jpg">
     <meta property="og:locale" content="en_US">
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary">
     <meta name="twitter:title" content="Pratik Padiya - Solutions Engineer | Loyalty, Fintech & Retail, APAC">
     <meta name="twitter:description" content="Solutions Engineer with 10+ years in fintech, payments, and loyalty platforms across APAC. Former Mastercard PM turned pre-sales SE.">
-    <meta name="twitter:image" content="https://pratikpadiyaportfolio.netlify.app/images/placeholder-profile.jpg">
+    <meta name="twitter:image" content="https://pratikpadiyaportfolio.netlify.app/placeholder-profile.jpg">
     <!-- Person + WebSite + ProfilePage JSON-LD -->
     <script type="application/ld+json">
     {
@@ -70,13 +70,13 @@
             document.documentElement.dataset.theme = t;
         })();
     </script>
-    <link rel="stylesheet" href="css/base.css">
-    <link rel="stylesheet" href="css/chatbot.css">
-    <link rel="stylesheet" href="css/layout.css">
-    <link rel="stylesheet" href="css/header.css">
-    <link rel="stylesheet" href="css/hero.css">
-    <link rel="stylesheet" href="css/components.css">
-    <link rel="stylesheet" href="css/sections.css">
+    <link rel="stylesheet" href="css/base.css?v=3">
+    <link rel="stylesheet" href="css/chatbot.css?v=3">
+    <link rel="stylesheet" href="css/layout.css?v=3">
+    <link rel="stylesheet" href="css/header.css?v=3">
+    <link rel="stylesheet" href="css/hero.css?v=3">
+    <link rel="stylesheet" href="css/components.css?v=3">
+    <link rel="stylesheet" href="css/sections.css?v=3">
     <!-- Google Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -143,31 +143,69 @@
     <main id="main-content">
         <!-- Hero Section -->
         <section id="hero" class="hero-section">
-            <div class="container hero-content animate-on-scroll fade-in-up">
-                <h1>Pratik Padiya</h1>
-                <h2>Solutions Engineer with a Product Management Foundation</h2>
-                <p class="tagline">I help enterprise retailers evaluate and implement loyalty platforms, bringing a decade of product thinking to pre-sales, solution design, and customer success.</p>
-                <p class="hero-award">Contributed to Security Bank's Retail Banker International Asia Trailblazer Award 2025 win</p>
-                <div class="hero-cta">
-                    <a href="#portfolio" class="btn btn-primary">View My Work</a>
-                    <a href="#contact" class="btn btn-secondary">Get In Touch</a>
-                    <a href="https://www.linkedin.com/in/pratikpadiya/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">LinkedIn</a>
-                    <a href="https://www.linkedin.com/in/pratikpadiya/" target="_blank" rel="noopener noreferrer" class="btn btn-secondary">View Resume</a>
-                </div>
-                <div class="employer-strip">
-                    <span class="employer-strip-label">Worked with</span>
-                    <ul class="employer-badges" aria-label="Companies worked with">
-                        <li><span class="employer-badge">Eagle Eye</span></li>
-                        <li><span class="employer-badge">Mastercard</span></li>
-                        <li><span class="employer-badge">S2 Infotech</span></li>
-                        <li><span class="employer-badge">Nisa Group</span></li>
-                    </ul>
+            <div class="container">
+                <div class="hero-grid">
+                    <div class="hero-left animate-on-scroll fade-in-up">
+                        <h1>Pratik Padiya</h1>
+                        <p class="hero-subtitle">Solutions Engineer with a Product Management Foundation</p>
+                        <p class="tagline">I help enterprise retailers evaluate and implement loyalty platforms, bringing a decade of product thinking to pre-sales, solution design, and customer success.</p>
+                        <div class="hero-cta">
+                            <a href="#portfolio" class="btn btn-primary">View My Work</a>
+                            <a href="#contact" class="btn btn-secondary">Get In Touch</a>
+                        </div>
+                        <div class="hero-text-links">
+                            <a href="https://www.linkedin.com/in/pratikpadiya/" target="_blank" rel="noopener noreferrer" class="hero-text-link">LinkedIn &rarr;</a>
+                            <a href="https://www.linkedin.com/in/pratikpadiya/" target="_blank" rel="noopener noreferrer" class="hero-text-link">View Resume &rarr;</a>
+                        </div>
+                    </div>
+                    <div class="hero-right animate-on-scroll fade-in">
+                        <div class="hero-achievement-card">
+                            <div class="achievement-card-award">
+                                <span aria-hidden="true">🏆</span> RBI Asia Trailblazer Award 2025
+                            </div>
+                            <div class="achievement-card-metrics">
+                                <div class="achievement-metric">
+                                    <span class="achievement-metric-value">$10M+</span>
+                                    <span class="achievement-metric-label">revenue driven at Mastercard APAC</span>
+                                </div>
+                                <div class="achievement-metric">
+                                    <span class="achievement-metric-value">30%</span>
+                                    <span class="achievement-metric-label">reduction in integration costs</span>
+                                </div>
+                                <div class="achievement-metric">
+                                    <span class="achievement-metric-value">10+</span>
+                                    <span class="achievement-metric-label">years in APAC retail &amp; payments</span>
+                                </div>
+                            </div>
+                            <div class="achievement-card-role">
+                                Sales Engineer &middot; Eagle Eye &middot; Singapore
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
-            <div class="scroll-down-indicator">
-                <a href="#experience" aria-label="Scroll down">
-                    <i class="fas fa-chevron-down"></i>
-                </a>
+        </section>
+
+        <!-- Trust / Employer Strip -->
+        <section class="trust-section" aria-label="Companies worked across">
+            <div class="container">
+                <div class="trust-inner">
+                    <span class="trust-label">Experience across</span>
+                    <div class="trust-divider" aria-hidden="true"></div>
+                    <ul class="trust-companies" aria-label="Employers">
+                        <li class="trust-company trust-company-current">Eagle Eye</li>
+                        <li class="trust-company">Mastercard</li>
+                        <li class="trust-company">S2 Infotech</li>
+                        <li class="trust-company">Nisa Group</li>
+                    </ul>
+                    <div class="trust-award">
+                        <span aria-hidden="true">🏆</span>
+                        <div class="trust-award-text">
+                            <span class="trust-award-title">RBI Asia Trailblazer 2025</span>
+                            <span class="trust-award-org">Best Loyalty/Rewards Programme</span>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -213,25 +251,33 @@
                     <h2>About Me</h2>
                     <p>I'm a Solutions Engineer (pre-sales) with over 10 years of experience across fintech, payments, loyalty, and retail platforms in APAC. My path to this role is unconventional: I spent the majority of my career as a Product Manager at Mastercard APAC, where I led product strategy across multiple markets, drove $10M+ in revenue through localized product launches, and architected a unified API gateway that cut third-party integration costs by 30%. That background is what defines how I work as an SE today. I understand how enterprise buyers evaluate software from the inside, what internal approval processes actually look like, and how to frame a solution around business outcomes rather than features. Most recently, I contributed to the Security Bank BetterBanking Rewards Program, which won the Retail Banker International Asia Trailblazer Award 2025 for Best Advance in Loyalty/Rewards Programme.</p>
 
-                    <p>What makes my approach unusual: I spent most of my career on the other side of the table. As a Product Manager, I was the person SEs were presenting to, which means I understand how enterprise buyers evaluate software, what objections look like from the inside, and how to frame a solution around business outcomes rather than features.</p>
-
                     <p>Previously at Mastercard, I led product management across APAC, launching global payment card benefit products and driving digital transformation initiatives.</p>
                     
-                    <div class="about-highlights">
-                        <div class="highlight">
-                            <i class="fas fa-handshake"></i>
+                    <div class="about-highlights-asymmetric">
+                        <div class="highlight-featured">
+                            <div class="highlight-icon-wrap"><i class="fas fa-handshake" aria-hidden="true"></i></div>
                             <h3>Pre-sales SE</h3>
-                            <p>Translating technical complexity into business value for enterprise buyers</p>
+                            <p>Translating technical complexity into business value for enterprise buyers across APAC loyalty and retail markets.</p>
+                            <div class="highlight-stat">
+                                <span class="highlight-stat-value">10+</span>
+                                <span class="highlight-stat-label">years in APAC retail &amp; payments</span>
+                            </div>
                         </div>
-                        <div class="highlight">
-                            <i class="fas fa-clipboard-list"></i>
-                            <h3>Product Management</h3>
-                            <p>10+ years defining roadmaps, launching products, and driving adoption across APAC</p>
-                        </div>
-                        <div class="highlight">
-                            <i class="fas fa-credit-card"></i>
-                            <h3>Fintech &amp; Payments</h3>
-                            <p>9+ years across Mastercard APAC, loyalty platforms, and retail SaaS</p>
+                        <div class="highlight-stack">
+                            <div class="highlight-small">
+                                <div class="highlight-small-header">
+                                    <div class="highlight-icon-wrap"><i class="fas fa-clipboard-list" aria-hidden="true"></i></div>
+                                    <h3>Product Management</h3>
+                                </div>
+                                <p>Defining roadmaps, launching products, and driving adoption across APAC.</p>
+                            </div>
+                            <div class="highlight-small">
+                                <div class="highlight-small-header">
+                                    <div class="highlight-icon-wrap"><i class="fas fa-credit-card" aria-hidden="true"></i></div>
+                                    <h3>Fintech &amp; Payments</h3>
+                                </div>
+                                <p>9+ years across Mastercard APAC, loyalty platforms, and retail SaaS.</p>
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -353,66 +399,79 @@
         <section id="skills" class="skills-section content-section">
              <div class="container animate-on-scroll fade-in">
                 <h2 class="section-title">Skills & Expertise</h2>
-                <div class="skills-grid">
-                    <div class="skill-category">
+                <div class="skills-bento">
+                    <div class="skill-block skill-block-featured">
+                        <div class="skill-block-stat">SE + PM</div>
+                        <div class="skill-block-stat-label">10+ years across both disciplines</div>
                         <h3>Solutions Architecture</h3>
-                        <ul class="skill-list">
-                            <li><span class="skill-tag">Solutions Engineering</span></li>
-                            <li><span class="skill-tag">API Development</span></li>
-                            <li><span class="skill-tag">System Integration</span></li>
-                            <li><span class="skill-tag">Technical Documentation</span></li>
-                            <li><span class="skill-tag">Solution Assessment</span></li>
-                            <li><span class="skill-tag">Pre-sales Support</span></li>
-                        </ul>
+                        <div class="skill-pills">
+                            <span class="skill-pill skill-pill-primary">Solutions Engineering</span>
+                            <span class="skill-pill skill-pill-primary">Pre-sales Support</span>
+                            <span class="skill-pill">API Development</span>
+                            <span class="skill-pill">System Integration</span>
+                            <span class="skill-pill">Technical Documentation</span>
+                            <span class="skill-pill">Solution Assessment</span>
+                        </div>
                     </div>
-                    <div class="skill-category">
+                    <div class="skill-block">
                         <h3>Product Management</h3>
-                        <ul class="skill-list">
-                            <li><span class="skill-tag">Product Strategy & Roadmapping</span></li>
-                            <li><span class="skill-tag">Product Lifecycle Management</span></li>
-                            <li><span class="skill-tag">Market Research & Analysis</span></li>
-                            <li><span class="skill-tag">User Experience Design</span></li>
-                            <li><span class="skill-tag">Go-to-Market Strategy</span></li>
-                            <li><span class="skill-tag">Product Localization</span></li>
-                        </ul>
+                        <div class="skill-pills">
+                            <span class="skill-pill skill-pill-primary">Product Strategy &amp; Roadmapping</span>
+                            <span class="skill-pill">Product Lifecycle Management</span>
+                            <span class="skill-pill">Go-to-Market Strategy</span>
+                            <span class="skill-pill">Market Research &amp; Analysis</span>
+                            <span class="skill-pill">User Experience Design</span>
+                            <span class="skill-pill">Product Localization</span>
+                        </div>
                     </div>
-                    <div class="skill-category">
-                        <h3>Leadership & Business</h3>
-                        <ul class="skill-list">
-                            <li><span class="skill-tag">Cross-functional Team Leadership</span></li>
-                            <li><span class="skill-tag">Stakeholder Management</span></li>
-                            <li><span class="skill-tag">Strategic Planning</span></li>
-                            <li><span class="skill-tag">Business Development</span></li>
-                            <li><span class="skill-tag">Digital Transformation</span></li>
-                            <li><span class="skill-tag">Performance Monitoring</span></li>
-                        </ul>
+                    <div class="skill-block">
+                        <h3>Leadership &amp; Business</h3>
+                        <div class="skill-pills">
+                            <span class="skill-pill">Cross-functional Leadership</span>
+                            <span class="skill-pill">Stakeholder Management</span>
+                            <span class="skill-pill">Strategic Planning</span>
+                            <span class="skill-pill">Business Development</span>
+                            <span class="skill-pill">Digital Transformation</span>
+                            <span class="skill-pill">Performance Monitoring</span>
+                        </div>
                     </div>
-                    <div class="skill-category">
-                        <h3>Technical Skills</h3>
-                        <ul class="skill-list">
-                            <li><span class="skill-tag">Python</span></li>
-                            <li><span class="skill-tag">HTML/CSS</span></li>
-                            <li><span class="skill-tag">SQL</span></li>
-                            <li><span class="skill-tag">Tableau</span></li>
-                            <li><span class="skill-tag">GitHub</span></li>
-                            <li><span class="skill-tag">Figma</span></li>
-                            <li><span class="skill-tag">Docker</span></li>
-                            <li><span class="skill-tag">Postman</span></li>
-                            <li><span class="skill-tag">VS Code</span></li>
-                            <li><span class="skill-tag">BI Tools</span></li>
-                        </ul>
+                    <div class="skill-block">
+                        <h3>Technical</h3>
+                        <div class="skill-pills">
+                            <span class="skill-pill">Python</span>
+                            <span class="skill-pill">HTML / CSS</span>
+                            <span class="skill-pill">SQL</span>
+                            <span class="skill-pill">Tableau</span>
+                            <span class="skill-pill">GitHub</span>
+                            <span class="skill-pill">Figma</span>
+                            <span class="skill-pill">Docker</span>
+                            <span class="skill-pill">Postman</span>
+                            <span class="skill-pill">VS Code</span>
+                            <span class="skill-pill">BI Tools</span>
+                        </div>
                     </div>
-                    <div class="skill-category">
+                    <div class="skill-block">
                         <h3>AI &amp; Automation</h3>
-                        <ul class="skill-list">
-                            <li><span class="skill-tag">LLM Workflow Design</span></li>
-                            <li><span class="skill-tag">n8n Orchestration</span></li>
-                            <li><span class="skill-tag">Prompt Engineering</span></li>
-                            <li><span class="skill-tag">API &amp; Webhook Integration</span></li>
-                            <li><span class="skill-tag">Supabase (PostgreSQL)</span></li>
-                            <li><span class="skill-tag">Telegram Bot Automation</span></li>
-                            <li><span class="skill-tag">OpenClaw (personal trading intelligence platform)</span></li>
-                        </ul>
+                        <div class="skill-pills">
+                            <span class="skill-pill skill-pill-primary">n8n Orchestration</span>
+                            <span class="skill-pill skill-pill-primary">LLM Workflow Design</span>
+                            <span class="skill-pill">Prompt Engineering</span>
+                            <span class="skill-pill">API &amp; Webhook Integration</span>
+                            <span class="skill-pill">Supabase (PostgreSQL)</span>
+                            <span class="skill-pill">Telegram Bot Automation</span>
+                        </div>
+                    </div>
+                    <div class="skill-block skill-block-wide">
+                        <h3>Platforms &amp; Industries</h3>
+                        <div class="skill-pills">
+                            <span class="skill-pill">Loyalty Platforms</span>
+                            <span class="skill-pill">Fintech / Payments</span>
+                            <span class="skill-pill">Retail SaaS</span>
+                            <span class="skill-pill">APAC Markets</span>
+                            <span class="skill-pill">Google Cloud</span>
+                            <span class="skill-pill">Eagle Eye</span>
+                            <span class="skill-pill">Mastercard APAC</span>
+                        </div>
                     </div>
                 </div>
             </div>

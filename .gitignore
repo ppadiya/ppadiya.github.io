@@ -10,6 +10,10 @@ node_modules/
 # Claude Code local settings
 .claude/
 
+# Agent skills and tooling lockfile (local only)
+.agents/
+skills-lock.json
+
 # Deno lockfile (not a Deno project)
 deno.lock
 

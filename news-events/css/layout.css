@@ -21,7 +21,18 @@ h1, h2, h3, h4 {
     padding: var(--space-6) var(--space-4) var(--space-12);
 }
 
+/* Panel chrome only when it actually holds article/event content, so the
+   empty bordered box never shows during loading or no-data. Error and
+   no-results messages carry their own box styling, so they stay unwrapped. */
 .content-display {
+    background: transparent;
+    border: none;
+    padding: 0;
+    box-shadow: none;
+}
+
+.content-display:has(.news-item),
+.content-display:has(#events-calendar[style*="block"]) {
     background-color: var(--surface-color);
     border: 1px solid var(--border-color);
     border-radius: var(--radius-lg);
@@ -78,7 +89,8 @@ h1, h2, h3, h4 {
         padding-right: var(--space-6);
     }
 
-    .content-display {
+    .content-display:has(.news-item),
+    .content-display:has(#events-calendar[style*="block"]) {
         padding: var(--space-6);
     }
 }

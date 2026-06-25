@@ -4,6 +4,31 @@ Notable changes to the portfolio site. Dates are in YYYY-MM-DD.
 
 ---
 
+## 2026-06-25 — Homepage redesign, sub-page polish, housekeeping
+
+### Homepage (`index.html`, `css/hero.css`, `css/sections.css`)
+- **Hero:** Restructured from a centered single column to a two-column `.hero-grid` — left column holds the headline, subtitle, tagline, CTAs, and text links; right column is an `.hero-achievement-card` surfacing the RBI award badge and three key metrics ($10M+, 30%, 10+) with the current role line.
+- **Trust strip:** New section between hero and experience listing employers (Eagle Eye highlighted as current) plus the RBI Asia Trailblazer 2025 award callout. Label reads "Experience across" (not "Worked with") since Eagle Eye is the current employer.
+- **About:** Removed a duplicated paragraph; replaced the three equal highlight cards with an asymmetric layout — one tall featured card ("Pre-sales SE" + "10+ years in APAC retail & payments" stat) beside a stack of two smaller cards (Product Management, Fintech & Payments). Copy updated from "fintech & payments" to "retail & payments".
+- **About card fix:** Small highlight cards used `padding: var(--space-5)` while the featured card used `var(--space-6)`, so their icon+heading sat 4px closer to the card's left border. Bumped small cards to `var(--space-6)` so all three align at the same inset. Icon+heading also wrapped in a `.highlight-small-header` flex row.
+- **Skills:** Replaced the equal-column grid with a `.skills-bento` layout (featured "SE + PM" block, four regular blocks, one wide block) using `.skill-pill` / `.skill-pill-primary` tags.
+- **Cache-busting:** All homepage CSS `<link>` hrefs carry `?v=3` (the `/css/*` files are immutable-cached by `netlify.toml`, so a version bump is required for browsers to pick up CSS changes).
+
+### Sub-pages
+- `news-events/css/layout.css`: The `.content-display` panel showed an empty bordered box during loading / no-data (the inner containers are hidden while loading, leaving just the panel chrome). The panel now defaults to no chrome and only restores its border/background/padding when it actually holds content — `:has(.news-item)` or a visible `#events-calendar`. Error and no-results messages already carry their own box styling, so they stay unwrapped. Pure CSS; no script/logic change.
+- `PM+Framework/index.html`: Bumped Font Awesome `6.0.0` → `6.4.0` to match the other sub-pages.
+- All sub-pages (`PM+Framework`, `news-events`, `ai-tools`, `games`): Added `?v=3` to the shared `../css/base.css` and `../css/subpage.css` links for consistency with the homepage.
+
+### Social / SEO
+- `index.html`: Fixed broken `og:image` / `twitter:image` — they pointed to `/images/placeholder-profile.jpg` (a non-existent folder); corrected to the real root file `/placeholder-profile.jpg` (the same photo the hero uses). `twitter:card` stays `summary`, which suits the 400×400 square image.
+- `news-events/index.html`: Replaced the `path/to/your/social-share-image.jpg` placeholder `og:image` / `twitter:image` with `/placeholder-profile.jpg`, and switched `twitter:card` from `summary_large_image` to `summary` to match the square image. Social shares now show a valid preview on both pages.
+
+### Housekeeping
+- Deleted `mockup-preview.html` (throwaway preview from the redesign review).
+- `.gitignore`: Added `.agents/` and `skills-lock.json` (local agent tooling).
+
+---
+
 ## 2026-06-23 — Security audit remediation + UI fix
 
 ### Security (remediates `security-audits/audit-2026-06-22-2228.md`)
