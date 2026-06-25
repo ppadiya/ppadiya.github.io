@@ -22,6 +22,7 @@ Notable changes to the portfolio site. Dates are in YYYY-MM-DD.
 ### Social / SEO
 - `index.html`: Fixed broken `og:image` / `twitter:image` — they pointed to `/images/placeholder-profile.jpg` (a non-existent folder); corrected to the real root file `/placeholder-profile.jpg` (the same photo the hero uses). `twitter:card` stays `summary`, which suits the 400×400 square image.
 - `news-events/index.html`: Replaced the `path/to/your/social-share-image.jpg` placeholder `og:image` / `twitter:image` with `/placeholder-profile.jpg`, and switched `twitter:card` from `summary_large_image` to `summary` to match the square image. Social shares now show a valid preview on both pages.
+- `index.html`, `news-events/index.html`: Appended `?v=2` to the `og:image` / `twitter:image` URLs to bust LinkedIn's image cache (it keys on the full URL incl. query), forcing a fresh fetch of the current profile photo on re-scrape.
 
 ### Housekeeping
 - Deleted `mockup-preview.html` (throwaway preview from the redesign review).
