@@ -8,6 +8,7 @@
 - **Verify:** local `netlify dev` checks, then live endpoint curls (fetch-news 200, enhance-prompt returns text).
 
 ## Gotchas
+- Deps refreshed 2026-07-18 (in-range bumps, audit clean). `@vectorize-io/vectorize-client` is pinned pre-0.4 — a major bump needs testing against the chatbot function.
 - Rate limiting on chatbot/enhance-prompt is consciously deferred (see SECURITY_REMEDIATION_REPORT.md §11).
 - Input capped at 2000 chars returning 400 — keep at boundary.
 
