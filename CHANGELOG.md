@@ -4,6 +4,12 @@ Notable changes to the portfolio site. Dates are in YYYY-MM-DD.
 
 ---
 
+## 2026-11-01 — Security dependency patch
+
+- `npm audit fix` (lockfile only): `axios` and `follow-redirects` bumped to clear 10 axios advisories and 3 follow-redirects advisories; `npm audit` now 0 vulnerabilities. No site behavior affected.
+
+---
+
 ## 2026-07-18 — Dependency refresh
 
 - Bumped in-range npm deps (`@supabase/supabase-js` 2.110.7, `axios` 1.18.1, `ws` 8.21.1); `npm audit` clean. Lockfile-only change, no site behavior affected. `@vectorize-io/vectorize-client` 0.4.0 left alone (major).

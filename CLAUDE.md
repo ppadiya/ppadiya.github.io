@@ -21,6 +21,9 @@ There is no test suite (`npm test` is the placeholder error) — verification is
 - Rate limiting on chatbot/enhance-prompt is consciously deferred (see SECURITY_REMEDIATION_REPORT.md §11).
 - Input capped at 2000 chars returning 400 — keep at boundary.
 
+## Dependency state
+- 2026-11-01: plain `npm audit fix` (lockfile only) cleared axios + follow-redirects advisories; audit = 0. Never use `--force` here (push = deploy).
+
 ## Security Standards
 
 <!-- managed by /security-bootstrap -->
