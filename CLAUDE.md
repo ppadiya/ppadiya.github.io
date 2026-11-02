@@ -17,6 +17,8 @@ There is no test suite (`npm test` is the placeholder error) — verification is
 5. Docs-before-push rule applies (global CLAUDE.md): update this file + memory with anything non-obvious.
 
 ## Gotchas
+- `netlify.toml` function `memory` must be 1024-4096 MB; lower values fail config parsing and block the whole build (hit 2026-11-02).
+- `chatbot.js` iterates OpenRouter's live free-model list and must skip to the next model on 429/5xx/404/empty replies; stopping at the first failure causes 500s because top-of-list free models are often down. After editing a function, restart `netlify dev` (esbuild serves stale code).
 - Deps refreshed 2026-07-18 (in-range bumps, audit clean). `@vectorize-io/vectorize-client` is pinned pre-0.4 — a major bump needs testing against the chatbot function.
 - Rate limiting on chatbot/enhance-prompt is consciously deferred (see SECURITY_REMEDIATION_REPORT.md §11).
 - Input capped at 2000 chars returning 400 — keep at boundary.

@@ -101,14 +101,22 @@ ${knowledgeBase}
         'X-Title': 'Pratik Padiya Portfolio'
     };
 
+    // Function timeout is 30s: stop trying new models after ~24s total.
+    const deadline = Date.now() + 24000;
     for (const model of models) {
+        const remaining = deadline - Date.now();
+        if (remaining < 3000) break;
         try {
             const response = await axios.post(
                 OPENROUTER_API_ENDPOINT,
                 { model, messages, temperature: 0.4, max_tokens: 600 },
-                { headers, timeout: 25000 }
+                { headers, timeout: Math.min(8000, remaining) }
             );
-            const answer = response.data.choices[0].message.content;
+            const answer = response.data.choices?.[0]?.message?.content;
+            if (!answer || !answer.trim()) {
+                console.error(`Model ${model} returned empty content, trying next.`);
+                continue;
+            }
             return {
                 statusCode: 200,
                 headers: { 'Content-Type': 'application/json' },
@@ -119,8 +127,15 @@ ${knowledgeBase}
             const errText = typeof errDetail === 'object'
                 ? (errDetail.message || JSON.stringify(errDetail))
                 : (errDetail || error.message);
-            console.error(`Model ${model} failed: ${errText}`);
-            if (errText && (errText.includes('No endpoints') || errText.includes('unavailable'))) {
+            const status = error.response?.status;
+            const upstreamCode = error.response?.data?.error?.code;
+            console.error(`Model ${model} failed: status ${status}, code ${upstreamCode}, ${errText}`);
+            // Free models are flaky: rate limits, no upstreams, timeouts. Try the next one.
+            const retryable = !error.response
+                || status === 404 || status === 429 || status >= 500
+                || upstreamCode === 429 || upstreamCode >= 500
+                || (errText && (errText.includes('No endpoints') || errText.includes('unavailable')));
+            if (retryable) {
                 continue;
             }
             return {
