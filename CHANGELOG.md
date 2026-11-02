@@ -6,7 +6,7 @@ Notable changes to the portfolio site. Dates are in YYYY-MM-DD.
 
 ## 2026-11-02 — Netlify build fix + chatbot model fallback
 
-- `netlify.toml`: `functions.chatbot.memory` (256) and `functions.enhance-prompt.memory` (128) set to 1024. Netlify now rejects values below 1024 MB, which failed config parsing and blocked builds.
+- `netlify.toml`: `functions.chatbot.memory` (256) and `functions.enhance-prompt.memory` (128) removed. Netlify rejects values below 1024 MB (config parse failure), and setting it at all needs a Pro/credit plan, so 1024 made chatbot and enhance-prompt fail to deploy. Defaults apply.
 - `netlify/functions/chatbot.js`: moves to the next free model on 429, 5xx, 404, network errors, or empty replies (previously only on "No endpoints"/"unavailable", so one dead model returned a 500). Per-call timeout 8s, total budget 24s inside the 30s function limit.
 
 ---
