@@ -3,7 +3,7 @@
 - **Deploys to:** Netlify via GitHub push (remote `ppadiya/ppadiya.github.io`; pushing IS the deploy — confirm with user before pushing). Node 22 runtime. Static site (no bundler build step) + Netlify Functions.
 - **Functions (`netlify/functions/`):** `chatbot.js` + `enhance-prompt.js` (OpenRouter), `fetch-news.js` (NewsAPI/NewsData + Supabase lazy init with `ws` transport), `cleanup-archive.js` (scheduled; deletes old archived news via **service-role** Supabase client — server-side only, keep it that way). `embeddings_cache.json` in the same dir is chatbot data, not a function — don't delete it.
 - **API keys:** always headers (`X-Api-Key`, `X-ACCESS-KEY`), never URL params. CORS scoped to the netlify.app origin — never `*`.
-- **OpenRouter:** free-tier models fail/disappear often (429s, "No endpoints found") — that's usually the root cause, not the code. Default model `meta-llama/llama-3.1-8b-instruct:free`; UI model selection must be respected, with fallback to first available model.
+- **OpenRouter:** free-tier models fail/disappear often (429s, "No endpoints found") — that's usually the root cause, not the code. UI model selection is tried first, then the live free list (the old default `meta-llama/llama-3.1-8b-instruct:free` went paid 2026-11).
 - **DOM:** `news-events/script.js` uses createElement/textContent — never reintroduce innerHTML interpolation anywhere on the site.
 
 ## Definition of Done
@@ -18,7 +18,7 @@ There is no test suite (`npm test` is the placeholder error) — verification is
 
 ## Gotchas
 - Never set `memory` in `netlify.toml` functions: values under 1024 fail config parsing, and any value needs a Pro/credit plan or the functions fail to deploy (both hit 2026-11-02). Leave it unset.
-- `chatbot.js` iterates OpenRouter's live free-model list and must skip to the next model on 429/5xx/404/empty replies; stopping at the first failure causes 500s because top-of-list free models are often down. After editing a function, restart `netlify dev` (esbuild serves stale code).
+- `chatbot.js` and `enhance-prompt.js` both iterate OpenRouter's live free-model list and must skip to the next model on 429/5xx/404/empty replies; stopping at the first failure causes 500s because top-of-list free models are often down. After editing a function, restart `netlify dev` (esbuild serves stale code).
 - Deps refreshed 2026-07-18 (in-range bumps, audit clean). `@vectorize-io/vectorize-client` is pinned pre-0.4 — a major bump needs testing against the chatbot function.
 - Rate limiting on chatbot/enhance-prompt is consciously deferred (see SECURITY_REMEDIATION_REPORT.md §11).
 - Input capped at 2000 chars returning 400 — keep at boundary.
